@@ -1,12 +1,12 @@
 import React from 'react';
 import { withAuthenticator, AmplifySignOut } from '@aws-amplify/ui-react'
-const ENDPOINT = 'http://127.0.0.1:5050';
+import Home from './Pages/Home/Home';
 
 function App() {
   return (
     <div>
       <AmplifySignOut />
-      Connect4
+      <Home />
     </div>
   );
 }
