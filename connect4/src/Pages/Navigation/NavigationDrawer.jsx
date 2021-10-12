@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { AmplifySignOut } from '@aws-amplify/ui-react'
 import { styled, useTheme } from '@mui/material/styles';
 import MenuIcon from '@mui/icons-material/Menu'
 import Box from '@mui/material/Box';
@@ -18,6 +19,8 @@ import ChevronRightRoundedIcon from '@mui/icons-material/ChevronRightRounded';
 import ChevronLeftRoundedIcon from '@mui/icons-material/ChevronLeftRounded';
 import BookmarksRoundedIcon from '@mui/icons-material/BookmarksRounded';
 import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
+import Home from '../Home/Home';
+import { withSnackbar } from 'notistack';
 
 const drawerWidth = 240;
 
@@ -85,9 +88,10 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
     }),
   );
 
-export default function NavigationDrawer() {
+ function NavigationDrawer() {
     const theme = useTheme();
     const [open, setOpen] = useState(false);
+    const [page, setPage] = useState(0);
 
     const handleOpenDrawer = () => {
         setOpen(true);
@@ -95,6 +99,17 @@ export default function NavigationDrawer() {
 
     const handleCloseDrawer = () => {
         setOpen(false);
+    };
+
+    const activePage = () => {
+        switch (page) {
+            case 0: 
+                return <Home />
+            case 2: 
+                return <div>Page 2</div>
+            default: 
+                return <div>Page 3</div>
+        }
     };
 
     return (
@@ -114,34 +129,37 @@ export default function NavigationDrawer() {
                     >
                         <MenuIcon />
                     </IconButton>
-                    <Typography variant="h6" noWrap component="div">
-                        Navigation Drawer
+                    <Typography variant="h6" noWrap component="div" style={{ flex: 1}}>
+                        Connect 4
                     </Typography>
+                    <Box>
+                        <AmplifySignOut />
+                    </Box>
                 </Toolbar>
             </AppBar>
-            <Drawer variant="permanent" open={open}>
+            <Drawer variant="permanent" open={open} onClick={handleCloseDrawer}>
                 <DrawerHeader>
-                    <IconButton onClick={handleCloseDrawer}>
+                    <IconButton>
                         { theme.direction === 'trl' ? <ChevronRightRoundedIcon /> : <ChevronLeftRoundedIcon /> }
                     </IconButton>
                 </DrawerHeader>
                 <Divider />
                 <List>
-                    <ListItem button key={'Home'}>
+                    <ListItem button key={'Home'} onClick={() => {setPage(0)}}>
                         <ListItemIcon>
                             <HomeRoundedIcon />
                         </ListItemIcon>
                         <ListItemText primary={'Home'} />
                     </ListItem>
                     
-                    <ListItem button key={'Leaderboard'}>
+                    <ListItem button key={'Leaderboard'} onClick={() => {setPage(1)}}>
                         <ListItemIcon>
                             <LeaderboardRoundedIcon />
                         </ListItemIcon>
                         <ListItemText primary={'Leaderboard'} />
                     </ListItem>
 
-                    <ListItem button key={'Game History'}>
+                    <ListItem button key={'Game History'} onClick={() => {setPage(2)}}>
                         <ListItemIcon>
                             <BookmarksRoundedIcon />
                         </ListItemIcon>
@@ -151,10 +169,11 @@ export default function NavigationDrawer() {
             </Drawer>
             <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
                 <DrawerHeader />
-                <Typography paragraph>
-                    Content
-                </Typography>
+                {activePage()}
             </Box>
+            
         </Box>
     );
 }
+
+export default withSnackbar(NavigationDrawer);

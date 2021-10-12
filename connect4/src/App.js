@@ -1,13 +1,29 @@
-import React from 'react';
-import { withAuthenticator, AmplifySignOut } from '@aws-amplify/ui-react'
-import Home from './Pages/Home/Home';
+import React, { createRef } from 'react';
+import { withAuthenticator } from '@aws-amplify/ui-react'
+import NavigationDrawer from './Pages/Navigation/NavigationDrawer';
+import { SnackbarProvider } from 'notistack';
+import { Button } from '@mui/material';
 
 function App() {
+
+  const ref = createRef();
+  const dismiss = key => () => {
+    ref.current.closeSnackbar(key);
+  }
+
   return (
-    <div>
-      <AmplifySignOut />
-      <Home />
-    </div>
+      <SnackbarProvider 
+        ref={ref}
+        maxSnack={3} 
+        preventDuplicate 
+        autoHideDuration={3000} 
+        action={(key) => {
+          <Button onClick={dismiss(key)}>
+            'Dimiss'
+          </Button>
+        }}>
+        <NavigationDrawer />
+      </SnackbarProvider>
   );
 }
 
