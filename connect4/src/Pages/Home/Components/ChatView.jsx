@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
@@ -15,18 +15,9 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { Stack } from "@mui/material";
 import { v4 as uuidv4 } from "uuid";
 import Message from "./Message";
-
-const players = [
-  {
-    key: "Player 1",
-    name: "Player 1",
-  },
-
-  {
-    key: "Player 2",
-    name: "Player 2",
-  },
-];
+import { GLOBAL_CHAT } from "../../../Api/endpoints";
+import ChatRoomHandler from "./ChatRoomHandler";
+import { useSnackbar } from "notistack";
 
 const initialMessages = [
   {
@@ -45,22 +36,26 @@ const initialMessages = [
   },
 ];
 
-const listOfPlayers = players.map((player) => {
-  return (
-    <ListItem button key={player.key}>
-      <ListItemIcon>
-        <AccountCircleIcon />
-      </ListItemIcon>
-      <ListItemText primary={player.name}>{player.name}</ListItemText>
-      <ListItemText secondary="online" align="right"></ListItemText>
-    </ListItem>
-  );
-});
+const ChatView = (props) => {
+  const [Testmessages, setTestMessages] = useState(initialMessages);
+  const [value, setValue] = useState("");
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
-const ChatView = () => {
-  const [messages, setMessages] = useState(initialMessages);
+  const messageRef = useRef(null);
+  const roomId = GLOBAL_CHAT;
+  const { messages, sendMessage, users } = ChatRoomHandler(roomId, props.user);
 
-  const listOfMessages = messages.map((message) => {
+  const scrollToEndMessage = () => {
+    messageRef.current.scrollIntoView({ behavior: "smooth" });
+  };
+
+  useEffect(scrollToEndMessage, [Testmessages]);
+
+  const handleTextFieldValueChange = (event) => {
+    setValue(event.target.value);
+  };
+
+  const listOfMessages = Testmessages.map((message) => {
     return (
       <Message
         author={message.author}
@@ -71,14 +66,39 @@ const ChatView = () => {
     );
   });
 
+  const listOfPlayers = users.map((player) => {
+    return (
+      <ListItem button key={player.key}>
+        <ListItemIcon>
+          <AccountCircleIcon />
+        </ListItemIcon>
+        <ListItemText primary={player.name}>{player.name}</ListItemText>
+        <ListItemText secondary="online" align="right"></ListItemText>
+      </ListItem>
+    );
+  });
+
   const handleAppendMessage = (author, content, time) => {
-    const list = messages.concat({
+    const newMessage = {
       author: author,
       content: content,
       time: time,
-    });
+    };
+    setTestMessages((messages) => [...messages, newMessage]);
+  };
 
-    setMessages(list);
+  const handleSendMessage = (event) => {
+    if (value.trim().length === 0) {
+      setValue("");
+      enqueueSnackbar("You cannot send an empty message", {
+        variant: "warning",
+      });
+    } else {
+      event.preventDefault();
+      sendMessage(value);
+      setValue("");
+    }
+    
   };
 
   return (
@@ -112,19 +132,24 @@ const ChatView = () => {
         <Grid item xs={9}>
           <Stack style={{ height: "65vh", overflowY: "auto" }}>
             {listOfMessages}
+            <div ref={messageRef} />
           </Stack>
 
           <Divider />
           <Grid container style={{ padding: "20px" }}>
             <Grid item xs={11}>
               <TextField
-                id="outline-basic-email"
+                id="outline-multiline-flexible"
                 label="Type something..."
+                multiline
+                maxRows={3}
+                value={value}
+                onChange={handleTextFieldValueChange}
                 fullWidth
               />
             </Grid>
             <Grid item xs={1} align="right">
-              <Fab color="primary" aria-label="add" onClick={() => { handleAppendMessage('Player 4', 'Message 5', '05:44 p.m') }}>
+              <Fab color="primary" aria-label="add" onClick={handleSendMessage}>
                 <SendIcon />
               </Fab>
             </Grid>

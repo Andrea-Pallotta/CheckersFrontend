@@ -1,31 +1,31 @@
 import React, { useState } from "react";
-import { styled } from "@mui/material/styles";
+//import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import Typography from "@mui/material/Typography";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import MoreHorizRoundedIcon from "@mui/icons-material/MoreHorizRounded";
-import GamepadRoundedIcon from "@mui/icons-material/GamepadRounded";
-import MessageRoundedIcon from "@mui/icons-material/MessageRounded";
+// import GamepadRoundedIcon from "@mui/icons-material/GamepadRounded";
+// import MessageRoundedIcon from "@mui/icons-material/MessageRounded";
 import Stack from "@mui/material/Stack";
-import { ListItem, SpeedDial } from "@mui/material";
+//import { ListItem, SpeedDial } from "@mui/material";
 
-const StyledSpeedDial = styled(SpeedDial)(({ theme }) => ({
-  position: "absolute",
-  "&.MuiSpeedDial-directionUp, &.MuiSpeedDial-directionLeft": {
-    bottom: theme.spacing(2),
-    right: theme.spacing(2),
-  },
-  "&.MuiSpeedDial-directionDown, &.MuiSpeedDial-directionRight": {
-    top: theme.spacing(2),
-    left: theme.spacing(2),
-  },
-}));
+// const StyledSpeedDial = styled(SpeedDial)(({ theme }) => ({
+//   position: "absolute",
+//   "&.MuiSpeedDial-directionUp, &.MuiSpeedDial-directionLeft": {
+//     bottom: theme.spacing(2),
+//     right: theme.spacing(2),
+//   },
+//   "&.MuiSpeedDial-directionDown, &.MuiSpeedDial-directionRight": {
+//     top: theme.spacing(2),
+//     left: theme.spacing(2),
+//   },
+// }));
 
-const actions = [
-  { icon: <GamepadRoundedIcon />, name: "Challenge" },
-  { icon: <MessageRoundedIcon />, name: "Start Conversation" },
-];
+// const actions = [
+//   { icon: <GamepadRoundedIcon />, name: "Challenge" },
+//   { icon: <MessageRoundedIcon />, name: "Start Conversation" },
+// ];
 
 export default function Message({ author, message, time }) {
   return (
@@ -45,7 +45,7 @@ export default function Message({ author, message, time }) {
 
 function MessageReceived({ author, message, time }) {
   const [hover, setHover] = useState(false);
-  const [hidden, setHidden] = useState(false);
+  //const [hidden, setHidden] = useState(false);
 
   return (
     <Box

@@ -3,10 +3,11 @@ import React from "react";
 import ChatView from "./Components/ChatView";
 import { Box } from "@mui/system";
 
-export default function Home() {
+export default function Home({ user }) {
+ 
   return (
     <Box>
-      <ChatView />
+      <ChatView user={user} />
     </Box>
   );
 }

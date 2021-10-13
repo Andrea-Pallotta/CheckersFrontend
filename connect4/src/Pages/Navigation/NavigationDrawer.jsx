@@ -25,6 +25,8 @@ import AddIcon from "@mui/icons-material/Add";
 import Home from "../Home/Home";
 import { withSnackbar, useSnackbar } from "notistack";
 import { Tooltip } from "@mui/material";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import CircularProgress from '@mui/material/CircularProgress';
 
 const drawerWidth = 240;
 
@@ -102,7 +104,7 @@ const NavigationDrawer = () => {
   const theme = useTheme();
   const [open, setOpen] = useState(false);
   const [page, setPage] = useState(0);
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState();
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
   useEffect(() => {
@@ -168,7 +170,7 @@ const NavigationDrawer = () => {
   const activePage = () => {
     switch (page) {
       case 0:
-        return <Home />;
+        return <Home user={user} />;
       case 2:
         return <div>Page 2</div>;
       default:
@@ -181,7 +183,10 @@ const NavigationDrawer = () => {
   };
 
   return (
-    <Box sx={{ display: "flex" }}>
+    <div>
+      {
+        user ? 
+        <Box sx={{ display: "flex" }}>
       <CssBaseline />
       <AppBar position="fixed" open={open}>
         <Toolbar>
@@ -200,8 +205,9 @@ const NavigationDrawer = () => {
           <Typography variant="h6" noWrap component="div" style={{ flex: 1 }}>
             Connect 4
           </Typography>
+          <AccountCircleIcon style={{ marginRight: "0.5em" }} />
           <Typography
-            variant="h7"
+            variant="h4"
             noWrap
             component="p"
             style={{ paddingRight: "1em" }}
@@ -240,7 +246,10 @@ const NavigationDrawer = () => {
         <AddIcon sx={{ mr: 1 }} />
         Start Game
       </Fab>
-    </Box>
+    </Box> :
+    <CircularProgress />
+      }
+    </div>
   );
 };
 
