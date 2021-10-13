@@ -132,8 +132,11 @@ const NavigationDrawer = () => {
 
   useEffect(() => {
     handleUserRetrieval();
-    socket.on('connection')
-  }, [handleUserRetrieval, user]);
+    socket.on('connection', () => {
+      console.log('connected');
+      
+    })
+  }, [handleUserRetrieval]);
 
   const handleOpenDrawer = () => {
     setOpen(true);
