@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback, useContext } from "react";
 import Auth from "@aws-amplify/auth";
 import { AmplifySignOut } from "@aws-amplify/ui-react";
 import { styled, useTheme } from "@mui/material/styles";
@@ -27,6 +27,7 @@ import { withSnackbar, useSnackbar } from "notistack";
 import { Tooltip } from "@mui/material";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import CircularProgress from '@mui/material/CircularProgress';
+import { SocketContext, socket } from "../../Api/socket";
 
 const drawerWidth = 240;
 
@@ -107,7 +108,7 @@ const NavigationDrawer = () => {
   const [user, setUser] = useState();
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
-  useEffect(() => {
+  const handleUserRetrieval = useCallback(() => {
     Auth.currentSession();
     Auth.currentAuthenticatedUser({
       bypassCache: false,
@@ -117,13 +118,22 @@ const NavigationDrawer = () => {
           variant: "success",
         });
         setUser(user);
+        return user;
+      })
+      .then(() => {
+
       })
       .catch(() =>
         enqueueSnackbar("Error retrieving user information", {
           variant: "error",
         })
       );
-  }, [closeSnackbar, enqueueSnackbar]);
+  }, [enqueueSnackbar])
+
+  useEffect(() => {
+    handleUserRetrieval();
+    socket.on('connection')
+  }, [handleUserRetrieval, user]);
 
   const handleOpenDrawer = () => {
     setOpen(true);
@@ -183,7 +193,7 @@ const NavigationDrawer = () => {
   };
 
   return (
-    <div>
+    <SocketContext.Provider value={socket}>
       {
         user ? 
         <Box sx={{ display: "flex" }}>
@@ -249,7 +259,7 @@ const NavigationDrawer = () => {
     </Box> :
     <CircularProgress />
       }
-    </div>
+    </SocketContext.Provider>
   );
 };
 

@@ -1,6 +1,5 @@
 module.exports = {
-  LH_SOCKET_URL: 'http://127.0.0.1:5050',
-  HOST_SOCKET_URL: process.env.HOST,
+  SOCKET_URL: 'http://127.0.0.1:5050',
   GLOBAL_CHAT: "GLOBAL_CHAT",
   NEW_GLOBAL_CHAT_MESSAGE: "NEW_GLOBAL_CHAT_MESSAGE",
   SIGN_UP: "SIGN_UP",

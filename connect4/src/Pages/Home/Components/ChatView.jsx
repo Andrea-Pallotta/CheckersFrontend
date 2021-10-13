@@ -15,8 +15,6 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { Stack } from "@mui/material";
 import { v4 as uuidv4 } from "uuid";
 import Message from "./Message";
-import { GLOBAL_CHAT } from "../../../Api/endpoints";
-import ChatRoomHandler from "./ChatRoomHandler";
 import { useSnackbar } from "notistack";
 
 const initialMessages = [
@@ -36,14 +34,14 @@ const initialMessages = [
   },
 ];
 
+const users = [];
+
 const ChatView = (props) => {
   const [Testmessages, setTestMessages] = useState(initialMessages);
   const [value, setValue] = useState("");
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
   const messageRef = useRef(null);
-  const roomId = GLOBAL_CHAT;
-  const { messages, sendMessage, users } = ChatRoomHandler(roomId, props.user);
 
   const scrollToEndMessage = () => {
     messageRef.current.scrollIntoView({ behavior: "smooth" });
@@ -85,20 +83,6 @@ const ChatView = (props) => {
       time: time,
     };
     setTestMessages((messages) => [...messages, newMessage]);
-  };
-
-  const handleSendMessage = (event) => {
-    if (value.trim().length === 0) {
-      setValue("");
-      enqueueSnackbar("You cannot send an empty message", {
-        variant: "warning",
-      });
-    } else {
-      event.preventDefault();
-      sendMessage(value);
-      setValue("");
-    }
-    
   };
 
   return (
@@ -149,7 +133,7 @@ const ChatView = (props) => {
               />
             </Grid>
             <Grid item xs={1} align="right">
-              <Fab color="primary" aria-label="add" onClick={handleSendMessage}>
+              <Fab color="primary" aria-label="add" onClick={() => {}}>
                 <SendIcon />
               </Fab>
             </Grid>
