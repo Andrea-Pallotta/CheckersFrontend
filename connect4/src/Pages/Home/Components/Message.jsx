@@ -8,7 +8,7 @@ import MoreHorizRoundedIcon from "@mui/icons-material/MoreHorizRounded";
 import GamepadRoundedIcon from "@mui/icons-material/GamepadRounded";
 import MessageRoundedIcon from "@mui/icons-material/MessageRounded";
 import Stack from "@mui/material/Stack";
-import { SpeedDial } from "@mui/material";
+import { ListItem, SpeedDial } from "@mui/material";
 
 const StyledSpeedDial = styled(SpeedDial)(({ theme }) => ({
   position: "absolute",
@@ -73,13 +73,14 @@ function MessageReceived({ author, message, time }) {
           {time}
         </Typography>
       </Stack>
-      <SpeedDial
+      <MoreHorizRoundedIcon style={{ display: hover ? "block" : "none" }} />
+      {/* <SpeedDial
         ariaLabel="Chat user SpeedDial"
         hidden={hidden}
         sx={{ width: "1em", height: "1em" }}
         style={{ display: hover ? "block" : "none" }}
         icon={<MoreHorizRoundedIcon />}
-      ></SpeedDial>
+      ></SpeedDial> */}
     </Box>
   );
 }

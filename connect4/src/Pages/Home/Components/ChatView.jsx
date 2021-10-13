@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
@@ -13,6 +13,7 @@ import Typography from "@mui/material/Typography";
 import SendIcon from "@mui/icons-material/Send";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { Stack } from "@mui/material";
+import { v4 as uuidv4 } from "uuid";
 import Message from "./Message";
 
 const players = [
@@ -24,6 +25,23 @@ const players = [
   {
     key: "Player 2",
     name: "Player 2",
+  },
+];
+
+const initialMessages = [
+  {
+    content: "Message sent 1",
+    time: "12:33 p.m.",
+  },
+  {
+    author: "Player 2",
+    content: "Message received 2",
+    time: "12:33 p.m.",
+  },
+  {
+    author: "Player 3",
+    content: "Message received 3",
+    time: "12:33 p.m.",
   },
 ];
 
@@ -40,6 +58,29 @@ const listOfPlayers = players.map((player) => {
 });
 
 const ChatView = () => {
+  const [messages, setMessages] = useState(initialMessages);
+
+  const listOfMessages = messages.map((message) => {
+    return (
+      <Message
+        author={message.author}
+        message={message.content}
+        time={message.time}
+        key={uuidv4()}
+      />
+    );
+  });
+
+  const handleAppendMessage = (author, content, time) => {
+    const list = messages.concat({
+      author: author,
+      content: content,
+      time: time,
+    });
+
+    setMessages(list);
+  };
+
   return (
     <Box>
       <Grid container>
@@ -69,11 +110,9 @@ const ChatView = () => {
         </Grid>
 
         <Grid item xs={9}>
-          <List style={{ height: "65vh", overflowY: "auto" }}>
-            <Message author={null} message='Message sent 1' time='12:33 p.m.' />
-            <Message author='Player 2' message='Message received 2' time='12:33 p.m.' />
-            <Message author='Player 2' message='Message received 2' time='12:33 p.m.' />
-          </List>
+          <Stack style={{ height: "65vh", overflowY: "auto" }}>
+            {listOfMessages}
+          </Stack>
 
           <Divider />
           <Grid container style={{ padding: "20px" }}>
@@ -85,7 +124,7 @@ const ChatView = () => {
               />
             </Grid>
             <Grid item xs={1} align="right">
-              <Fab color="primary" aria-label="add">
+              <Fab color="primary" aria-label="add" onClick={() => { handleAppendMessage('Player 4', 'Message 5', '05:44 p.m') }}>
                 <SendIcon />
               </Fab>
             </Grid>

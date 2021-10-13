@@ -4,7 +4,7 @@ import NavigationDrawer from "./Pages/Navigation/NavigationDrawer";
 import { SnackbarProvider } from "notistack";
 import { Button } from "@mui/material";
 
-function App() {
+const App = () => {
   const ref = createRef();
   const dismiss = (key) => () => {
     ref.current.closeSnackbar(key);

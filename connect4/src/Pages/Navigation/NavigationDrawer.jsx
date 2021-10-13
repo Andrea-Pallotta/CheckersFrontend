@@ -98,7 +98,7 @@ const fabStyle = {
   right: 30,
 };
 
-function NavigationDrawer() {
+const NavigationDrawer = () => {
   const theme = useTheme();
   const [open, setOpen] = useState(false);
   const [page, setPage] = useState(0);
@@ -114,8 +114,7 @@ function NavigationDrawer() {
         enqueueSnackbar("User Information retrieved successfully", {
           variant: "success",
         });
-        setUser(user.attributes);
-        console.log(user);
+        setUser(user);
       })
       .catch(() =>
         enqueueSnackbar("Error retrieving user information", {
@@ -207,7 +206,7 @@ function NavigationDrawer() {
             component="p"
             style={{ paddingRight: "1em" }}
           >
-            {user.email}
+            {user.username}
           </Typography>
           <Box>
             <AmplifySignOut />
@@ -243,6 +242,6 @@ function NavigationDrawer() {
       </Fab>
     </Box>
   );
-}
+};
 
 export default withSnackbar(NavigationDrawer);
