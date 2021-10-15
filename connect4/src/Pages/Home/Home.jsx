@@ -5,26 +5,10 @@ import axios from "axios";
 import { SocketContext } from "../../Api/socket";
 import { CircularProgress, Typography } from "@mui/material";
 
-const initialMessages = [
-  {
-    content: "Message sent 1",
-    time: "12:33 p.m.",
-  },
-  {
-    author: "Player 2",
-    content: "Message received 2",
-    time: "12:33 p.m.",
-  },
-  {
-    author: "Player 3",
-    content: "Message received 3",
-    time: "12:33 p.m.",
-  },
-];
 
 export default function Home({ user }) {
   const [channel, setChannel] = useState();
-  const [messages, setMessages] = useState(initialMessages);
+  const [messages, setMessages] = useState([]);
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   const socket = useContext(SocketContext);
 
@@ -45,6 +29,25 @@ export default function Home({ user }) {
     socket.emit("global-chat-join", user.username, (ack) => {});
   };
 
+  const handleSendMessage = (message) => {
+    console.log('send message called')
+    if (message.trim().length > 0) {
+      socket.emit("send-global-message", {
+        author: user.username,
+        content: message,
+        time: new Date().toLocaleString("en-US", {
+          hour: "numeric",
+          minute: "numeric",
+          hour12: true,
+        }),
+      });
+    } else {
+      enqueueSnackbar("Cannot send an empty message", {
+        variant: 'warning',
+      })
+    }
+  };
+
   useEffect(() => {
     const handleSocket = () => {
       socket.on("connection", () => {
@@ -60,15 +63,14 @@ export default function Home({ user }) {
       });
 
       socket.on("global-message", (message) => {
-        if (!channel.messages) {
-          channel.messages = [message];
-        } else {
-          channel.messages.push(message);
-        }
+        console.log(message);
+        setMessages((previous) => [...previous, message]);
       });
     };
     handleSocket();
-  }, [channel, enqueueSnackbar, socket]);
+
+    return () => socket.off('global-message');
+  }, [enqueueSnackbar, messages, socket]);
 
   return (
     <ErrorBoundary>
@@ -78,8 +80,11 @@ export default function Home({ user }) {
           global={channel}
           join={handleJoinGlobal}
           messages={messages}
+          sendMessage={handleSendMessage}
         />
-      ) : <CircularProgress />}
+      ) : (
+        <CircularProgress />
+      )}
     </ErrorBoundary>
   );
 }

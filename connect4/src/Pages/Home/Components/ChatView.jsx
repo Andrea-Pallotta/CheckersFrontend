@@ -17,10 +17,11 @@ import { v4 as uuidv4 } from "uuid";
 import Message from "./Message";
 
 const ChatView = (props) => {
+  const { user, global, messages } = props;
   const [value, setValue] = useState("");
 
-  const members = props.global.sockets.filter(
-    (socket) => socket.user !== props.user.username
+  const members = global.sockets.filter(
+    (socket) => socket.user !== user.username
   );
 
   const messageRef = useRef(null);
@@ -33,16 +34,16 @@ const ChatView = (props) => {
     props.join();
   }, []);
 
-  useEffect(scrollToEndMessage, [props.messages]);
+  useEffect(scrollToEndMessage, [messages]);
 
   const handleTextFieldValueChange = (event) => {
     setValue(event.target.value);
   };
 
-  const listOfMessages = props.messages.map((message) => {
+  const listOfMessages = messages.map((message) => {
     return (
       <Message
-        author={message.author}
+        author={message.author === user.username ? null : message.author}
         message={message.content}
         time={message.time}
         key={uuidv4()}
@@ -67,10 +68,10 @@ const ChatView = (props) => {
       <Grid container>
         <Stack spacing={1} ml={1} mb={1}>
           <Typography variant="h6" color="theme.primary">
-            {props.global.name}
+            {global.name}
           </Typography>
           <Typography variant="h7" color="secondary">
-            {props.global.sockets.length - 1} members online
+            {global.sockets.length - 1} members online
           </Typography>
         </Stack>
       </Grid>
@@ -97,7 +98,13 @@ const ChatView = (props) => {
 
         <Grid item xs={9}>
           <Stack style={{ height: "65vh", overflowY: "auto" }}>
-            {listOfMessages}
+            {messages.length > 0 ? (
+              listOfMessages
+            ) : (
+              <Typography variant="h7" ml={4} mt={4}>
+                No messages yet.
+              </Typography>
+            )}
             <div ref={messageRef} />
           </Stack>
 
@@ -115,7 +122,14 @@ const ChatView = (props) => {
               />
             </Grid>
             <Grid item xs={1} align="right">
-              <Fab color="primary" aria-label="add" onClick={() => {}}>
+              <Fab
+                color="primary"
+                aria-label="add"
+                onClick={() => {
+                  setValue("");
+                  props.sendMessage(value);
+                }}
+              >
                 <SendIcon />
               </Fab>
             </Grid>
