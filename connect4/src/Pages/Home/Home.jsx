@@ -1,13 +1,32 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import ChatView from "./Components/ChatView";
-import { Box } from "@mui/system";
 import { useSnackbar } from "notistack";
 import axios from "axios";
-import { socket } from "../../Api/socket";
+import { SocketContext } from "../../Api/socket";
+import { CircularProgress, Typography } from "@mui/material";
+
+const initialMessages = [
+  {
+    content: "Message sent 1",
+    time: "12:33 p.m.",
+  },
+  {
+    author: "Player 2",
+    content: "Message received 2",
+    time: "12:33 p.m.",
+  },
+  {
+    author: "Player 3",
+    content: "Message received 3",
+    time: "12:33 p.m.",
+  },
+];
 
 export default function Home({ user }) {
   const [channel, setChannel] = useState();
+  const [messages, setMessages] = useState(initialMessages);
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+  const socket = useContext(SocketContext);
 
   const getGlobalChat = async () => {
     return axios({
@@ -37,16 +56,57 @@ export default function Home({ user }) {
         });
       });
       socket.on("global-chat", (newChannel) => {
-        console.log(newChannel);
-        //setChannel(newChannel);
+        setChannel(newChannel);
+      });
+
+      socket.on("global-message", (message) => {
+        if (!channel.messages) {
+          channel.messages = [message];
+        } else {
+          channel.messages.push(message);
+        }
       });
     };
     handleSocket();
-  }, [enqueueSnackbar]);
+  }, [channel, enqueueSnackbar, socket]);
 
-  return channel ? (
-    <Box>
-      <ChatView user={user} global={channel} join={handleJoinGlobal} />
-    </Box>
-  ) : null;
+  return (
+    <ErrorBoundary>
+      {channel ? (
+        <ChatView
+          user={user}
+          global={channel}
+          join={handleJoinGlobal}
+          messages={messages}
+        />
+      ) : <CircularProgress />}
+    </ErrorBoundary>
+  );
+}
+
+class ErrorBoundary extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false };
+  }
+
+  static getDerivedStateFromError(error) {
+    return { hasError: true };
+  }
+
+  componentDidCatch(error, info) {
+    console.log(error, info);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return (
+        <Typography variant="h3" color="Highlight">
+          Something went wrong
+        </Typography>
+      );
+    }
+
+    return this.props.children;
+  }
 }

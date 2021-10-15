@@ -185,7 +185,7 @@ const NavigationDrawer = () => {
   };
 
   const startGame = () => {
-    console.log("start game");
+    
   };
 
   return (

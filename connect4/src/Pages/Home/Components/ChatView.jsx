@@ -16,28 +16,12 @@ import { Stack } from "@mui/material";
 import { v4 as uuidv4 } from "uuid";
 import Message from "./Message";
 
-const initialMessages = [
-  {
-    content: "Message sent 1",
-    time: "12:33 p.m.",
-  },
-  {
-    author: "Player 2",
-    content: "Message received 2",
-    time: "12:33 p.m.",
-  },
-  {
-    author: "Player 3",
-    content: "Message received 3",
-    time: "12:33 p.m.",
-  },
-];
-
-const users = [];
-
 const ChatView = (props) => {
-  const [Testmessages, setTestMessages] = useState(initialMessages);
   const [value, setValue] = useState("");
+
+  const members = props.global.sockets.filter(
+    (socket) => socket.user !== props.user.username
+  );
 
   const messageRef = useRef(null);
 
@@ -47,15 +31,15 @@ const ChatView = (props) => {
 
   useEffect(() => {
     props.join();
-  })
+  }, []);
 
-  useEffect(scrollToEndMessage, [Testmessages]);
+  useEffect(scrollToEndMessage, [props.messages]);
 
   const handleTextFieldValueChange = (event) => {
     setValue(event.target.value);
   };
 
-  const listOfMessages = Testmessages.map((message) => {
+  const listOfMessages = props.messages.map((message) => {
     return (
       <Message
         author={message.author}
@@ -66,35 +50,29 @@ const ChatView = (props) => {
     );
   });
 
-  const listOfPlayers = users.map((player) => {
+  const listOfPlayers = members.map((player) => {
     return (
-      <ListItem button key={player.key}>
+      <ListItem button key={uuidv4()}>
         <ListItemIcon>
           <AccountCircleIcon />
         </ListItemIcon>
-        <ListItemText primary={player.name}>{player.name}</ListItemText>
+        <ListItemText primary={player.user}>{player.user}</ListItemText>
         <ListItemText secondary="online" align="right"></ListItemText>
       </ListItem>
     );
   });
 
-  const handleAppendMessage = (author, content, time) => {
-    const newMessage = {
-      author: author,
-      content: content,
-      time: time,
-    };
-    setTestMessages((messages) => [...messages, newMessage]);
-  };
-
   return (
     <Box>
       <Grid container>
-        <Grid item xs={12}>
-          <Typography variant="h6">
-            {props.global.name} - {props.global.partecipants} partecipants
+        <Stack spacing={1} ml={1} mb={1}>
+          <Typography variant="h6" color="theme.primary">
+            {props.global.name}
           </Typography>
-        </Grid>
+          <Typography variant="h7" color="secondary">
+            {props.global.sockets.length - 1} members online
+          </Typography>
+        </Stack>
       </Grid>
 
       <Grid
