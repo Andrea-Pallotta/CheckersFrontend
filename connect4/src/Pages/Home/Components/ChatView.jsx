@@ -15,7 +15,6 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { Stack } from "@mui/material";
 import { v4 as uuidv4 } from "uuid";
 import Message from "./Message";
-import { useSnackbar } from "notistack";
 
 const initialMessages = [
   {
@@ -39,13 +38,16 @@ const users = [];
 const ChatView = (props) => {
   const [Testmessages, setTestMessages] = useState(initialMessages);
   const [value, setValue] = useState("");
-  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
   const messageRef = useRef(null);
 
   const scrollToEndMessage = () => {
     messageRef.current.scrollIntoView({ behavior: "smooth" });
   };
+
+  useEffect(() => {
+    props.join();
+  })
 
   useEffect(scrollToEndMessage, [Testmessages]);
 
@@ -89,7 +91,9 @@ const ChatView = (props) => {
     <Box>
       <Grid container>
         <Grid item xs={12}>
-          <Typography variant="h6">Global Chat</Typography>
+          <Typography variant="h6">
+            {props.global.name} - {props.global.partecipants} partecipants
+          </Typography>
         </Grid>
       </Grid>
 

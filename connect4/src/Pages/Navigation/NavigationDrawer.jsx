@@ -120,9 +120,6 @@ const NavigationDrawer = () => {
         setUser(user);
         return user;
       })
-      .then(() => {
-
-      })
       .catch(() =>
         enqueueSnackbar("Error retrieving user information", {
           variant: "error",
@@ -132,10 +129,6 @@ const NavigationDrawer = () => {
 
   useEffect(() => {
     handleUserRetrieval();
-    socket.on('connection', () => {
-      console.log('connected');
-      
-    })
   }, [handleUserRetrieval]);
 
   const handleOpenDrawer = () => {
