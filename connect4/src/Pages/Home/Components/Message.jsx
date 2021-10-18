@@ -1,13 +1,12 @@
 import React, { useState } from "react";
 //import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
-import ListItemIcon from "@mui/material/ListItemIcon";
 import Typography from "@mui/material/Typography";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import MoreHorizRoundedIcon from "@mui/icons-material/MoreHorizRounded";
 // import GamepadRoundedIcon from "@mui/icons-material/GamepadRounded";
 // import MessageRoundedIcon from "@mui/icons-material/MessageRounded";
 import Stack from "@mui/material/Stack";
+import UserAvatar from "../../../Components/Avatar";
 //import { ListItem, SpeedDial } from "@mui/material";
 
 // const StyledSpeedDial = styled(SpeedDial)(({ theme }) => ({
@@ -57,13 +56,15 @@ function MessageReceived({ author, message, time }) {
         setHover(false);
       }}
     >
-      <Stack paddingRight={3}>
-        <ListItemIcon>
-          <AccountCircleIcon />
-        </ListItemIcon>
-        <Typography variant="caption" color="text.secondary">
+      <Stack>
+        <UserAvatar
+          name={author}
+          busy={true}
+          style={{ width: 36, height: 36, boxShadow: "0 0 0 2px lightgray" }}
+        />
+        {/* <Typography variant="caption" color="text.secondary" ml={0.5}>
           {author}
-        </Typography>
+        </Typography> */}
       </Stack>
       <Stack spacing={0.5} sx={{ backgroundColor: "#E0" }} mr>
         <Typography fontWeight={500} color="text.primary">
@@ -87,7 +88,15 @@ function MessageReceived({ author, message, time }) {
 
 function MessageSent({ message, time }) {
   return (
-    <Box sx={{ p: 2, display: "flex" }} ml="auto">
+    <Box
+      sx={{
+        p: 2,
+        display: "flex",
+        alignItems: "right",
+        justifyContent: "right",
+      }}
+      ml="auto"
+    >
       <Stack spacing={0.5} sx={{ backgroundColor: "#E0" }} paddingRight={3}>
         <Typography fontWeight={500} color="text.primary">
           {message}
@@ -96,13 +105,13 @@ function MessageSent({ message, time }) {
           {time}
         </Typography>
       </Stack>
+
       <Stack>
-        <ListItemIcon>
-          <AccountCircleIcon />
-        </ListItemIcon>
-        <Typography variant="caption" color="text.secondary">
-          You
-        </Typography>
+        <UserAvatar
+          name="Andrea"
+          style={{ width: 36, height: 36, boxShadow: "0 0 0 2px lightgray" }}
+        />
+        <Typography variant="caption" color="text.secondary"></Typography>
       </Stack>
     </Box>
   );

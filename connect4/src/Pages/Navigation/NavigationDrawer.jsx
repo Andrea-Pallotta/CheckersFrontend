@@ -1,4 +1,10 @@
-import React, { useEffect, useState, useCallback, useContext } from "react";
+import React, {
+  useEffect,
+  useState,
+  useCallback,
+  useContext,
+  Fragment,
+} from "react";
 import Auth from "@aws-amplify/auth";
 import { AmplifySignOut } from "@aws-amplify/ui-react";
 import { styled, useTheme } from "@mui/material/styles";
@@ -24,10 +30,12 @@ import Fab from "@mui/material/Fab";
 import AddIcon from "@mui/icons-material/Add";
 import Home from "../Home/Home";
 import { withSnackbar, useSnackbar } from "notistack";
-import { Tooltip } from "@mui/material";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import CircularProgress from '@mui/material/CircularProgress';
+import { Button, MenuItem, Stack, Tooltip } from "@mui/material";
+import Menu from "@mui/material/Menu";
+import CircularProgress from "@mui/material/CircularProgress";
 import { SocketContext, socket } from "../../Api/socket";
+import UserAvatar from "../../Components/Avatar";
+import PopupState, { bindTrigger, bindMenu } from "material-ui-popup-state";
 
 const drawerWidth = 240;
 
@@ -125,7 +133,7 @@ const NavigationDrawer = () => {
           variant: "error",
         })
       );
-  }, [enqueueSnackbar])
+  }, [enqueueSnackbar]);
 
   useEffect(() => {
     handleUserRetrieval();
@@ -173,6 +181,34 @@ const NavigationDrawer = () => {
     );
   });
 
+  const menuAvatar = () => {
+    return (
+      <PopupState variant="popover" popupId="profile-avatar-menu">
+        {(popupState) => {
+          <Stack>
+            {/* <UserAvatar
+              name={user.username}
+              style={{
+                width: 36,
+                height: 36,
+                boxShadow: "0 0 0 2px lightgray",
+              }}
+              {...bindTrigger(popupState)}
+            /> */}
+            <Button variant="contained" {...bindTrigger(popupState)}>
+            Dashboard
+          </Button>
+            <Menu {...bindMenu(popupState)}>
+              <MenuItem onClick={popupState.close}>Profile</MenuItem>
+              <MenuItem onClick={popupState.close}>My account</MenuItem>
+              <MenuItem onClick={popupState.close}>Logout</MenuItem>
+            </Menu>
+          </Stack>;
+        }}
+      </PopupState>
+    );
+  };
+
   const activePage = () => {
     switch (page) {
       case 0:
@@ -184,77 +220,80 @@ const NavigationDrawer = () => {
     }
   };
 
-  const startGame = () => {
-    
-  };
+  const startGame = () => {};
 
   return (
     <SocketContext.Provider value={socket}>
-      {
-        user ? 
+      {user ? (
         <Box sx={{ display: "flex" }}>
-      <CssBaseline />
-      <AppBar position="fixed" open={open}>
-        <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            onClick={handleOpenDrawer}
-            edge="start"
-            sx={{
-              marginRight: "36px",
-              ...(open && { display: "none" }),
-            }}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" noWrap component="div" style={{ flex: 1 }}>
-            Connect 4
-          </Typography>
-          <AccountCircleIcon style={{ marginRight: "0.5em" }} />
-          <Typography
-            variant="h4"
-            noWrap
-            component="p"
-            style={{ paddingRight: "1em" }}
-          >
-            {user.username}
-          </Typography>
-          <Box>
-            <AmplifySignOut />
+          <CssBaseline />
+          <AppBar position="fixed" open={open}>
+            <Toolbar>
+              <IconButton
+                color="inherit"
+                aria-label="open drawer"
+                onClick={handleOpenDrawer}
+                edge="start"
+                sx={{
+                  marginRight: "36px",
+                  ...(open && { display: "none" }),
+                }}
+              >
+                <MenuIcon />
+              </IconButton>
+              <Typography
+                variant="h6"
+                noWrap
+                component="div"
+                style={{ flex: 1 }}
+              >
+                Connect 4
+              </Typography>
+              {menuAvatar()}
+              <Typography
+                variant="h4"
+                noWrap
+                component="p"
+                style={{ paddingRight: "1em", paddingLeft: "0.3em" }}
+              >
+                {user.username}
+              </Typography>
+              <Box>
+                <AmplifySignOut />
+              </Box>
+            </Toolbar>
+          </AppBar>
+          <Drawer variant="permanent" open={open} onClick={handleCloseDrawer}>
+            <DrawerHeader>
+              <IconButton>
+                {theme.direction === "trl" ? (
+                  <ChevronRightRoundedIcon />
+                ) : (
+                  <ChevronLeftRoundedIcon />
+                )}
+              </IconButton>
+            </DrawerHeader>
+            <Divider />
+            <List>{tabViewOptions}</List>
+          </Drawer>
+          <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+            <DrawerHeader />
+            {activePage()}
           </Box>
-        </Toolbar>
-      </AppBar>
-      <Drawer variant="permanent" open={open} onClick={handleCloseDrawer}>
-        <DrawerHeader>
-          <IconButton>
-            {theme.direction === "trl" ? (
-              <ChevronRightRoundedIcon />
-            ) : (
-              <ChevronLeftRoundedIcon />
-            )}
-          </IconButton>
-        </DrawerHeader>
-        <Divider />
-        <List>{tabViewOptions}</List>
-      </Drawer>
-      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-        <DrawerHeader />
-        {activePage()}
-      </Box>
 
-      <Fab
-        sx={fabStyle}
-        aria-label="start"
-        variant="extended"
-        onClick={startGame}
-      >
-        <AddIcon sx={{ mr: 1 }} />
-        Start Game
-      </Fab>
-    </Box> :
-    <CircularProgress />
-      }
+          <Fab
+            sx={fabStyle}
+            aria-label="start"
+            variant="extended"
+            onClick={startGame}
+          >
+            <AddIcon sx={{ mr: 1 }} />
+            Start Game
+          </Fab>
+        </Box>
+      ) : (
+        <CircularProgress />
+      )}
     </SocketContext.Provider>
   );
 };

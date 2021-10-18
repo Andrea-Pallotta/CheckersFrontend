@@ -5,10 +5,10 @@ import axios from "axios";
 import { SocketContext } from "../../Api/socket";
 import { CircularProgress, Typography } from "@mui/material";
 
-
 export default function Home({ user }) {
   const [channel, setChannel] = useState();
   const [messages, setMessages] = useState([]);
+  // eslint-disable-next-line no-unused-vars
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   const socket = useContext(SocketContext);
 
@@ -30,7 +30,7 @@ export default function Home({ user }) {
   };
 
   const handleSendMessage = (message) => {
-    console.log('send message called')
+    console.log("send message called");
     if (message.trim().length > 0) {
       socket.emit("send-global-message", {
         author: user.username,
@@ -43,8 +43,8 @@ export default function Home({ user }) {
       });
     } else {
       enqueueSnackbar("Cannot send an empty message", {
-        variant: 'warning',
-      })
+        variant: "warning",
+      });
     }
   };
 
@@ -69,7 +69,7 @@ export default function Home({ user }) {
     };
     handleSocket();
 
-    return () => socket.off('global-message');
+    return () => socket.off("global-message");
   }, [enqueueSnackbar, messages, socket]);
 
   return (
@@ -92,22 +92,24 @@ export default function Home({ user }) {
 class ErrorBoundary extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { hasError: false };
+    this.state = { hasError: false, info: "", error: "" };
   }
 
   static getDerivedStateFromError(error) {
-    return { hasError: true };
+    return { hasError: true, error: error };
   }
 
   componentDidCatch(error, info) {
     console.log(error, info);
+    this.setState(info, info);
+    this.setState(error, error);
   }
 
   render() {
     if (this.state.hasError) {
       return (
-        <Typography variant="h3" color="Highlight">
-          Something went wrong
+        <Typography variant="h6" color="primary">
+          {this.state.error} - {this.state.info}
         </Typography>
       );
     }
