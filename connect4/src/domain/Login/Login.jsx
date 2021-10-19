@@ -6,12 +6,12 @@ import DashboardIcon from '@mui/icons-material/Dashboard';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import SignInForm from './Components/SignInForm';
-import Copyright from '../../Components/Copyright';
+import LogInForm from './Form/LogInForm';
+import Copyright from '../../components/Typography/Copyright'
 
 const theme = createTheme();
 
-export default function LogInPage() {
+export default function Login() {
     const handleSubmit = (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
@@ -40,7 +40,7 @@ export default function LogInPage() {
                 Sign in
               </Typography>
 
-              <SignInForm handleSubmit={handleSubmit} />
+              <LogInForm handleSubmit={handleSubmit} />
             </Box>
             <Copyright sx={{ mt: 8, mb: 4 }} />
           </Container>

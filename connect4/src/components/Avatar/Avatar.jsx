@@ -1,4 +1,3 @@
-import { useTheme } from "@emotion/react";
 import { Avatar, Badge } from "@mui/material";
 import { styled } from "@mui/system";
 

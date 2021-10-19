@@ -1,6 +1,6 @@
 import React, { createRef } from "react";
 import { withAuthenticator } from "@aws-amplify/ui-react";
-import NavigationDrawer from "./Pages/Navigation/NavigationDrawer";
+import NavigationDrawer from "../../domain/Navigation/NavigationDrawer";
 import { SnackbarProvider } from "notistack";
 import { Button } from "@mui/material";
 
@@ -24,6 +24,6 @@ const App = () => {
       <NavigationDrawer />
     </SnackbarProvider>
   );
-}
+};
 
 export default withAuthenticator(App);

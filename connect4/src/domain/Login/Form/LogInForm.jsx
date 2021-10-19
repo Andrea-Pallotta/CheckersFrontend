@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, Checkbox, FormControlLabel, Grid, Link, TextField } from "@mui/material";
 import { Box } from "@mui/system";
 
-export default function SignInForm({handleSubmit}) {
+export default function LogInForm({handleSubmit}) {
     return (
         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
                 <TextField

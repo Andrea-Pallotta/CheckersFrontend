@@ -6,7 +6,7 @@ import MoreHorizRoundedIcon from "@mui/icons-material/MoreHorizRounded";
 // import GamepadRoundedIcon from "@mui/icons-material/GamepadRounded";
 // import MessageRoundedIcon from "@mui/icons-material/MessageRounded";
 import Stack from "@mui/material/Stack";
-import UserAvatar from "../../../Components/Avatar";
+import UserAvatar from "../../components/Avatar/Avatar";
 //import { ListItem, SpeedDial } from "@mui/material";
 
 // const StyledSpeedDial = styled(SpeedDial)(({ theme }) => ({

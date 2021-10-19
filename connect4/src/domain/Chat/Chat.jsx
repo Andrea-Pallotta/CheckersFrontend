@@ -16,7 +16,7 @@ import { Stack } from "@mui/material";
 import { v4 as uuidv4 } from "uuid";
 import Message from "./Message";
 
-const ChatView = (props) => {
+const Chat = (props) => {
   const { user, global, messages } = props;
   const [value, setValue] = useState("");
 
@@ -140,4 +140,4 @@ const ChatView = (props) => {
   );
 };
 
-export default ChatView;
+export default Chat;

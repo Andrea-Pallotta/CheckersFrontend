@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useContext } from "react";
-import ChatView from "./Components/ChatView";
+import Chat from '../Chat/Chat'
 import { useSnackbar } from "notistack";
 import axios from "axios";
-import { SocketContext } from "../../Api/socket";
-import { CircularProgress, Typography } from "@mui/material";
+import { SocketContext } from "../../components/API/socket";
+import { CircularProgress } from "@mui/material";
+import ErrorBoundary from "../Error/ErrorBoundary";
 
 export default function Home({ user }) {
   const [channel, setChannel] = useState();
@@ -75,7 +76,7 @@ export default function Home({ user }) {
   return (
     <ErrorBoundary>
       {channel ? (
-        <ChatView
+        <Chat
           user={user}
           global={channel}
           join={handleJoinGlobal}
@@ -87,33 +88,4 @@ export default function Home({ user }) {
       )}
     </ErrorBoundary>
   );
-}
-
-class ErrorBoundary extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { hasError: false, info: "", error: "" };
-  }
-
-  static getDerivedStateFromError(error) {
-    return { hasError: true, error: error };
-  }
-
-  componentDidCatch(error, info) {
-    console.log(error, info);
-    this.setState(info, info);
-    this.setState(error, error);
-  }
-
-  render() {
-    if (this.state.hasError) {
-      return (
-        <Typography variant="h6" color="primary">
-          {this.state.error} - {this.state.info}
-        </Typography>
-      );
-    }
-
-    return this.props.children;
-  }
 }
