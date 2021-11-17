@@ -1,22 +1,23 @@
-import { Avatar, Badge } from "@mui/material";
-import { styled } from "@mui/system";
+import React from "react"
+import { Avatar, Badge } from "@mui/material"
+import { styled } from "@mui/system"
 
 export const nameToColor = (name) => {
-  let hash = 0;
-  let i;
+  let hash = 0
+  let i
 
   for (i = 0; i < name.length; i += 1) {
-    hash = name.charCodeAt(i) + ((hash << 5) - hash);
+    hash = name.charCodeAt(i) + ((hash << 5) - hash)
   }
 
-  let color = "#";
+  let color = "#"
 
   for (i = 0; i < 3; i += 1) {
-    const value = (hash >> (i * 8)) & 0xff;
-    color += `00${value.toString(16)}`.substr(-2);
+    const value = (hash >> (i * 8)) & 0xff
+    color += `00${value.toString(16)}`.substr(-2)
   }
-  return color;
-};
+  return color
+}
 
 export const avatarName = (name, props) => {
   return {
@@ -25,8 +26,8 @@ export const avatarName = (name, props) => {
       ...props,
     },
     children: `${name.charAt(0).toUpperCase()}`,
-  };
-};
+  }
+}
 
 const OnlineBadge = styled(Badge)(() => ({
   "& .MuiBadge-badge": {
@@ -55,7 +56,7 @@ const OnlineBadge = styled(Badge)(() => ({
       opacity: 0,
     },
   },
-}));
+}))
 
 const BusyBadge = styled(Badge)(() => ({
   "& .MuiBadge-badge": {
@@ -63,7 +64,7 @@ const BusyBadge = styled(Badge)(() => ({
     color: "red",
     boxShadow: "0 0 0 1px lightgray",
   },
-}));
+}))
 
 const UserAvatar = ({ name, busy = false, style }) => {
   return busy ? (
@@ -82,7 +83,7 @@ const UserAvatar = ({ name, busy = false, style }) => {
     >
       <Avatar {...avatarName(name, style)} />
     </OnlineBadge>
-  );
-};
+  )
+}
 
-export default UserAvatar;
+export default UserAvatar

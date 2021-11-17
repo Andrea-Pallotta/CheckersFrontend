@@ -5,11 +5,12 @@ import App from './components/App/App';
 import reportWebVitals from './components/App/performance/reportWebVitals';
 import Amplify from 'aws-amplify';
 import awsExports from './aws-exports';
+import Board from './domain/Board/Board';
 Amplify.configure(awsExports);
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Board />
   </React.StrictMode>,
   document.getElementById('root')
 );
