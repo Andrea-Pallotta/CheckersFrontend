@@ -1,26 +1,26 @@
 {
-    "dev": {
-        "awscloudformation": {
-            "AuthRoleName": "amplify-connect4-dev-235635-authRole",
-            "UnauthRoleArn": "arn:aws:iam::790540118125:role/amplify-connect4-dev-235635-unauthRole",
-            "AuthRoleArn": "arn:aws:iam::790540118125:role/amplify-connect4-dev-235635-authRole",
-            "Region": "us-east-1",
-            "DeploymentBucketName": "amplify-connect4-dev-235635-deployment",
-            "UnauthRoleName": "amplify-connect4-dev-235635-unauthRole",
-            "StackName": "amplify-connect4-dev-235635",
-            "StackId": "arn:aws:cloudformation:us-east-1:790540118125:stack/amplify-connect4-dev-235635/3c3f0390-2a47-11ec-8bd2-0aca4d9942a5",
-            "AmplifyAppId": "d1j9ufva6ry8vg"
-        },
-        "categories": {
-            "auth": {
-                "connect46f5f3655": {}
-            },
-            "hosting": {
-                "amplifyhosting": {
-                    "appId": "d1j9ufva6ry8vg",
-                    "type": "manual"
-                }
-            }
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-connect4-dev-235635-authRole",
+      "UnauthRoleArn": "arn:aws:iam::790540118125:role/amplify-connect4-dev-235635-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::790540118125:role/amplify-connect4-dev-235635-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-connect4-dev-235635-deployment",
+      "UnauthRoleName": "amplify-connect4-dev-235635-unauthRole",
+      "StackName": "amplify-connect4-dev-235635",
+      "StackId": "arn:aws:cloudformation:us-east-1:790540118125:stack/amplify-connect4-dev-235635/3c3f0390-2a47-11ec-8bd2-0aca4d9942a5",
+      "AmplifyAppId": "d1j9ufva6ry8vg"
+    },
+    "categories": {
+      "auth": {
+        "connect46f5f3655": {}
+      },
+      "hosting": {
+        "amplifyhosting": {
+          "appId": "d1j9ufva6ry8vg",
+          "type": "manual"
         }
+      }
     }
+  }
 }
