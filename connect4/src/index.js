@@ -1,16 +1,33 @@
-import React from "react";
+import React, { createRef } from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./components/App/App";
 import reportWebVitals from "./components/App/performance/reportWebVitals";
 import Amplify from "aws-amplify";
 import awsExports from "./aws-exports";
-import Board from "./domain/Board/Board";
+import { SnackbarProvider } from "notistack";
+import { Button } from "@mui/material";
 Amplify.configure(awsExports);
+
+const ref = createRef();
+const dismiss = (key) => () => {
+  ref.current.closeSnackbar(key);
+};
 
 ReactDOM.render(
   <React.StrictMode>
-    <Board />
+    <SnackbarProvider
+      ref={ref}
+      maxSnack={3}
+      dense={false}
+      preventDuplicate
+      autoHideDuration={3000}
+      action={(key) => {
+        return <Button onClick={dismiss(key)}>Dimiss</Button>;
+      }}
+    >
+      <App />
+    </SnackbarProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );

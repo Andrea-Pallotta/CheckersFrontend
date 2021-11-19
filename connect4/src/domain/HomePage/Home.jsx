@@ -1,30 +1,18 @@
 import React, { useState, useEffect, useContext } from "react";
-import Chat from '../Chat/Chat'
+import Chat from "../Chat/Chat";
 import { useSnackbar } from "notistack";
-import axios from "axios";
 import { SocketContext } from "../../components/API/socket";
 import { CircularProgress } from "@mui/material";
 import ErrorBoundary from "../Error/ErrorBoundary";
+import { UserContext } from "../../components/API/user";
 
-export default function Home({ user }) {
+export default function Home() {
   const [channel, setChannel] = useState();
   const [messages, setMessages] = useState([]);
   // eslint-disable-next-line no-unused-vars
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   const socket = useContext(SocketContext);
-
-  const getGlobalChat = async () => {
-    return axios({
-      url: "http://localhost:5050/getChannels",
-      method: "get",
-      timeout: 8000,
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((res) => res.data)
-      .catch((err) => console.error(err));
-  };
+  const user = useContext(UserContext);
 
   const handleJoinGlobal = () => {
     socket.emit("global-chat-join", user.username, (ack) => {});
@@ -51,16 +39,20 @@ export default function Home({ user }) {
 
   useEffect(() => {
     const handleSocket = () => {
-      socket.on("connection", () => {
-        getGlobalChat().then((res) => {
-          setChannel(res.channels);
-        });
+      socket.on("connection", (id) => {
+        console.log("connected");
+        user["socketId"] = id;
         enqueueSnackbar("Connected to the socket", {
           variant: "success",
         });
+        console.log("sending request to join public chat");
+        socket.emit("join-public-chat", {});
       });
-      socket.on("global-chat", (newChannel) => {
-        setChannel(newChannel);
+
+      socket.on("joined-public-chat", (sockets) => {
+        console.log("test");
+        console.log("sockets", sockets);
+        setChannel(sockets);
       });
 
       socket.on("global-message", (message) => {
@@ -71,7 +63,7 @@ export default function Home({ user }) {
     handleSocket();
 
     return () => socket.off("global-message");
-  }, [enqueueSnackbar, messages, socket]);
+  }, [enqueueSnackbar, messages, socket, user]);
 
   return (
     <ErrorBoundary>
