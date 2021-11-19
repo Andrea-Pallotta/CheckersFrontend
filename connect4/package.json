@@ -32,20 +32,14 @@
   "devDependencies": {
     "eslint-config-airbnb": "^18.2.1",
     "file-loader": "^6.2.0",
-    "html-webpack-plugin": "^5.5.0",
-    "react-scripts": "^3.4.4",
-    "webpack": "^4.42.1"
+    "react-scripts": "^3.4.4"
   },
   "scripts": {
-    "preinstall": "npx npm-force-resolutions",
     "legacy": "react-scripts --openssl-legacy-provider start",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
-  },
-  "resolutions": {
-    "webpack": "4.42.1"
   },
   "eslintConfig": {
     "extends": [

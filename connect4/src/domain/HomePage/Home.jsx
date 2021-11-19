@@ -15,7 +15,6 @@ export default function Home() {
   const user = useContext(UserContext);
 
   const handleSendMessage = (message) => {
-    console.log("send message called");
     if (message.trim().length > 0) {
       socket.emit("send-global-message", {
         author: user.username,
@@ -46,12 +45,10 @@ export default function Home() {
     });
 
     socket.on("joined-public-chat", (sockets) => {
-      console.log("sockets", sockets);
       setChannel(sockets);
     });
 
     socket.on("global-message", (message) => {
-      console.log(message);
       setMessages((previous) => [...previous, message]);
     });
 

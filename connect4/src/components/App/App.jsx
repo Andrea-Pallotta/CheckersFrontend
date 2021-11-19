@@ -15,7 +15,6 @@ const App = () => {
   useEffect(() => {
     return onAuthUIStateChange((nextAuthState, authData) => {
       if (authData) {
-        console.log("jwt", authData.signInUserSession.accessToken);
         const userData = {
           username: authData.username,
           email: authData.attributes.email,

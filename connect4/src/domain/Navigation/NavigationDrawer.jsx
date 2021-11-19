@@ -143,9 +143,7 @@ const NavigationDrawer = () => {
           <Typography variant="h6" noWrap component="div" style={{ flex: 1 }}>
             Connect 4
           </Typography>
-          {menuAvatar(() => {
-            console.log("clicked");
-          })}
+          {menuAvatar(() => {})}
           <Typography
             variant="h4"
             noWrap
