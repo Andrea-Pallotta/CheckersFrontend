@@ -1,10 +1,10 @@
-import React, { useState, useEffect, createRef, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import { AmplifyAuthenticator } from "@aws-amplify/ui-react";
 import { AuthState, onAuthUIStateChange } from "@aws-amplify/ui-components";
 import { useSnackbar, withSnackbar } from "notistack";
 import { SocketContext, newSocket } from "../../components/API/socket";
 import NavigationDrawer from "../../domain/Navigation/NavigationDrawer";
-import { UserContext, UserContextProvider } from "../API/user";
+import { UserContext } from "../API/user";
 
 const App = () => {
   const [authState, setAuthState] = useState();
