@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 //import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
@@ -7,6 +7,7 @@ import MoreHorizRoundedIcon from "@mui/icons-material/MoreHorizRounded";
 // import MessageRoundedIcon from "@mui/icons-material/MessageRounded";
 import Stack from "@mui/material/Stack";
 import UserAvatar from "../../components/Avatar/Avatar";
+import { UserContext } from "../../components/API/user";
 //import { ListItem, SpeedDial } from "@mui/material";
 
 // const StyledSpeedDial = styled(SpeedDial)(({ theme }) => ({
@@ -87,6 +88,7 @@ function MessageReceived({ author, message, time }) {
 }
 
 function MessageSent({ message, time }) {
+  const user = useContext(UserContext);
   return (
     <Box
       sx={{
@@ -108,7 +110,7 @@ function MessageSent({ message, time }) {
 
       <Stack>
         <UserAvatar
-          name="Andrea"
+          name={user.username}
           style={{ width: 36, height: 36, boxShadow: "0 0 0 2px lightgray" }}
         />
         <Typography variant="caption" color="text.secondary"></Typography>
