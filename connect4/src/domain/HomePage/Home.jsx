@@ -17,13 +17,19 @@ export default function Home() {
     const joinPublicChat = () => {
       socket.emit("join-public-chat", user.username);
     };
-    socket.on("connection", (id) => {
-      user["socketId"] = id;
-      enqueueSnackbar("Connected to the socket", {
+    try {
+      socket.on("connection", (id) => {
+        user["socketId"] = id;
+        enqueueSnackbar("Successfully connected to the server", {
+          variant: "success",
+        });
+        joinPublicChat();
+      });
+    } catch {
+      enqueueSnackbar("Error connection to the server", {
         variant: "success",
       });
-      joinPublicChat();
-    });
+    }
 
     socket.on("joined-public-chat", (sockets) => {
       setChannel(sockets);

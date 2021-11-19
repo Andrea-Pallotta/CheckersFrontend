@@ -21,17 +21,20 @@ const closedMixin = (theme) => ({
   },
 });
 
-const fabStyle = {
+const buttonStyle = {
   position: "absolute",
-  bottom: 30,
-  right: 30,
+  width: "100%",
+  bottom: 0,
+  fontSize: "1.5em",
+  paddingTop: "0.5em",
+  paddingBottom: "0.5em",
 };
 
 const style = {
   openedMixin,
   closedMixin,
-  fabStyle,
+  buttonStyle,
   drawerWidth,
-}
+};
 
 export default style;

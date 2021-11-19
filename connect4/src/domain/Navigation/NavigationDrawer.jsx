@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { AmplifySignOut } from "@aws-amplify/ui-react";
 import { useTheme } from "@mui/material/styles";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -17,10 +17,10 @@ import ChevronRightRoundedIcon from "@mui/icons-material/ChevronRightRounded";
 import ChevronLeftRoundedIcon from "@mui/icons-material/ChevronLeftRounded";
 import BookmarksRoundedIcon from "@mui/icons-material/BookmarksRounded";
 import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
-import Fab from "@mui/material/Fab";
+import { LoadingButton } from "@mui/lab";
 import AddIcon from "@mui/icons-material/Add";
 import Home from "../HomePage/Home";
-import { Button, MenuItem, Tooltip } from "@mui/material";
+import { Button, MenuItem, Modal, Tooltip } from "@mui/material";
 import Menu from "@mui/material/Menu";
 import UserAvatar from "../../components/Avatar/Avatar";
 import PopupState, { bindTrigger, bindMenu } from "material-ui-popup-state";
@@ -29,12 +29,19 @@ import DrawerHeader from "./DrawerHeader";
 import AppBar from "./AppBar";
 import style from "./style/style";
 import { UserContext } from "../../components/API/user";
+import { SocketContext } from "../../components/API/socket";
+import Board from "../Board/Board";
+import { GameContext } from "../../components/Contexts/GameContext";
 
 const NavigationDrawer = () => {
   const theme = useTheme();
   const [open, setOpen] = useState(false);
   const [page, setPage] = useState(0);
+  const [inQueue, setInQueue] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
+  const [gameState, setGameState] = useState();
   const user = useContext(UserContext);
+  const socket = useContext(SocketContext);
 
   const handleOpenDrawer = () => {
     setOpen(true);
@@ -121,7 +128,21 @@ const NavigationDrawer = () => {
     }
   };
 
-  const startGame = () => {};
+  const startGame = (event) => {
+    event.preventDefault();
+    setInQueue(true);
+    socket.emit("join-queue");
+  };
+
+  useEffect(() => {
+    socket.on("start-game", (state) => {
+      if (state) {
+        setInQueue(false);
+        setOpenModal(true);
+      }
+      console.log(state);
+    });
+  }, [socket]);
 
   return (
     <Box sx={{ display: "flex" }}>
@@ -180,15 +201,26 @@ const NavigationDrawer = () => {
         {activePage()}
       </Box>
 
-      <Fab
-        sx={style.fabStyle}
-        aria-label="start"
-        variant="extended"
+      <LoadingButton
+        sx={style.buttonStyle}
         onClick={startGame}
+        startIcon={<AddIcon />}
+        loading={inQueue}
+        loadingPosition="start"
+        variant="contained"
       >
-        <AddIcon sx={{ mr: 1 }} />
-        Start Game
-      </Fab>
+        Find Game
+      </LoadingButton>
+      <Modal
+        open={openModal}
+        onClose={() => setOpenModal(false)}
+        aria-labelledby="keep-mounted-modal-title"
+        aria-describedby="keep-mounted-modal-description"
+      >
+        <GameContext.Provider value={gameState}>
+          <Board />
+        </GameContext.Provider>
+      </Modal>
     </Box>
   );
 };

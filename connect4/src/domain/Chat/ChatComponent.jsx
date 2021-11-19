@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Divider, Fab, Grid, TextField } from "@mui/material";
 import ChatMessages from "./ChatMessages";
 import SendIcon from "@mui/icons-material/Send";

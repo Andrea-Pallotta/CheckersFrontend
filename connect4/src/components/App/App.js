@@ -34,7 +34,11 @@ const App = () => {
 
       if (nextAuthState === AuthState.SignedIn) {
         setAuthState(nextAuthState);
-        enqueueSnackbar("Signed In successfully", {
+        enqueueSnackbar("Successfully retrieved user information", {
+          variant: "success",
+        });
+      } else {
+        enqueueSnackbar("Failed retrieving user information", {
           variant: "success",
         });
       }
