@@ -38,6 +38,7 @@ const NavigationDrawer = () => {
   const [open, setOpen] = useState(false);
   const [page, setPage] = useState(0);
   const [user, setUser] = useState();
+  const [userSocket, setUserSocket] = useState();
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
   const handleUserRetrieval = useCallback(() => {
@@ -193,7 +194,12 @@ const NavigationDrawer = () => {
               </Box>
             </Toolbar>
           </AppBar>
-          <Drawer variant="permanent" open={open} onClick={handleCloseDrawer} theme={theme}>
+          <Drawer
+            variant="permanent"
+            open={open}
+            onClick={handleCloseDrawer}
+            theme={theme}
+          >
             <DrawerHeader theme={theme}>
               <IconButton>
                 {theme.direction === "trl" ? (

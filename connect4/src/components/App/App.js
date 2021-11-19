@@ -18,7 +18,7 @@ const App = () => {
       preventDuplicate
       autoHideDuration={3000}
       action={(key) => {
-        //<Button onClick={dismiss(key)}>'Dimiss'</Button>;
+        return <Button onClick={dismiss(key)}>Dimiss</Button>;
       }}
     >
       <NavigationDrawer />
