@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
@@ -15,24 +15,19 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { Stack } from "@mui/material";
 import { v4 as uuidv4 } from "uuid";
 import Message from "./Message";
+import { UserContext } from "../../components/API/user";
 
 const Chat = (props) => {
-  const { user, global, messages } = props;
+  const { global, messages } = props;
   const [value, setValue] = useState("");
-
-  const members = global.sockets.filter(
-    (socket) => socket.user !== user.username
-  );
+  const user = useContext(UserContext);
+  const members = global.filter((socket) => socket.user !== user.username);
 
   const messageRef = useRef(null);
 
   const scrollToEndMessage = () => {
     messageRef.current.scrollIntoView({ behavior: "smooth" });
   };
-
-  useEffect(() => {
-    props.join();
-  }, []);
 
   useEffect(scrollToEndMessage, [messages]);
 
@@ -51,27 +46,33 @@ const Chat = (props) => {
     );
   });
 
-  const listOfPlayers = members.map((player) => {
-    return (
-      <ListItem button key={uuidv4()}>
-        <ListItemIcon>
-          <AccountCircleIcon />
-        </ListItemIcon>
-        <ListItemText primary={player.user}>{player.user}</ListItemText>
-        <ListItemText secondary="online" align="right"></ListItemText>
-      </ListItem>
-    );
-  });
+  const listOfPlayers = members
+    .filter((el) => {
+      return el.username !== user.username;
+    })
+    .map((player) => {
+      return (
+        <ListItem button key={uuidv4()}>
+          <ListItemIcon>
+            <AccountCircleIcon />
+          </ListItemIcon>
+          <ListItemText primary={player.username}>
+            {player.username}
+          </ListItemText>
+          <ListItemText secondary="online" align="right"></ListItemText>
+        </ListItem>
+      );
+    });
 
   return (
     <Box>
       <Grid container>
         <Stack spacing={1} ml={1} mb={1}>
           <Typography variant="h6" color="theme.primary">
-            {global.name}
+            Public Chat
           </Typography>
           <Typography variant="h7" color="secondary">
-            {global.sockets.length - 1} members online
+            {global.length - 1} members online
           </Typography>
         </Stack>
       </Grid>

@@ -14,10 +14,6 @@ export default function Home() {
   const socket = useContext(SocketContext);
   const user = useContext(UserContext);
 
-  const handleJoinGlobal = () => {
-    socket.emit("global-chat-join", user.username, (ack) => {});
-  };
-
   const handleSendMessage = (message) => {
     console.log("send message called");
     if (message.trim().length > 0) {
@@ -38,29 +34,26 @@ export default function Home() {
   };
 
   useEffect(() => {
-    const handleSocket = () => {
-      socket.on("connection", (id) => {
-        console.log("connected");
-        user["socketId"] = id;
-        enqueueSnackbar("Connected to the socket", {
-          variant: "success",
-        });
-        console.log("sending request to join public chat");
-        socket.emit("join-public-chat", {});
-      });
-
-      socket.on("joined-public-chat", (sockets) => {
-        console.log("test");
-        console.log("sockets", sockets);
-        setChannel(sockets);
-      });
-
-      socket.on("global-message", (message) => {
-        console.log(message);
-        setMessages((previous) => [...previous, message]);
-      });
+    const joinPublicChat = () => {
+      socket.emit("join-public-chat", user.username);
     };
-    handleSocket();
+    socket.on("connection", (id) => {
+      user["socketId"] = id;
+      enqueueSnackbar("Connected to the socket", {
+        variant: "success",
+      });
+      joinPublicChat();
+    });
+
+    socket.on("joined-public-chat", (sockets) => {
+      console.log("sockets", sockets);
+      setChannel(sockets);
+    });
+
+    socket.on("global-message", (message) => {
+      console.log(message);
+      setMessages((previous) => [...previous, message]);
+    });
 
     return () => socket.off("global-message");
   }, [enqueueSnackbar, messages, socket, user]);
@@ -69,9 +62,7 @@ export default function Home() {
     <ErrorBoundary>
       {channel ? (
         <Chat
-          user={user}
           global={channel}
-          join={handleJoinGlobal}
           messages={messages}
           sendMessage={handleSendMessage}
         />

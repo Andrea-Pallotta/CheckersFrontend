@@ -23,7 +23,11 @@ ReactDOM.render(
       preventDuplicate
       autoHideDuration={3000}
       action={(key) => {
-        return <Button onClick={dismiss(key)}>Dimiss</Button>;
+        return (
+          <Button variant="outline" onClick={dismiss(key)}>
+            Dimiss
+          </Button>
+        );
       }}
     >
       <App />

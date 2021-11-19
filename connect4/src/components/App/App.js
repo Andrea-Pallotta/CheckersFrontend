@@ -27,8 +27,10 @@ const App = () => {
         window.sessionStorage.setItem("user", JSON.stringify(userData));
       } else {
         const storageUser = window.sessionStorage.getItem("user");
-        setUser(JSON.parse(storageUser));
-        setSocket(newSocket(storageUser.username, storageUser.accessToken));
+        if (storageUser) {
+          setUser(JSON.parse(storageUser));
+          setSocket(newSocket(storageUser.username, storageUser.accessToken));
+        }
       }
 
       if (nextAuthState === AuthState.SignedIn) {
