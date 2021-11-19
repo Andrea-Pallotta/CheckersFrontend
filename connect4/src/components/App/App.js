@@ -14,27 +14,25 @@ const App = () => {
 
   useEffect(() => {
     return onAuthUIStateChange((nextAuthState, authData) => {
-      setAuthState(nextAuthState);
-
-      const storageUser = window.localStorage.getItem("user");
-      if (storageUser) {
-        setUser(JSON.parse(window.localStorage.getItem("user")));
-        setSocket(newSocket(storageUser.username));
+      if (authData) {
+        console.log("jwt", authData.signInUserSession.accessToken);
+        const userData = {
+          username: authData.username,
+          email: authData.attributes.email,
+          phone_number: authData.attributes.phone_number,
+          accessToken: authData.signInUserSession.accessToken,
+        };
+        setUser(userData);
+        setSocket(newSocket(userData.username, userData.accessToken));
+        window.sessionStorage.setItem("user", JSON.stringify(userData));
       } else {
-        if (authData) {
-          const userData = {
-            username: authData.username,
-            email: authData.attributes.email,
-            phone_number: authData.attributes.phone_number,
-            accessToken: authData.signInUserSession.accessToken,
-          };
-          setUser(userData);
-          window.localStorage.setItem("user", JSON.stringify(userData));
-          setSocket(newSocket(userData.username));
-        }
+        const storageUser = window.sessionStorage.getItem("user");
+        setUser(JSON.parse(storageUser));
+        setSocket(newSocket(storageUser.username, storageUser.accessToken));
       }
 
       if (nextAuthState === AuthState.SignedIn) {
+        setAuthState(nextAuthState);
         enqueueSnackbar("Signed In successfully", {
           variant: "success",
         });
