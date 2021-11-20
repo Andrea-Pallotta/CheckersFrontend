@@ -1,7 +1,5 @@
 const webpack = require("webpack");
 
-const port = process.env.PORT || 3000;
-
 module.exports = {
   mode: "development",
   entry: "./src/index.js",
@@ -36,7 +34,7 @@ module.exports = {
   },
   devServer: {
     host: "localhost",
-    port: port,
+    port: 5050,
     historyApiFallback: true,
     open: true,
   },
