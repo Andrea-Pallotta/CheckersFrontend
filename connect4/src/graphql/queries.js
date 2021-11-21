@@ -36,6 +36,43 @@ export const getUser = /* GraphQL */ `
     }
   }
 `;
+
+export const getUserByUsername = /* GraphQL */ `
+  query GetUser($username: String!) {
+    getUser(username: $username) {
+      id
+      username
+      email
+      phone_number
+      score
+      games {
+        id
+        players
+        state
+        turn
+        roomId
+        messages {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      messages {
+        items {
+          id
+          message
+          type
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+
 export const listUsers = /* GraphQL */ `
   query ListUsers(
     $filter: ModelUserFilterInput

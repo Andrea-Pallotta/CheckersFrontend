@@ -32,6 +32,21 @@ module.exports = {
       },
     ],
   },
+  plugins: [
+    new webpack.EnvironmentPlugin({
+      NODE_ENV: 'production',
+      DEBUG: false,
+    }),
+    // new webpack.DefinePlugin({
+    //   PRODUCTION: JSON.stringify(true),
+    //   VERSION: JSON.stringify(""),
+    //   BROWSER_SUPPORTS_HTML5: true,
+    //   TWO: "1+1",
+    //   "typeof window": JSON.stringify("object"),
+    //   "process.env.NODE_ENV": JSON.stringify(),
+    //   SERVICE_URL: JSON.stringify("http://34.194.193.176:5050"),
+    // }),
+  ],
   devServer: {
     host: "localhost",
     port: 5050,
