@@ -4,7 +4,7 @@ type User @model @key(name: "byUsername", fields: ["username"]) {
   email: String!
   phone_number: String!
   score: Int
-  games: Game
+  game: Game @connection
   messages: [Message!] @connection
 }
 
@@ -19,7 +19,7 @@ type Game @model @key(name: "byRoom", fields: ["roomId"]) {
 
 type Message @model {
   message: String!
-  author: User!
+  author: User! @connection
   type: MessageType!
 }
 

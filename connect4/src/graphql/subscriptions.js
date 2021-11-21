@@ -15,20 +15,10 @@ export const onCreateUser = /* GraphQL */ `
         state
         turn
         roomId
-        messages {
-          nextToken
-        }
         createdAt
         updatedAt
       }
       messages {
-        items {
-          id
-          message
-          type
-          createdAt
-          updatedAt
-        }
         nextToken
       }
       createdAt
@@ -50,20 +40,10 @@ export const onUpdateUser = /* GraphQL */ `
         state
         turn
         roomId
-        messages {
-          nextToken
-        }
         createdAt
         updatedAt
       }
       messages {
-        items {
-          id
-          message
-          type
-          createdAt
-          updatedAt
-        }
         nextToken
       }
       createdAt
@@ -85,20 +65,10 @@ export const onDeleteUser = /* GraphQL */ `
         state
         turn
         roomId
-        messages {
-          nextToken
-        }
         createdAt
         updatedAt
       }
       messages {
-        items {
-          id
-          message
-          type
-          createdAt
-          updatedAt
-        }
         nextToken
       }
       createdAt
@@ -115,13 +85,6 @@ export const onCreateGame = /* GraphQL */ `
       turn
       roomId
       messages {
-        items {
-          id
-          message
-          type
-          createdAt
-          updatedAt
-        }
         nextToken
       }
       createdAt
@@ -138,13 +101,6 @@ export const onUpdateGame = /* GraphQL */ `
       turn
       roomId
       messages {
-        items {
-          id
-          message
-          type
-          createdAt
-          updatedAt
-        }
         nextToken
       }
       createdAt
@@ -161,13 +117,6 @@ export const onDeleteGame = /* GraphQL */ `
       turn
       roomId
       messages {
-        items {
-          id
-          message
-          type
-          createdAt
-          updatedAt
-        }
         nextToken
       }
       createdAt
@@ -186,18 +135,6 @@ export const onCreateMessage = /* GraphQL */ `
         email
         phone_number
         score
-        games {
-          id
-          players
-          state
-          turn
-          roomId
-          createdAt
-          updatedAt
-        }
-        messages {
-          nextToken
-        }
         createdAt
         updatedAt
       }
@@ -218,18 +155,6 @@ export const onUpdateMessage = /* GraphQL */ `
         email
         phone_number
         score
-        games {
-          id
-          players
-          state
-          turn
-          roomId
-          createdAt
-          updatedAt
-        }
-        messages {
-          nextToken
-        }
         createdAt
         updatedAt
       }
@@ -250,18 +175,6 @@ export const onDeleteMessage = /* GraphQL */ `
         email
         phone_number
         score
-        games {
-          id
-          players
-          state
-          turn
-          roomId
-          createdAt
-          updatedAt
-        }
-        messages {
-          nextToken
-        }
         createdAt
         updatedAt
       }

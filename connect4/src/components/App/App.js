@@ -5,8 +5,6 @@ import { useSnackbar, withSnackbar } from "notistack";
 import { SocketContext, newSocket } from "../../components/API/socket";
 import NavigationDrawer from "../../domain/Navigation/NavigationDrawer";
 import { UserContext } from "../API/user";
-import { API } from "aws-amplify";
-import graphql from "../API/graphql";
 
 const App = () => {
   const [authState, setAuthState] = useState();
@@ -25,8 +23,6 @@ const App = () => {
         };
         setUser(userData);
         setSocket(newSocket(userData.username, userData.accessToken));
-        const user = graphql.getUser(userData.username);
-        console.log("user from graphql:", user);
         window.sessionStorage.setItem("user", JSON.stringify(userData));
       } else {
         const storageUser = window.sessionStorage.getItem("user");

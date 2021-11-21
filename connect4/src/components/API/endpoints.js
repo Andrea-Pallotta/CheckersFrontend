@@ -1,6 +1,6 @@
 module.exports = {
   EC2: "http://34.194.193.176:5050",
-  LOCALHOST: "http://127.0.0.1",
+  LOCALHOST: "http://127.0.0.1:5050",
   GLOBAL_CHAT: "GLOBAL_CHAT",
   NEW_GLOBAL_CHAT_MESSAGE: "NEW_GLOBAL_CHAT_MESSAGE",
   SIGN_UP: "SIGN_UP",

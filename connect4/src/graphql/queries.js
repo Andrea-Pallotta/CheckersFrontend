@@ -15,20 +15,10 @@ export const getUser = /* GraphQL */ `
         state
         turn
         roomId
-        messages {
-          nextToken
-        }
         createdAt
         updatedAt
       }
       messages {
-        items {
-          id
-          message
-          type
-          createdAt
-          updatedAt
-        }
         nextToken
       }
       createdAt
@@ -36,43 +26,6 @@ export const getUser = /* GraphQL */ `
     }
   }
 `;
-
-export const getUserByUsername = /* GraphQL */ `
-  query GetUser($username: String!) {
-    getUser(username: $username) {
-      id
-      username
-      email
-      phone_number
-      score
-      games {
-        id
-        players
-        state
-        turn
-        roomId
-        messages {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      messages {
-        items {
-          id
-          message
-          type
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
-      createdAt
-      updatedAt
-    }
-  }
-`;
-
 export const listUsers = /* GraphQL */ `
   query ListUsers(
     $filter: ModelUserFilterInput
@@ -86,18 +39,6 @@ export const listUsers = /* GraphQL */ `
         email
         phone_number
         score
-        games {
-          id
-          players
-          state
-          turn
-          roomId
-          createdAt
-          updatedAt
-        }
-        messages {
-          nextToken
-        }
         createdAt
         updatedAt
       }
@@ -114,13 +55,6 @@ export const getGame = /* GraphQL */ `
       turn
       roomId
       messages {
-        items {
-          id
-          message
-          type
-          createdAt
-          updatedAt
-        }
         nextToken
       }
       createdAt
@@ -141,9 +75,6 @@ export const listGames = /* GraphQL */ `
         state
         turn
         roomId
-        messages {
-          nextToken
-        }
         createdAt
         updatedAt
       }
@@ -162,18 +93,6 @@ export const getMessage = /* GraphQL */ `
         email
         phone_number
         score
-        games {
-          id
-          players
-          state
-          turn
-          roomId
-          createdAt
-          updatedAt
-        }
-        messages {
-          nextToken
-        }
         createdAt
         updatedAt
       }
@@ -193,15 +112,6 @@ export const listMessages = /* GraphQL */ `
       items {
         id
         message
-        author {
-          id
-          username
-          email
-          phone_number
-          score
-          createdAt
-          updatedAt
-        }
         type
         createdAt
         updatedAt
