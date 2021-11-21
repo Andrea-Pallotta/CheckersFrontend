@@ -1,40 +1,23 @@
-type User
-  @model
-  @aws_cognito_user_pools
-  @auth(rules: [{ allow: owner, operations: [create, update, read] }]) {
+type User @model @key(name: "byUsername", fields: ["username"]) {
   id: ID!
   username: String!
   email: String!
   phone_number: String!
   score: Int
-  games: [Game!]!
-  messages: [Message!]
+  games: Game
+  messages: [Message!] @connection
 }
 
-type Game
-  @model
-  @aws_cognito_user_pools
-  @auth(rules: [{ allow: owner, operations: [create, update, read] }]) {
+type Game @model @key(name: "byRoom", fields: ["roomId"]) {
   id: ID!
-  players: [User!]!
-  winner: User
-  state: [Column!]!
+  players: [ID!]!
+  state: [[Int!]!]
   turn: Int
-  messages: [Message!]
+  roomId: Int!
+  messages: [Message!] @connection
 }
 
-type Column {
-  id: ID!
-  cells: [Cell!]!
-}
-
-type Cell {
-  id: ID!
-  state: Int!
-}
-
-type Message @model @aws_cognito_user_pools @auth(rules: [{ allow: owner }]) {
-  id: ID!
+type Message @model {
   message: String!
   author: User!
   type: MessageType!

@@ -11,63 +11,28 @@ export const getUser = /* GraphQL */ `
       score
       games {
         id
-        players {
-          id
-          username
-          email
-          phone_number
-          score
-          createdAt
-          updatedAt
-          owner
-        }
-        winner {
-          id
-          username
-          email
-          phone_number
-          score
-          createdAt
-          updatedAt
-          owner
-        }
-        state {
-          id
-        }
+        players
+        state
         turn
+        roomId
         messages {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      messages {
+        items {
           id
           message
           type
           createdAt
           updatedAt
-          owner
         }
-        createdAt
-        updatedAt
-        owner
-      }
-      messages {
-        id
-        message
-        author {
-          id
-          username
-          email
-          phone_number
-          score
-          createdAt
-          updatedAt
-          owner
-        }
-        type
-        createdAt
-        updatedAt
-        owner
+        nextToken
       }
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -86,22 +51,18 @@ export const listUsers = /* GraphQL */ `
         score
         games {
           id
+          players
+          state
           turn
+          roomId
           createdAt
           updatedAt
-          owner
         }
         messages {
-          id
-          message
-          type
-          createdAt
-          updatedAt
-          owner
+          nextToken
         }
         createdAt
         updatedAt
-        owner
       }
       nextToken
     }
@@ -111,85 +72,22 @@ export const getGame = /* GraphQL */ `
   query GetGame($id: ID!) {
     getGame(id: $id) {
       id
-      players {
-        id
-        username
-        email
-        phone_number
-        score
-        games {
-          id
-          turn
-          createdAt
-          updatedAt
-          owner
-        }
-        messages {
-          id
-          message
-          type
-          createdAt
-          updatedAt
-          owner
-        }
-        createdAt
-        updatedAt
-        owner
-      }
-      winner {
-        id
-        username
-        email
-        phone_number
-        score
-        games {
-          id
-          turn
-          createdAt
-          updatedAt
-          owner
-        }
-        messages {
-          id
-          message
-          type
-          createdAt
-          updatedAt
-          owner
-        }
-        createdAt
-        updatedAt
-        owner
-      }
-      state {
-        id
-        cells {
-          id
-          state
-        }
-      }
+      players
+      state
       turn
+      roomId
       messages {
-        id
-        message
-        author {
+        items {
           id
-          username
-          email
-          phone_number
-          score
+          message
+          type
           createdAt
           updatedAt
-          owner
         }
-        type
-        createdAt
-        updatedAt
-        owner
+        nextToken
       }
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -202,41 +100,15 @@ export const listGames = /* GraphQL */ `
     listGames(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
-        players {
-          id
-          username
-          email
-          phone_number
-          score
-          createdAt
-          updatedAt
-          owner
-        }
-        winner {
-          id
-          username
-          email
-          phone_number
-          score
-          createdAt
-          updatedAt
-          owner
-        }
-        state {
-          id
-        }
+        players
+        state
         turn
+        roomId
         messages {
-          id
-          message
-          type
-          createdAt
-          updatedAt
-          owner
+          nextToken
         }
         createdAt
         updatedAt
-        owner
       }
       nextToken
     }
@@ -255,27 +127,22 @@ export const getMessage = /* GraphQL */ `
         score
         games {
           id
+          players
+          state
           turn
+          roomId
           createdAt
           updatedAt
-          owner
         }
         messages {
-          id
-          message
-          type
-          createdAt
-          updatedAt
-          owner
+          nextToken
         }
         createdAt
         updatedAt
-        owner
       }
       type
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -297,12 +164,10 @@ export const listMessages = /* GraphQL */ `
           score
           createdAt
           updatedAt
-          owner
         }
         type
         createdAt
         updatedAt
-        owner
       }
       nextToken
     }

@@ -14,63 +14,28 @@ export const createUser = /* GraphQL */ `
       score
       games {
         id
-        players {
-          id
-          username
-          email
-          phone_number
-          score
-          createdAt
-          updatedAt
-          owner
-        }
-        winner {
-          id
-          username
-          email
-          phone_number
-          score
-          createdAt
-          updatedAt
-          owner
-        }
-        state {
-          id
-        }
+        players
+        state
         turn
+        roomId
         messages {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      messages {
+        items {
           id
           message
           type
           createdAt
           updatedAt
-          owner
         }
-        createdAt
-        updatedAt
-        owner
-      }
-      messages {
-        id
-        message
-        author {
-          id
-          username
-          email
-          phone_number
-          score
-          createdAt
-          updatedAt
-          owner
-        }
-        type
-        createdAt
-        updatedAt
-        owner
+        nextToken
       }
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -87,63 +52,28 @@ export const updateUser = /* GraphQL */ `
       score
       games {
         id
-        players {
-          id
-          username
-          email
-          phone_number
-          score
-          createdAt
-          updatedAt
-          owner
-        }
-        winner {
-          id
-          username
-          email
-          phone_number
-          score
-          createdAt
-          updatedAt
-          owner
-        }
-        state {
-          id
-        }
+        players
+        state
         turn
+        roomId
         messages {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      messages {
+        items {
           id
           message
           type
           createdAt
           updatedAt
-          owner
         }
-        createdAt
-        updatedAt
-        owner
-      }
-      messages {
-        id
-        message
-        author {
-          id
-          username
-          email
-          phone_number
-          score
-          createdAt
-          updatedAt
-          owner
-        }
-        type
-        createdAt
-        updatedAt
-        owner
+        nextToken
       }
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -160,63 +90,28 @@ export const deleteUser = /* GraphQL */ `
       score
       games {
         id
-        players {
-          id
-          username
-          email
-          phone_number
-          score
-          createdAt
-          updatedAt
-          owner
-        }
-        winner {
-          id
-          username
-          email
-          phone_number
-          score
-          createdAt
-          updatedAt
-          owner
-        }
-        state {
-          id
-        }
+        players
+        state
         turn
+        roomId
         messages {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      messages {
+        items {
           id
           message
           type
           createdAt
           updatedAt
-          owner
         }
-        createdAt
-        updatedAt
-        owner
-      }
-      messages {
-        id
-        message
-        author {
-          id
-          username
-          email
-          phone_number
-          score
-          createdAt
-          updatedAt
-          owner
-        }
-        type
-        createdAt
-        updatedAt
-        owner
+        nextToken
       }
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -227,85 +122,22 @@ export const createGame = /* GraphQL */ `
   ) {
     createGame(input: $input, condition: $condition) {
       id
-      players {
-        id
-        username
-        email
-        phone_number
-        score
-        games {
-          id
-          turn
-          createdAt
-          updatedAt
-          owner
-        }
-        messages {
-          id
-          message
-          type
-          createdAt
-          updatedAt
-          owner
-        }
-        createdAt
-        updatedAt
-        owner
-      }
-      winner {
-        id
-        username
-        email
-        phone_number
-        score
-        games {
-          id
-          turn
-          createdAt
-          updatedAt
-          owner
-        }
-        messages {
-          id
-          message
-          type
-          createdAt
-          updatedAt
-          owner
-        }
-        createdAt
-        updatedAt
-        owner
-      }
-      state {
-        id
-        cells {
-          id
-          state
-        }
-      }
+      players
+      state
       turn
+      roomId
       messages {
-        id
-        message
-        author {
+        items {
           id
-          username
-          email
-          phone_number
-          score
+          message
+          type
           createdAt
           updatedAt
-          owner
         }
-        type
-        createdAt
-        updatedAt
-        owner
+        nextToken
       }
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -316,85 +148,22 @@ export const updateGame = /* GraphQL */ `
   ) {
     updateGame(input: $input, condition: $condition) {
       id
-      players {
-        id
-        username
-        email
-        phone_number
-        score
-        games {
-          id
-          turn
-          createdAt
-          updatedAt
-          owner
-        }
-        messages {
-          id
-          message
-          type
-          createdAt
-          updatedAt
-          owner
-        }
-        createdAt
-        updatedAt
-        owner
-      }
-      winner {
-        id
-        username
-        email
-        phone_number
-        score
-        games {
-          id
-          turn
-          createdAt
-          updatedAt
-          owner
-        }
-        messages {
-          id
-          message
-          type
-          createdAt
-          updatedAt
-          owner
-        }
-        createdAt
-        updatedAt
-        owner
-      }
-      state {
-        id
-        cells {
-          id
-          state
-        }
-      }
+      players
+      state
       turn
+      roomId
       messages {
-        id
-        message
-        author {
+        items {
           id
-          username
-          email
-          phone_number
-          score
+          message
+          type
           createdAt
           updatedAt
-          owner
         }
-        type
-        createdAt
-        updatedAt
-        owner
+        nextToken
       }
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -405,85 +174,22 @@ export const deleteGame = /* GraphQL */ `
   ) {
     deleteGame(input: $input, condition: $condition) {
       id
-      players {
-        id
-        username
-        email
-        phone_number
-        score
-        games {
-          id
-          turn
-          createdAt
-          updatedAt
-          owner
-        }
-        messages {
-          id
-          message
-          type
-          createdAt
-          updatedAt
-          owner
-        }
-        createdAt
-        updatedAt
-        owner
-      }
-      winner {
-        id
-        username
-        email
-        phone_number
-        score
-        games {
-          id
-          turn
-          createdAt
-          updatedAt
-          owner
-        }
-        messages {
-          id
-          message
-          type
-          createdAt
-          updatedAt
-          owner
-        }
-        createdAt
-        updatedAt
-        owner
-      }
-      state {
-        id
-        cells {
-          id
-          state
-        }
-      }
+      players
+      state
       turn
+      roomId
       messages {
-        id
-        message
-        author {
+        items {
           id
-          username
-          email
-          phone_number
-          score
+          message
+          type
           createdAt
           updatedAt
-          owner
         }
-        type
-        createdAt
-        updatedAt
-        owner
+        nextToken
       }
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -503,27 +209,22 @@ export const createMessage = /* GraphQL */ `
         score
         games {
           id
+          players
+          state
           turn
+          roomId
           createdAt
           updatedAt
-          owner
         }
         messages {
-          id
-          message
-          type
-          createdAt
-          updatedAt
-          owner
+          nextToken
         }
         createdAt
         updatedAt
-        owner
       }
       type
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -543,27 +244,22 @@ export const updateMessage = /* GraphQL */ `
         score
         games {
           id
+          players
+          state
           turn
+          roomId
           createdAt
           updatedAt
-          owner
         }
         messages {
-          id
-          message
-          type
-          createdAt
-          updatedAt
-          owner
+          nextToken
         }
         createdAt
         updatedAt
-        owner
       }
       type
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -583,27 +279,22 @@ export const deleteMessage = /* GraphQL */ `
         score
         games {
           id
+          players
+          state
           turn
+          roomId
           createdAt
           updatedAt
-          owner
         }
         messages {
-          id
-          message
-          type
-          createdAt
-          updatedAt
-          owner
+          nextToken
         }
         createdAt
         updatedAt
-        owner
       }
       type
       createdAt
       updatedAt
-      owner
     }
   }
 `;

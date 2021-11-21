@@ -2,8 +2,8 @@
 // this is an auto generated file. This will be overwritten
 
 export const onCreateUser = /* GraphQL */ `
-  subscription OnCreateUser($owner: String!) {
-    onCreateUser(owner: $owner) {
+  subscription OnCreateUser {
+    onCreateUser {
       id
       username
       email
@@ -11,69 +11,34 @@ export const onCreateUser = /* GraphQL */ `
       score
       games {
         id
-        players {
-          id
-          username
-          email
-          phone_number
-          score
-          createdAt
-          updatedAt
-          owner
-        }
-        winner {
-          id
-          username
-          email
-          phone_number
-          score
-          createdAt
-          updatedAt
-          owner
-        }
-        state {
-          id
-        }
+        players
+        state
         turn
+        roomId
         messages {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      messages {
+        items {
           id
           message
           type
           createdAt
           updatedAt
-          owner
         }
-        createdAt
-        updatedAt
-        owner
-      }
-      messages {
-        id
-        message
-        author {
-          id
-          username
-          email
-          phone_number
-          score
-          createdAt
-          updatedAt
-          owner
-        }
-        type
-        createdAt
-        updatedAt
-        owner
+        nextToken
       }
       createdAt
       updatedAt
-      owner
     }
   }
 `;
 export const onUpdateUser = /* GraphQL */ `
-  subscription OnUpdateUser($owner: String!) {
-    onUpdateUser(owner: $owner) {
+  subscription OnUpdateUser {
+    onUpdateUser {
       id
       username
       email
@@ -81,69 +46,34 @@ export const onUpdateUser = /* GraphQL */ `
       score
       games {
         id
-        players {
-          id
-          username
-          email
-          phone_number
-          score
-          createdAt
-          updatedAt
-          owner
-        }
-        winner {
-          id
-          username
-          email
-          phone_number
-          score
-          createdAt
-          updatedAt
-          owner
-        }
-        state {
-          id
-        }
+        players
+        state
         turn
+        roomId
         messages {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      messages {
+        items {
           id
           message
           type
           createdAt
           updatedAt
-          owner
         }
-        createdAt
-        updatedAt
-        owner
-      }
-      messages {
-        id
-        message
-        author {
-          id
-          username
-          email
-          phone_number
-          score
-          createdAt
-          updatedAt
-          owner
-        }
-        type
-        createdAt
-        updatedAt
-        owner
+        nextToken
       }
       createdAt
       updatedAt
-      owner
     }
   }
 `;
 export const onDeleteUser = /* GraphQL */ `
-  subscription OnDeleteUser($owner: String!) {
-    onDeleteUser(owner: $owner) {
+  subscription OnDeleteUser {
+    onDeleteUser {
       id
       username
       email
@@ -151,327 +81,103 @@ export const onDeleteUser = /* GraphQL */ `
       score
       games {
         id
-        players {
-          id
-          username
-          email
-          phone_number
-          score
-          createdAt
-          updatedAt
-          owner
-        }
-        winner {
-          id
-          username
-          email
-          phone_number
-          score
-          createdAt
-          updatedAt
-          owner
-        }
-        state {
-          id
-        }
+        players
+        state
         turn
+        roomId
         messages {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      messages {
+        items {
           id
           message
           type
           createdAt
           updatedAt
-          owner
         }
-        createdAt
-        updatedAt
-        owner
-      }
-      messages {
-        id
-        message
-        author {
-          id
-          username
-          email
-          phone_number
-          score
-          createdAt
-          updatedAt
-          owner
-        }
-        type
-        createdAt
-        updatedAt
-        owner
+        nextToken
       }
       createdAt
       updatedAt
-      owner
     }
   }
 `;
 export const onCreateGame = /* GraphQL */ `
-  subscription OnCreateGame($owner: String!) {
-    onCreateGame(owner: $owner) {
+  subscription OnCreateGame {
+    onCreateGame {
       id
-      players {
-        id
-        username
-        email
-        phone_number
-        score
-        games {
-          id
-          turn
-          createdAt
-          updatedAt
-          owner
-        }
-        messages {
-          id
-          message
-          type
-          createdAt
-          updatedAt
-          owner
-        }
-        createdAt
-        updatedAt
-        owner
-      }
-      winner {
-        id
-        username
-        email
-        phone_number
-        score
-        games {
-          id
-          turn
-          createdAt
-          updatedAt
-          owner
-        }
-        messages {
-          id
-          message
-          type
-          createdAt
-          updatedAt
-          owner
-        }
-        createdAt
-        updatedAt
-        owner
-      }
-      state {
-        id
-        cells {
-          id
-          state
-        }
-      }
+      players
+      state
       turn
+      roomId
       messages {
-        id
-        message
-        author {
+        items {
           id
-          username
-          email
-          phone_number
-          score
+          message
+          type
           createdAt
           updatedAt
-          owner
         }
-        type
-        createdAt
-        updatedAt
-        owner
+        nextToken
       }
       createdAt
       updatedAt
-      owner
     }
   }
 `;
 export const onUpdateGame = /* GraphQL */ `
-  subscription OnUpdateGame($owner: String!) {
-    onUpdateGame(owner: $owner) {
+  subscription OnUpdateGame {
+    onUpdateGame {
       id
-      players {
-        id
-        username
-        email
-        phone_number
-        score
-        games {
-          id
-          turn
-          createdAt
-          updatedAt
-          owner
-        }
-        messages {
-          id
-          message
-          type
-          createdAt
-          updatedAt
-          owner
-        }
-        createdAt
-        updatedAt
-        owner
-      }
-      winner {
-        id
-        username
-        email
-        phone_number
-        score
-        games {
-          id
-          turn
-          createdAt
-          updatedAt
-          owner
-        }
-        messages {
-          id
-          message
-          type
-          createdAt
-          updatedAt
-          owner
-        }
-        createdAt
-        updatedAt
-        owner
-      }
-      state {
-        id
-        cells {
-          id
-          state
-        }
-      }
+      players
+      state
       turn
+      roomId
       messages {
-        id
-        message
-        author {
+        items {
           id
-          username
-          email
-          phone_number
-          score
+          message
+          type
           createdAt
           updatedAt
-          owner
         }
-        type
-        createdAt
-        updatedAt
-        owner
+        nextToken
       }
       createdAt
       updatedAt
-      owner
     }
   }
 `;
 export const onDeleteGame = /* GraphQL */ `
-  subscription OnDeleteGame($owner: String!) {
-    onDeleteGame(owner: $owner) {
+  subscription OnDeleteGame {
+    onDeleteGame {
       id
-      players {
-        id
-        username
-        email
-        phone_number
-        score
-        games {
-          id
-          turn
-          createdAt
-          updatedAt
-          owner
-        }
-        messages {
-          id
-          message
-          type
-          createdAt
-          updatedAt
-          owner
-        }
-        createdAt
-        updatedAt
-        owner
-      }
-      winner {
-        id
-        username
-        email
-        phone_number
-        score
-        games {
-          id
-          turn
-          createdAt
-          updatedAt
-          owner
-        }
-        messages {
-          id
-          message
-          type
-          createdAt
-          updatedAt
-          owner
-        }
-        createdAt
-        updatedAt
-        owner
-      }
-      state {
-        id
-        cells {
-          id
-          state
-        }
-      }
+      players
+      state
       turn
+      roomId
       messages {
-        id
-        message
-        author {
+        items {
           id
-          username
-          email
-          phone_number
-          score
+          message
+          type
           createdAt
           updatedAt
-          owner
         }
-        type
-        createdAt
-        updatedAt
-        owner
+        nextToken
       }
       createdAt
       updatedAt
-      owner
     }
   }
 `;
 export const onCreateMessage = /* GraphQL */ `
-  subscription OnCreateMessage($owner: String!) {
-    onCreateMessage(owner: $owner) {
+  subscription OnCreateMessage {
+    onCreateMessage {
       id
       message
       author {
@@ -482,33 +188,28 @@ export const onCreateMessage = /* GraphQL */ `
         score
         games {
           id
+          players
+          state
           turn
+          roomId
           createdAt
           updatedAt
-          owner
         }
         messages {
-          id
-          message
-          type
-          createdAt
-          updatedAt
-          owner
+          nextToken
         }
         createdAt
         updatedAt
-        owner
       }
       type
       createdAt
       updatedAt
-      owner
     }
   }
 `;
 export const onUpdateMessage = /* GraphQL */ `
-  subscription OnUpdateMessage($owner: String!) {
-    onUpdateMessage(owner: $owner) {
+  subscription OnUpdateMessage {
+    onUpdateMessage {
       id
       message
       author {
@@ -519,33 +220,28 @@ export const onUpdateMessage = /* GraphQL */ `
         score
         games {
           id
+          players
+          state
           turn
+          roomId
           createdAt
           updatedAt
-          owner
         }
         messages {
-          id
-          message
-          type
-          createdAt
-          updatedAt
-          owner
+          nextToken
         }
         createdAt
         updatedAt
-        owner
       }
       type
       createdAt
       updatedAt
-      owner
     }
   }
 `;
 export const onDeleteMessage = /* GraphQL */ `
-  subscription OnDeleteMessage($owner: String!) {
-    onDeleteMessage(owner: $owner) {
+  subscription OnDeleteMessage {
+    onDeleteMessage {
       id
       message
       author {
@@ -556,27 +252,22 @@ export const onDeleteMessage = /* GraphQL */ `
         score
         games {
           id
+          players
+          state
           turn
+          roomId
           createdAt
           updatedAt
-          owner
         }
         messages {
-          id
-          message
-          type
-          createdAt
-          updatedAt
-          owner
+          nextToken
         }
         createdAt
         updatedAt
-        owner
       }
       type
       createdAt
       updatedAt
-      owner
     }
   }
 `;
