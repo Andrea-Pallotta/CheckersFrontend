@@ -1,10 +1,10 @@
-import React from "react";
-import Typography from "@mui/material/Typography";
+import React from 'react';
+import Typography from '@mui/material/Typography';
 
 export default class ErrorBoundary extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { hasError: false, info: "", error: "" };
+    this.state = { hasError: false, info: '', error: '' };
   }
 
   static getDerivedStateFromError(error) {
@@ -20,7 +20,7 @@ export default class ErrorBoundary extends React.Component {
   render() {
     if (this.state.hasError) {
       return (
-        <Typography variant="h6" color="primary">
+        <Typography variant='h6' color='primary'>
           {this.state.error} - {this.state.info}
         </Typography>
       );

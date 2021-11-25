@@ -1,13 +1,13 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState } from 'react';
 //import { styled } from "@mui/material/styles";
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
-import MoreHorizRoundedIcon from "@mui/icons-material/MoreHorizRounded";
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import MoreHorizRoundedIcon from '@mui/icons-material/MoreHorizRounded';
 // import GamepadRoundedIcon from "@mui/icons-material/GamepadRounded";
 // import MessageRoundedIcon from "@mui/icons-material/MessageRounded";
-import Stack from "@mui/material/Stack";
-import UserAvatar from "../../components/Avatar/Avatar";
-import { UserContext } from "../../components/API/user";
+import Stack from '@mui/material/Stack';
+import UserAvatar from '../../components/Avatar/Avatar';
+import { UserContext } from '../../components/API/user';
 //import { ListItem, SpeedDial } from "@mui/material";
 
 // const StyledSpeedDial = styled(SpeedDial)(({ theme }) => ({
@@ -35,7 +35,7 @@ export default function Message({ author, message, time }) {
           <MessageReceived author={author} message={message} time={time} />
         </Stack>
       ) : (
-        <Stack justifyContent="flex-end" alignItems="flex-end">
+        <Stack justifyContent='flex-end' alignItems='flex-end'>
           <MessageSent message={message} time={time} />
         </Stack>
       )}
@@ -49,7 +49,7 @@ function MessageReceived({ author, message, time }) {
 
   return (
     <Box
-      sx={{ p: 2, display: "flex" }}
+      sx={{ p: 2, display: 'flex' }}
       onMouseEnter={() => {
         setHover(true);
       }}
@@ -61,21 +61,21 @@ function MessageReceived({ author, message, time }) {
         <UserAvatar
           name={author}
           busy={true}
-          style={{ width: 36, height: 36, boxShadow: "0 0 0 2px lightgray" }}
+          style={{ width: 36, height: 36, boxShadow: '0 0 0 2px lightgray' }}
         />
         {/* <Typography variant="caption" color="text.secondary" ml={0.5}>
           {author}
         </Typography> */}
       </Stack>
-      <Stack spacing={0.5} sx={{ backgroundColor: "#E0" }} mr>
-        <Typography fontWeight={500} color="text.primary">
+      <Stack spacing={0.5} sx={{ backgroundColor: '#E0' }} mr>
+        <Typography fontWeight={500} color='text.primary'>
           {message}
         </Typography>
-        <Typography variant="body2" color="text.secondary">
+        <Typography variant='body2' color='text.secondary'>
           {time}
         </Typography>
       </Stack>
-      <MoreHorizRoundedIcon style={{ display: hover ? "block" : "none" }} />
+      <MoreHorizRoundedIcon style={{ display: hover ? 'block' : 'none' }} />
       {/* <SpeedDial
         ariaLabel="Chat user SpeedDial"
         hidden={hidden}
@@ -93,17 +93,17 @@ function MessageSent({ message, time }) {
     <Box
       sx={{
         p: 2,
-        display: "flex",
-        alignItems: "right",
-        justifyContent: "right",
+        display: 'flex',
+        alignItems: 'right',
+        justifyContent: 'right',
       }}
-      ml="auto"
+      ml='auto'
     >
-      <Stack spacing={0.5} sx={{ backgroundColor: "#E0" }} paddingRight={3}>
-        <Typography fontWeight={500} color="text.primary">
+      <Stack spacing={0.5} sx={{ backgroundColor: '#E0' }} paddingRight={3}>
+        <Typography fontWeight={500} color='text.primary'>
           {message}
         </Typography>
-        <Typography variant="body2" color="text.secondary">
+        <Typography variant='body2' color='text.secondary'>
           {time}
         </Typography>
       </Stack>
@@ -111,9 +111,9 @@ function MessageSent({ message, time }) {
       <Stack>
         <UserAvatar
           name={user.username}
-          style={{ width: 36, height: 36, boxShadow: "0 0 0 2px lightgray" }}
+          style={{ width: 36, height: 36, boxShadow: '0 0 0 2px lightgray' }}
         />
-        <Typography variant="caption" color="text.secondary"></Typography>
+        <Typography variant='caption' color='text.secondary'></Typography>
       </Stack>
     </Box>
   );

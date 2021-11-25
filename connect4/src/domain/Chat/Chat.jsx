@@ -1,17 +1,17 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
-import Paper from "@mui/material/Paper";
-import Box from "@mui/material/Box";
-import Grid from "@mui/material/Grid";
-import ListItem from "@mui/material/ListItem";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import { SocketContext } from "../../components/API/socket";
-import { v4 as uuidv4 } from "uuid";
-import { UserContext } from "../../components/API/user";
-import UserList from "../../components/Lists/UserList";
-import ChatLabel from "../../components/Labels/ChatLabel";
-import ChatComponent from "./ChatComponent";
+import React, { useContext, useEffect, useRef, useState } from 'react';
+import Paper from '@mui/material/Paper';
+import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
+import ListItem from '@mui/material/ListItem';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import { SocketContext } from '../../components/API/socket';
+import { v4 as uuidv4 } from 'uuid';
+import { UserContext } from '../../components/API/user';
+import UserList from '../../components/Lists/UserList';
+import ChatLabel from '../../components/Labels/ChatLabel';
+import ChatComponent from './ChatComponent';
 
 const Chat = (props) => {
   const { global } = props;
@@ -22,13 +22,13 @@ const Chat = (props) => {
   const messageRef = useRef(null);
 
   const scrollToEndMessage = () => {
-    messageRef.current.scrollIntoView({ behavior: "smooth" });
+    messageRef.current.scrollIntoView({ behavior: 'smooth' });
   };
 
   useEffect(scrollToEndMessage, [messages]);
 
   useEffect(() => {
-    socket.on("send-message", (message) => {
+    socket.on('send-message', (message) => {
       setMessages((prev) => [...prev, message]);
     });
   }, [socket, user.username]);
@@ -46,7 +46,7 @@ const Chat = (props) => {
           <ListItemText primary={player.username}>
             {player.username}
           </ListItemText>
-          <ListItemText secondary="online" align="right"></ListItemText>
+          <ListItemText secondary='online' align='right'></ListItemText>
         </ListItem>
       );
     });
@@ -57,13 +57,13 @@ const Chat = (props) => {
       <Grid
         container
         component={Paper}
-        style={{ width: "100%", height: "77vh" }}
+        style={{ width: '100%', height: '77vh' }}
       >
         <UserList list={listOfPlayers} />
 
         <ChatComponent
           messages={messages}
-          to="public-message"
+          to='public-message'
           messageRef={messageRef}
         />
       </Grid>

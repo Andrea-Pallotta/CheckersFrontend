@@ -1,21 +1,21 @@
-import { styled } from "@mui/system";
-import MuiDrawer from "@mui/material/Drawer";
-import style from "./style/style";
+import { styled } from '@mui/system';
+import MuiDrawer from '@mui/material/Drawer';
+import style from './style/style';
 
 const Drawer = styled(MuiDrawer, {
-  shouldForwardProp: (prop) => prop !== "open",
+  shouldForwardProp: (prop) => prop !== 'open',
 })(({ theme, open }) => ({
   width: style.drawerWidth,
   flexShrink: 0,
-  whiteSpace: "nowrap",
-  boxSizing: "border-box",
+  whiteSpace: 'nowrap',
+  boxSizing: 'border-box',
   ...(open && {
     ...style.openedMixin(theme),
-    "& .MuiDrawer-paper": style.openedMixin(theme),
+    '& .MuiDrawer-paper': style.openedMixin(theme),
   }),
   ...(!open && {
     ...style.closedMixin(theme),
-    "& .MuiDrawer-paper": style.closedMixin(theme),
+    '& .MuiDrawer-paper': style.closedMixin(theme),
   }),
 }));
 

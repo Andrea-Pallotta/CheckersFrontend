@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
-import { AmplifyAuthenticator } from "@aws-amplify/ui-react";
-import { AuthState, onAuthUIStateChange } from "@aws-amplify/ui-components";
-import { useSnackbar, withSnackbar } from "notistack";
-import { SocketContext, newSocket } from "../../components/API/socket";
-import NavigationDrawer from "../../domain/Navigation/NavigationDrawer";
-import { UserContext } from "../API/user";
+import React, { useState, useEffect } from 'react';
+import { AmplifyAuthenticator } from '@aws-amplify/ui-react';
+import { AuthState, onAuthUIStateChange } from '@aws-amplify/ui-components';
+import { useSnackbar, withSnackbar } from 'notistack';
+import { SocketContext, newSocket } from '../../components/API/socket';
+import NavigationDrawer from '../../domain/Navigation/NavigationDrawer';
+import { UserContext } from '../API/user';
 
 const App = () => {
   const [authState, setAuthState] = useState();
@@ -23,9 +23,9 @@ const App = () => {
         };
         setUser(userData);
         setSocket(newSocket(userData.username, userData.accessToken));
-        window.sessionStorage.setItem("user", JSON.stringify(userData));
+        window.sessionStorage.setItem('user', JSON.stringify(userData));
       } else {
-        const storageUser = window.sessionStorage.getItem("user");
+        const storageUser = window.sessionStorage.getItem('user');
         if (storageUser) {
           setUser(JSON.parse(storageUser));
           setSocket(newSocket(storageUser.username, storageUser.accessToken));
@@ -34,12 +34,12 @@ const App = () => {
 
       if (nextAuthState === AuthState.SignedIn) {
         setAuthState(nextAuthState);
-        enqueueSnackbar("Successfully retrieved user information", {
-          variant: "success",
+        enqueueSnackbar('Successfully retrieved user information', {
+          variant: 'success',
         });
       } else {
-        enqueueSnackbar("Failed retrieving user information", {
-          variant: "success",
+        enqueueSnackbar('Failed retrieving user information', {
+          variant: 'success',
         });
       }
     });

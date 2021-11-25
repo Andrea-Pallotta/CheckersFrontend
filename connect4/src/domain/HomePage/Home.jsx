@@ -1,10 +1,10 @@
-import React, { useState, useEffect, useContext } from "react";
-import Chat from "../Chat/Chat";
-import { useSnackbar } from "notistack";
-import { SocketContext } from "../../components/API/socket";
-import { CircularProgress } from "@mui/material";
-import ErrorBoundary from "../Error/ErrorBoundary";
-import { UserContext } from "../../components/API/user";
+import React, { useState, useEffect, useContext } from 'react';
+import Chat from '../Chat/Chat';
+import { useSnackbar } from 'notistack';
+import { SocketContext } from '../../components/API/socket';
+import { CircularProgress } from '@mui/material';
+import ErrorBoundary from '../Error/ErrorBoundary';
+import { UserContext } from '../../components/API/user';
 
 export default function Home() {
   const [channel, setChannel] = useState();
@@ -15,26 +15,26 @@ export default function Home() {
 
   useEffect(() => {
     const joinPublicChat = () => {
-      socket.emit("join-public-chat", user.username);
+      socket.emit('join-public-chat', user.username);
     };
     try {
-      socket.on("connection", (id) => {
-        user["socketId"] = id;
-        enqueueSnackbar("Successfully connected to the server", {
-          variant: "success",
+      socket.on('connection', (id) => {
+        user['socketId'] = id;
+        enqueueSnackbar('Successfully connected to the server', {
+          variant: 'success',
         });
         joinPublicChat();
       });
     } catch {
-      enqueueSnackbar("Error connection to the server", {
-        variant: "success",
+      enqueueSnackbar('Error connection to the server', {
+        variant: 'success',
       });
     }
 
-    socket.on("joined-public-chat", (sockets) => {
+    socket.on('joined-public-chat', (sockets) => {
       setChannel(sockets);
     });
-    return () => socket.off("global-message");
+    return () => socket.off('global-message');
   }, [enqueueSnackbar, socket, user]);
 
   return (

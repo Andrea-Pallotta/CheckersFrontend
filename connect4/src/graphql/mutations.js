@@ -12,7 +12,7 @@ export const createUser = /* GraphQL */ `
       email
       phone_number
       score
-      games {
+      game {
         id
         players
         state
@@ -40,7 +40,7 @@ export const updateUser = /* GraphQL */ `
       email
       phone_number
       score
-      games {
+      game {
         id
         players
         state
@@ -68,7 +68,7 @@ export const deleteUser = /* GraphQL */ `
       email
       phone_number
       score
-      games {
+      game {
         id
         players
         state

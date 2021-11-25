@@ -281,7 +281,7 @@
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "games",
+          "name" : "game",
           "description" : null,
           "args" : [ ],
           "type" : {
@@ -1985,6 +1985,15 @@
             "ofType" : null
           },
           "defaultValue" : null
+        }, {
+          "name" : "userGameId",
+          "description" : null,
+          "type" : {
+            "kind" : "SCALAR",
+            "name" : "ID",
+            "ofType" : null
+          },
+          "defaultValue" : null
         } ],
         "interfaces" : null,
         "enumValues" : null,
@@ -2120,6 +2129,15 @@
           "type" : {
             "kind" : "SCALAR",
             "name" : "Int",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "userGameId",
+          "description" : null,
+          "type" : {
+            "kind" : "SCALAR",
+            "name" : "ID",
             "ofType" : null
           },
           "defaultValue" : null
@@ -2477,6 +2495,19 @@
             "ofType" : null
           },
           "defaultValue" : null
+        }, {
+          "name" : "messageAuthorId",
+          "description" : null,
+          "type" : {
+            "kind" : "NON_NULL",
+            "name" : null,
+            "ofType" : {
+              "kind" : "SCALAR",
+              "name" : "ID",
+              "ofType" : null
+            }
+          },
+          "defaultValue" : null
         } ],
         "interfaces" : null,
         "enumValues" : null,
@@ -2577,6 +2608,15 @@
           "defaultValue" : null
         }, {
           "name" : "gameMessagesId",
+          "description" : null,
+          "type" : {
+            "kind" : "SCALAR",
+            "name" : "ID",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "messageAuthorId",
           "description" : null,
           "type" : {
             "kind" : "SCALAR",

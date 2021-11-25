@@ -9,7 +9,7 @@ export const getUser = /* GraphQL */ `
       email
       phone_number
       score
-      games {
+      game {
         id
         players
         state

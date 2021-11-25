@@ -1,12 +1,12 @@
-import { Stack, Typography } from "@mui/material";
-import React, { useContext } from "react";
-import { UserContext } from "../../components/API/user";
-import Message from "./Message";
+import { Stack, Typography } from '@mui/material';
+import React, { useContext } from 'react';
+import { UserContext } from '../../components/API/user';
+import Message from './Message';
 
 const ChatMessages = ({ messages, messageRef }) => {
   const user = useContext(UserContext);
   return (
-    <Stack style={{ height: "65vh", overflowY: "auto" }}>
+    <Stack style={{ height: '65vh', overflowY: 'auto' }}>
       {messages.length > 0 ? (
         messages.map((message) => {
           return (
@@ -19,7 +19,7 @@ const ChatMessages = ({ messages, messageRef }) => {
           );
         })
       ) : (
-        <Typography variant="h7" ml={4} mt={4}>
+        <Typography variant='h7' ml={4} mt={4}>
           No messages yet.
         </Typography>
       )}
