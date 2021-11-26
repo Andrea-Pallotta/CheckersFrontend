@@ -24,9 +24,9 @@ const closedMixin = (theme) => ({
 const buttonStyle = {
   position: 'absolute',
   width: '100%',
-  bottom: 0,
+  bottom: '0',
   fontSize: '1.5em',
-  paddingTop: '0.5em',
+  paddingTop: '0.3em',
   paddingBottom: '0.5em',
 };
 

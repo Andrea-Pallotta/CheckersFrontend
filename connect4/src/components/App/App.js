@@ -39,7 +39,7 @@ const App = () => {
         });
       } else {
         enqueueSnackbar('Failed retrieving user information', {
-          variant: 'success',
+          variant: 'error',
         });
       }
     });

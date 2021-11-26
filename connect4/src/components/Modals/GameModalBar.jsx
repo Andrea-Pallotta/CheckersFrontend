@@ -4,7 +4,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import MailIcon from '@mui/icons-material/Mail';
 
 const GameModalBar = ({ handleClose, handleOpenChat }) => {
-  const [notifications, setNotifications] = useState(3);
+  const [notifications, setNotifications] = useState(0);
 
   const notificationsLabel = () => {
     if (notifications === 0) {

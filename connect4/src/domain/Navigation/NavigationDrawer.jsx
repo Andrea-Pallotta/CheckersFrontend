@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState, useCallback } from 'react';
 import { AmplifySignOut } from '@aws-amplify/ui-react';
 import { useTheme } from '@mui/material/styles';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -30,16 +30,24 @@ import AppBar from './AppBar';
 import style from './style/style';
 import { UserContext } from '../../components/API/user';
 import { SocketContext } from '../../components/API/socket';
+import { GameContext } from '../../components/Contexts/GameContext';
 import GameModal from '../../components/Modals/GameModal';
+import { useSnackbar } from 'notistack';
+import Game from '../../components/Classes/Game';
 
 const NavigationDrawer = () => {
-  const theme = useTheme();
   const [open, setOpen] = useState(false);
   const [page, setPage] = useState(0);
   const [inQueue, setInQueue] = useState(false);
   const [openModal, setOpenModal] = useState(false);
+  const [gameState, setGameState] = useState();
+
   const user = useContext(UserContext);
   const socket = useContext(SocketContext);
+
+  const theme = useTheme();
+
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
   const handleOpenDrawer = () => {
     setOpen(true);
@@ -49,9 +57,19 @@ const NavigationDrawer = () => {
     setOpen(false);
   };
 
-  const handleOpenModal = () => {
-    setOpenModal(true);
-  };
+  const handleOpenModal = useCallback(() => {
+    setInQueue(false);
+    if (gameState) {
+      setOpenModal(true);
+      enqueueSnackbar('Successfully retrieved game state!', {
+        variant: 'success',
+      });
+    } else {
+      enqueueSnackbar('Error retrieving game state. Try again.', {
+        variant: 'error',
+      });
+    }
+  }, [enqueueSnackbar, gameState]);
 
   const handleCloseModal = () => {
     setOpenModal(false);
@@ -142,14 +160,20 @@ const NavigationDrawer = () => {
 
   useEffect(() => {
     socket.on('start-game', (state) => {
-      if (state) {
-        setInQueue(false);
-        handleOpenModal();
+      setGameState(Game.fromJSON(state));
+      setInQueue(false);
+      if (Game.fromJSON(state)) {
+        setOpenModal(true);
+        enqueueSnackbar('Successfully retrieved game state!', {
+          variant: 'success',
+        });
+      } else {
+        enqueueSnackbar('Error retrieving game state. Try again.', {
+          variant: 'error',
+        });
       }
-      console.log(state);
     });
-    return () => socket.off('start-game');
-  }, [socket]);
+  }, [enqueueSnackbar, gameState, handleOpenModal, socket]);
 
   return (
     <Box sx={{ display: 'flex' }}>
@@ -207,18 +231,21 @@ const NavigationDrawer = () => {
         <DrawerHeader theme={theme} />
         {activePage()}
       </Box>
-
       <LoadingButton
         sx={style.buttonStyle}
-        onClick={inQueue ? startGame : startGame}
+        onClick={startGame}
         startIcon={<AddIcon />}
         loading={inQueue}
         loadingPosition='start'
         variant='contained'
       >
-        Find Game
+        {inQueue ? 'In Queue' : 'Find Game'}
       </LoadingButton>
-      <GameModal open={openModal} handleClose={handleCloseModal} />
+      {gameState && (
+        <GameContext.Provider value={gameState}>
+          <GameModal open={openModal} handleClose={handleCloseModal} />
+        </GameContext.Provider>
+      )}
     </Box>
   );
 };
