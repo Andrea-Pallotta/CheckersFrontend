@@ -163,6 +163,8 @@ const NavigationDrawer = () => {
       setGameState(Game.fromJSON(state));
       setInQueue(false);
       if (Game.fromJSON(state)) {
+        user.player =
+          Game.fromJSON(state).player1.username === user.username ? 1 : 2;
         setOpenModal(true);
         enqueueSnackbar('Successfully retrieved game state!', {
           variant: 'success',
@@ -173,6 +175,8 @@ const NavigationDrawer = () => {
         });
       }
     });
+
+    return () => socket.off('start-game');
   }, [enqueueSnackbar, gameState, handleOpenModal, socket]);
 
   return (
@@ -242,7 +246,7 @@ const NavigationDrawer = () => {
         {inQueue ? 'In Queue' : 'Find Game'}
       </LoadingButton>
       {gameState && (
-        <GameContext.Provider value={gameState}>
+        <GameContext.Provider value={{ gameState, setGameState }}>
           <GameModal open={openModal} handleClose={handleCloseModal} />
         </GameContext.Provider>
       )}
