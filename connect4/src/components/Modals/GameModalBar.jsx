@@ -4,7 +4,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import MailIcon from '@mui/icons-material/Mail';
 
 const GameModalBar = ({ handleClose, handleOpenChat }) => {
-  const [notifications, setNotifications] = useState(0);
+  const [notifications, setNotifications] = useState(3);
 
   const notificationsLabel = () => {
     if (notifications === 0) {
@@ -32,8 +32,12 @@ const GameModalBar = ({ handleClose, handleOpenChat }) => {
           Game
         </Typography>
 
-        <IconButton aria-label={notificationsLabel} onClick={handleOpenChat}>
-          <Badge badgeContent={notifications} color='primary'>
+        <IconButton
+          aria-label={notificationsLabel}
+          onClick={handleOpenChat}
+          color='error'
+        >
+          <Badge badgeContent={notifications} color='secondary'>
             <MailIcon />
           </Badge>
         </IconButton>

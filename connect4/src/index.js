@@ -1,12 +1,12 @@
-import React, { createRef } from "react";
-import ReactDOM from "react-dom";
-import "./index.css";
-import App from "./components/App/App";
-import reportWebVitals from "./components/App/performance/reportWebVitals";
-import Amplify from "aws-amplify";
-import awsExports from "./aws-exports";
-import { SnackbarProvider } from "notistack";
-import { Button } from "@mui/material";
+import React, { createRef } from 'react';
+import ReactDOM from 'react-dom';
+import './index.css';
+import App from './components/App/App';
+import reportWebVitals from './components/App/performance/reportWebVitals';
+import Amplify from 'aws-amplify';
+import awsExports from './aws-exports';
+import { SnackbarProvider } from 'notistack';
+import { Button } from '@mui/material';
 Amplify.configure(awsExports);
 
 const ref = createRef();
@@ -24,7 +24,7 @@ ReactDOM.render(
       autoHideDuration={3000}
       action={(key) => {
         return (
-          <Button variant="outline" onClick={dismiss(key)}>
+          <Button variant='outline' onClick={dismiss(key)}>
             Dimiss
           </Button>
         );
@@ -33,7 +33,7 @@ ReactDOM.render(
       <App />
     </SnackbarProvider>
   </React.StrictMode>,
-  document.getElementById("root")
+  document.getElementById('root')
 );
 
 // If you want to start measuring performance in your app, pass a function
