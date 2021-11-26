@@ -14,6 +14,7 @@ const Board = () => {
     socket.on('send-move', (state) => {
       setGameState(Game.fromJSON(state));
     });
+    return () => socket.off('send-move');
   });
 
   return (

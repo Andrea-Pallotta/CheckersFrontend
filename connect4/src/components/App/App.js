@@ -23,13 +23,6 @@ const App = () => {
         };
         setUser(userData);
         setSocket(newSocket(userData.username, userData.accessToken));
-        window.sessionStorage.setItem('user', JSON.stringify(userData));
-      } else {
-        const storageUser = window.sessionStorage.getItem('user');
-        if (storageUser) {
-          setUser(JSON.parse(storageUser));
-          setSocket(newSocket(storageUser.username, storageUser.accessToken));
-        }
       }
 
       if (nextAuthState === AuthState.SignedIn) {
@@ -38,7 +31,7 @@ const App = () => {
           variant: 'success',
         });
       } else {
-        enqueueSnackbar('Failed retrieving user information', {
+        enqueueSnackbar('Failed retrieving user information. Sign In again.', {
           variant: 'error',
         });
       }

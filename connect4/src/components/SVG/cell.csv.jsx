@@ -8,28 +8,24 @@ import { useSnackbar } from 'notistack';
 import Game from '../Classes/Game';
 
 const BoardCell = ({ value, cx, cy, x, y }) => {
-  const { gameState, setGameState } = useContext(GameContext);
+  const { gameState } = useContext(GameContext);
   const socket = useContext(SocketContext);
   const user = useContext(UserContext);
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
   const sendBoard = () => {
-    console.log(x, y, gameState.board[x][y]);
-    if (gameState.board[x][y] === 0) {
-      var board = [...gameState.board];
-      board[x][y] = 1;
-      var newState = new Game(
-        board,
-        gameState.player1,
-        gameState.player2,
-        gameState.turn === 1 ? 2 : 1,
-        gameState.roomId,
-        gameState.message,
-        gameState.gameEnded
-      );
-      socket.emit('game-move', newState);
+    if (gameState.turn === user.player) {
+      if (gameState.board[x][y] === 0) {
+        const game = Game.fromJSON(gameState);
+        game.updateMove({ x: x, y: game.getFirstOpenTile(x) });
+        socket.emit('game-move', game);
+      } else {
+        enqueueSnackbar('You can only select empty tiles', {
+          variant: 'error',
+        });
+      }
     } else {
-      enqueueSnackbar('You can only select empty tiles', {
+      enqueueSnackbar("It's not your turn yet!", {
         variant: 'error',
       });
     }

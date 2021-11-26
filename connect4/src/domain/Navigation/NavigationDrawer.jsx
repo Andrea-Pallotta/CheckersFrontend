@@ -177,7 +177,7 @@ const NavigationDrawer = () => {
     });
 
     return () => socket.off('start-game');
-  }, [enqueueSnackbar, gameState, handleOpenModal, socket]);
+  }, [enqueueSnackbar, gameState, handleOpenModal, socket, user.player, user.username]);
 
   return (
     <Box sx={{ display: 'flex' }}>
