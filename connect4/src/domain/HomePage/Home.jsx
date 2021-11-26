@@ -34,7 +34,10 @@ export default function Home() {
     socket.on('joined-public-chat', (sockets) => {
       setChannel(sockets);
     });
-    return () => socket.off('global-message');
+    return () => {
+      socket.off('join-public-chat');
+      socket.disconnect();
+    };
   }, [enqueueSnackbar, socket, user]);
 
   return (

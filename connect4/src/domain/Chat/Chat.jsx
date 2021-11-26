@@ -31,6 +31,7 @@ const Chat = (props) => {
     socket.on('send-message', (message) => {
       setMessages((prev) => [...prev, message]);
     });
+    return () => socket.off('send-message');
   }, [socket, user.username]);
 
   const listOfPlayers = global

@@ -136,9 +136,8 @@ const NavigationDrawer = () => {
 
   const startGame = (event) => {
     event.preventDefault();
-    handleOpenModal();
-    // setInQueue(true);
-    // socket.emit('join-queue');
+    setInQueue(true);
+    socket.emit('join-queue');
   };
 
   useEffect(() => {
@@ -149,6 +148,7 @@ const NavigationDrawer = () => {
       }
       console.log(state);
     });
+    return () => socket.off('start-game');
   }, [socket]);
 
   return (
