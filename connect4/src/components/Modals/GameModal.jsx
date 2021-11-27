@@ -3,6 +3,7 @@ import { Dialog, Slide } from '@mui/material';
 import GameModalBar from './GameModalBar';
 import Board from '../../domain/Board/Board';
 import { Box } from '@mui/system';
+import { SocketContext } from '../API/socket';
 import { GameContext } from '../Contexts/GameContext';
 
 const Transition = forwardRef(function Transaction(props, ref) {
@@ -10,21 +11,24 @@ const Transition = forwardRef(function Transaction(props, ref) {
 });
 
 const GameModal = ({ open, handleClose }) => {
-  const [openChat, setOpenChat] = useState(false);
+  const socket = useContext(SocketContext);
+  const { gameState } = useContext(GameContext);
 
-  const handleOpenChat = () => {
-    setOpenChat();
+  const closeModal = () => {
+    socket.emit('leave-room', gameState.roomId);
+    socket.emit('join-public-chat');
+    handleClose();
   };
 
   return (
     <Dialog
       fullScreen
       open={open}
-      onClose={handleClose}
+      onClose={closeModal}
       TransitionComponent={Transition}
     >
-      <GameModalBar handleClose={handleClose} handleOpenChat={handleOpenChat} />
-      <Box display='flex' fullWidth height='100%' bgcolor='lightgreen'>
+      <GameModalBar handleClose={closeModal} />
+      <Box display='flex' fullWidth height='100%'>
         <Board />
       </Box>
     </Dialog>

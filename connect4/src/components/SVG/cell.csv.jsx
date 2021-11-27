@@ -48,7 +48,7 @@ const BoardCell = ({ value, cx, cy, x, y }) => {
       fill={colorByUser(value)}
       stroke='lightgray'
       strokeWidth={3}
-      pointerEvents='all'
+      pointerEvents={gameState.gameEnded ? 'none' : 'all'}
       onClick={sendBoard}
     />
   );

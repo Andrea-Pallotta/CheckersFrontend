@@ -5,6 +5,13 @@ import BoardColumn from '../../components/SVG/column.csv.jsx';
 import { GameContext } from '../../components/Contexts/GameContext.jsx';
 import { SocketContext } from '../../components/API/socket.js';
 import { Game } from '../../models/index.js';
+import { styled } from '@mui/material/styles';
+
+const Div = styled('div')(({ theme }) => ({
+  ...theme.typography.button,
+  backgroundColor: theme.palette.background.paper,
+  padding: theme.spacing(1),
+}));
 
 const Board = () => {
   const { gameState, setGameState } = useContext(GameContext);
@@ -19,6 +26,7 @@ const Board = () => {
 
   return (
     <Box ml={10} mt={15}>
+      {gameState.message && <Div>{gameState.message}</Div>}
       <svg
         width='100%'
         height='100%'

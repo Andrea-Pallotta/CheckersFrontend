@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import Chat from '../Chat/Chat';
 import { useSnackbar } from 'notistack';
 import { SocketContext } from '../../components/API/socket';
-import { CircularProgress } from '@mui/material';
+import { Backdrop, CircularProgress } from '@mui/material';
 import ErrorBoundary from '../Error/ErrorBoundary';
 import { UserContext } from '../../components/API/user';
 
@@ -47,7 +47,12 @@ export default function Home() {
           global={channel.filter((socket) => socket.user !== user.username)}
         />
       ) : (
-        <CircularProgress />
+        <Backdrop
+          sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+          open={true}
+        >
+          <CircularProgress />
+        </Backdrop>
       )}
     </ErrorBoundary>
   );
