@@ -53,7 +53,7 @@ const GameModal = ({ open, handleClose }) => {
       TransitionComponent={Transition}
     >
       <GameModalBar handleClose={closeModal} />
-      <Box display='flex' height='100%'>
+      <Box display='flex' justifyContent='center' height='100%'>
         <Board />
       </Box>
     </Dialog>

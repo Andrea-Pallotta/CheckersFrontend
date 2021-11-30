@@ -47,7 +47,7 @@ const NavigationDrawer = () => {
 
   const theme = useTheme();
 
-  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+  const { enqueueSnackbar } = useSnackbar();
 
   const handleOpenDrawer = () => {
     setOpen(true);

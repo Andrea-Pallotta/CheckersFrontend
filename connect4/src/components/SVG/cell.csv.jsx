@@ -11,7 +11,7 @@ const BoardCell = ({ value, cx, cy, x, y }) => {
   const { gameState } = useContext(GameContext);
   const socket = useContext(SocketContext);
   const user = useContext(UserContext);
-  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+  const { enqueueSnackbar } = useSnackbar();
 
   const sendBoard = () => {
     if (gameState.turn === user.player) {
