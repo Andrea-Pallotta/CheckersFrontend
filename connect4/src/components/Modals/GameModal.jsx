@@ -25,11 +25,11 @@ const GameModal = ({ open, handleClose }) => {
       game.setForfeit(user.username);
       socket.emit('forfeit-game', game);
     }
+    socket.emit('join-public-chat');
   };
 
   useEffect(() => {
     socket.on('game-forfeited', (state) => {
-      console.log(state);
       setGameState(Game.fromJSON(state));
     });
     return () => socket.off('game-forfeited');
