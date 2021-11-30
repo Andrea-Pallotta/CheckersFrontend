@@ -51,7 +51,11 @@ const GameModalBar = ({ handleClose }) => {
         <IconButton
           edge='start'
           color='inherit'
-          onClick={handleOpenForfeit}
+          onClick={
+            gameState.gameEnded && gameState.winner
+              ? handleClose
+              : handleOpenForfeit
+          }
           aria-label='close'
         >
           <CloseIcon />

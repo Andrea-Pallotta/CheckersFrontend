@@ -25,6 +25,16 @@ class Game {
     this.move = move;
   }
 
+  updateMessage(message) {
+    this.message = message;
+  }
+
+  setForfeit(forfeiter) {
+    this.player1.username === forfeiter
+      ? (this.winner = this.player2)
+      : (this.winner = this.player1);
+  }
+
   getFirstOpenTile(x) {
     return this.board[x].lastIndexOf(0);
   }
