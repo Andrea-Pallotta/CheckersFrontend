@@ -29,10 +29,20 @@ const GameModal = ({ open, handleClose }) => {
   };
 
   useEffect(() => {
+    const unloadCallback = (event) => {
+      event.preventDefault();
+      event.returnValue = '';
+      return '';
+    };
+
+    // window.addEventListener('beforeunload', unloadCallback);
     socket.on('game-forfeited', (state) => {
       setGameState(Game.fromJSON(state));
     });
-    return () => socket.off('game-forfeited');
+    return () => {
+      socket.off('game-forfeited');
+      // window.removeEventListener('beforeunload', unloadCallback);
+    };
   });
 
   return (
@@ -43,7 +53,7 @@ const GameModal = ({ open, handleClose }) => {
       TransitionComponent={Transition}
     >
       <GameModalBar handleClose={closeModal} />
-      <Box display='flex' fullWidth height='100%'>
+      <Box display='flex' height='100%'>
         <Board />
       </Box>
     </Dialog>

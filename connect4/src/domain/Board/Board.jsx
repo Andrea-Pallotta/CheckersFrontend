@@ -28,13 +28,13 @@ const Board = () => {
     <Box ml={10} mt={15}>
       {gameState.message && <Div>{gameState.message}</Div>}
       <svg
-        width='100%'
-        height='100%'
-        viewBox='0 0 1600 750'
+        width='700'
+        height='600'
         xmlns='http://www.w3.org/2000/svg'
         pointerEvents='none'
       >
         <BoardPattern />
+        <rect width='700' height='600' mask='url(#cell-mask)' fill='#CED4DA' />
         {gameState.board.map((column, index) => {
           return (
             <BoardColumn key={`column-${index}`} x={index} column={column} />

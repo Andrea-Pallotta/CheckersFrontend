@@ -1,19 +1,19 @@
-import React from "react";
+import React from 'react';
 
 const BoardPattern = () => {
   return (
     <defs>
       <pattern
-        id="cell-pattern"
-        patternUnits="userSpaceOnUse"
-        width="100"
-        height="100"
+        id='cell-pattern'
+        patternUnits='userSpaceOnUse'
+        width='100'
+        height='100'
       >
-        <circle cx="50" cy="50" r="45" fill="black"></circle>
+        <circle cx='50' cy='50' r='35' fill='black' />
       </pattern>
-      <mask id="cell-mask">
-        <rect width="100" height="600" fill="white"></rect>
-        <rect width="100" height="600" fill="url(#cell-pattern)"></rect>
+      <mask id='cell-mask'>
+        <rect width='700' height='600' fill='white' rx='20' ry='20' />
+        <rect width='700' height='600' fill='url(#cell-pattern)' />
       </mask>
     </defs>
   );

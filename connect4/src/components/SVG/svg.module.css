@@ -1,20 +1,5 @@
-circle:hover {
-    fill: var(--hover-color);
-    fill-opacity: var(--hover-opacity);
-}
-
 circle {
     cursor: pointer;
-}
-
-.white {
-    fill: "transparent";
-}
-
-.red {
-    fill: "#DF2035"
-}
-
-.yellow {
-    fill: "#FFD700"
+    stroke: '#E9ECEE';
+    stroke-width: 1;
 }

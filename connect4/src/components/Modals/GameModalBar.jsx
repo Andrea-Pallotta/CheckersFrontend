@@ -11,7 +11,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import MailIcon from '@mui/icons-material/Mail';
 import { GameContext } from '../Contexts/GameContext';
 import { UserContext } from '../API/user';
-import { colorByUser } from '../Constants/Colors';
+import colorByUser from '../Constants/Colors';
 import ConfirmForfeitDialog from '../Dialogs/ConfirmForfeitDialog';
 
 const GameModalBar = ({ handleClose }) => {

@@ -153,9 +153,34 @@ const NavigationDrawer = () => {
   };
 
   const startGame = (event) => {
-    event.preventDefault();
-    setInQueue(true);
-    socket.emit('join-queue');
+    const board = [
+      [1, 2, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0],
+    ];
+
+    const INITIAL_GAME_STATE = new Game(
+      board,
+      { username: 'test ' },
+      { username: 'test2 ' },
+      1,
+      { x: undefined, y: undefined },
+      0,
+      `It's test turn.`,
+      false,
+      undefined
+    );
+
+    setGameState(INITIAL_GAME_STATE);
+
+    setOpenModal(true);
+    // event.preventDefault();
+    // setInQueue(true);
+    // socket.emit('join-queue');
   };
 
   useEffect(() => {

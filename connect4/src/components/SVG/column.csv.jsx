@@ -20,7 +20,6 @@ const BoardColumn = ({ x, column }) => {
           />
         );
       })}
-      <rect width='100' height='600' fill='cadetblue' mask='url(#cell-mask)' />
     </svg>
   );
 };

@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import './svg.module.css';
-import { colorByUser } from '../Constants/Colors';
+import colorByUser from '../Constants/Colors';
 import { GameContext } from '../Contexts/GameContext';
 import { SocketContext } from '../API/socket';
 import { UserContext } from '../API/user';
@@ -31,25 +31,36 @@ const BoardCell = ({ value, cx, cy, x, y }) => {
     }
   };
 
-  let hoverColor = colorByUser(gameState.player1);
-  let hoverOpacity = '70%';
+  const showGameEnded = () => {
+    enqueueSnackbar('The game ended! Queue again.', {
+      variant: 'info',
+    });
+  };
 
-  if (value !== 0) {
-    hoverColor = colorByUser(value);
-    hoverOpacity = '100%';
-  }
+  const handleOnEnter = (event) => {
+    if (value === 0) {
+      event.target.style.fill = colorByUser(gameState.player1);
+      event.target.style.fillOpacity = '50%';
+    }
+  };
+
+  const handleOnLeave = (event) => {
+    if (value === 0) {
+      event.target.style.fill = 'transparent';
+      event.target.style.fillOpacity = '100%';
+    }
+  };
 
   return (
     <circle
-      style={{ '--hover-color': hoverColor, '--hover-opacity': hoverOpacity }}
       cx={cx}
       cy={cy}
-      r='45'
+      r='35'
       fill={colorByUser(value)}
-      stroke='lightgray'
-      strokeWidth={3}
-      pointerEvents={gameState.gameEnded ? 'none' : 'all'}
-      onClick={sendBoard}
+      pointerEvents='all'
+      onClick={gameState.gameEnded ? showGameEnded : sendBoard}
+      onMouseEnter={handleOnEnter}
+      onMouseLeave={handleOnLeave}
     />
   );
 };
