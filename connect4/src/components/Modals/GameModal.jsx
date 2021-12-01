@@ -1,5 +1,5 @@
-import React, { forwardRef, useContext, useEffect } from 'react';
-import { Dialog, Divider, Grid, Slide, Stack, Typography } from '@mui/material';
+import React, { forwardRef, useContext, useEffect, useState } from 'react';
+import { Dialog, Grid, Slide, Stack, Typography } from '@mui/material';
 import GameModalBar from './GameModalBar';
 import Board from '../../domain/Board/Board';
 import { SocketContext } from '../Contexts/SocketContext';
@@ -7,21 +7,15 @@ import { GameContext } from '../Contexts/GameContext';
 import { UserContext } from '../Contexts/UserContext';
 import Game from '../Classes/Game';
 import GameStatusBar from '../StatusBars/GameStatusBar';
-import { Box } from '@mui/system';
-import { styled } from '@mui/material/styles';
 import GameTurnTimer from '../Timer/GameTurnTimer';
+import { TimerContext } from '../Contexts/TimerContext';
 
 const Transition = forwardRef(function Transaction(props, ref) {
   return <Slide direction='up' ref={ref} {...props} />;
 });
 
-const Div = styled('div')(({ theme }) => ({
-  ...theme.typography.button,
-  backgroundColor: theme.palette.background.paper,
-  padding: theme.spacing(1),
-}));
-
 const GameModal = ({ open, handleClose }) => {
+  const [turnTimer, setTurnTimer] = useState(30);
   const socket = useContext(SocketContext);
   const { gameState, setGameState } = useContext(GameContext);
   const user = useContext(UserContext);
@@ -55,49 +49,51 @@ const GameModal = ({ open, handleClose }) => {
   });
 
   return (
-    <Dialog
-      fullScreen
-      open={open}
-      onClose={closeModal}
-      TransitionComponent={Transition}
-    >
-      <GameModalBar handleClose={closeModal} />
-      <Grid container spacing={2} height='100%'>
-        <Grid item xs={2} sx={{ backgroundColor: '#F1F3F5' }} />
-        <Grid item xs={8} justify='center'>
-          <Grid
-            container
-            direction='column'
-            justifyContent='center'
-            alignItems='center'
-          >
-            <Board />
+    <TimerContext.Provider value={turnTimer}>
+      <Dialog
+        fullScreen
+        open={open}
+        onClose={closeModal}
+        TransitionComponent={Transition}
+      >
+        <GameModalBar handleClose={closeModal} />
+        <Grid container spacing={2} height='100%'>
+          <Grid item xs={2} sx={{ backgroundColor: '#F1F3F5' }} />
+          <Grid item xs={8} justify='center'>
             <Grid
               container
-              direction='row'
-              position='absolute'
-              bottom='0'
-              left='40%'
-              spacing={4}
+              direction='column'
+              justifyContent='center'
+              alignItems='center'
             >
-              <Grid item>
-                <GameStatusBar user={user} orientation='row' />
-              </Grid>
-              <Grid item>
-                <Stack spacing={1}>
-                  <Typography>It's test turn</Typography>
-                  <GameTurnTimer />
-                </Stack>
-              </Grid>
-              <Grid item>
-                <GameStatusBar user={user} orientation='row-inverse' />
+              <Board />
+              <Grid
+                container
+                direction='row'
+                position='absolute'
+                bottom='0'
+                left='40%'
+                spacing={4}
+              >
+                <Grid item>
+                  <GameStatusBar user={user} orientation='row' />
+                </Grid>
+                <Grid item>
+                  <Stack spacing={1}>
+                    <Typography>It's test turn</Typography>
+                    <GameTurnTimer />
+                  </Stack>
+                </Grid>
+                <Grid item>
+                  <GameStatusBar user={user} orientation='row-inverse' />
+                </Grid>
               </Grid>
             </Grid>
           </Grid>
+          <Grid item xs={2} sx={{ backgroundColor: '#F1F3F5' }} />
         </Grid>
-        <Grid item xs={2} sx={{ backgroundColor: '#F1F3F5' }} />
-      </Grid>
-    </Dialog>
+      </Dialog>
+    </TimerContext.Provider>
   );
 };
 
