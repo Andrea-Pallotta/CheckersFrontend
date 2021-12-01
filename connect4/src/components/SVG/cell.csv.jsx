@@ -2,8 +2,8 @@ import React, { useContext } from 'react';
 import './svg.module.css';
 import colorByUser from '../Constants/Colors';
 import { GameContext } from '../Contexts/GameContext';
-import { SocketContext } from '../API/socket';
-import { UserContext } from '../API/user';
+import { SocketContext } from '../Contexts/SocketContext';
+import { UserContext } from '../Contexts/UserContext';
 import { useSnackbar } from 'notistack';
 import Game from '../Classes/Game';
 

@@ -7,7 +7,7 @@ import MoreHorizRoundedIcon from '@mui/icons-material/MoreHorizRounded';
 // import MessageRoundedIcon from "@mui/icons-material/MessageRounded";
 import Stack from '@mui/material/Stack';
 import UserAvatar from '../../components/Avatar/Avatar';
-import { UserContext } from '../../components/API/user';
+import { UserContext } from '../../components/Contexts/UserContext';
 //import { ListItem, SpeedDial } from "@mui/material";
 
 // const StyledSpeedDial = styled(SpeedDial)(({ theme }) => ({
@@ -60,7 +60,7 @@ function MessageReceived({ author, message, time }) {
       <Stack>
         <UserAvatar
           name={author}
-          busy={true}
+          busy={false}
           style={{ width: 36, height: 36, boxShadow: '0 0 0 2px lightgray' }}
         />
         {/* <Typography variant="caption" color="text.secondary" ml={0.5}>

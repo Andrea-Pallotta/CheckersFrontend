@@ -1,6 +1,6 @@
 import { Stack, Typography } from '@mui/material';
 import React, { useContext } from 'react';
-import { UserContext } from '../../components/API/user';
+import { UserContext } from '../../components/Contexts/UserContext';
 import Message from './Message';
 
 const ChatMessages = ({ messages, messageRef }) => {

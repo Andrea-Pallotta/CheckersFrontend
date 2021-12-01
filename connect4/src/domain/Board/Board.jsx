@@ -3,15 +3,8 @@ import React, { useContext, useEffect } from 'react';
 import BoardPattern from '../../components/SVG/pattern.csv.jsx';
 import BoardColumn from '../../components/SVG/column.csv.jsx';
 import { GameContext } from '../../components/Contexts/GameContext.jsx';
-import { SocketContext } from '../../components/API/socket.js';
+import { SocketContext } from '../../components/Contexts/SocketContext.jsx';
 import { Game } from '../../models/index.js';
-import { styled } from '@mui/material/styles';
-
-const Div = styled('div')(({ theme }) => ({
-  ...theme.typography.button,
-  backgroundColor: theme.palette.background.paper,
-  padding: theme.spacing(1),
-}));
 
 const Board = () => {
   const { gameState, setGameState } = useContext(GameContext);
@@ -25,8 +18,7 @@ const Board = () => {
   });
 
   return (
-    <Box ml={10} mt={15}>
-      {gameState.message && <Div>{gameState.message}</Div>}
+    <Box mt={10}>
       <svg
         width='700'
         height='600'

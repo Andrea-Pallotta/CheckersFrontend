@@ -10,7 +10,7 @@ import {
 import CloseIcon from '@mui/icons-material/Close';
 import MailIcon from '@mui/icons-material/Mail';
 import { GameContext } from '../Contexts/GameContext';
-import { UserContext } from '../API/user';
+import { UserContext } from '../Contexts/UserContext';
 import colorByUser from '../Constants/Colors';
 import ConfirmForfeitDialog from '../Dialogs/ConfirmForfeitDialog';
 

@@ -1,16 +1,25 @@
 import React, { forwardRef, useContext, useEffect } from 'react';
-import { Dialog, Slide } from '@mui/material';
+import { Dialog, Divider, Grid, Slide, Stack, Typography } from '@mui/material';
 import GameModalBar from './GameModalBar';
 import Board from '../../domain/Board/Board';
-import { Box } from '@mui/system';
-import { SocketContext } from '../API/socket';
+import { SocketContext } from '../Contexts/SocketContext';
 import { GameContext } from '../Contexts/GameContext';
-import { UserContext } from '../API/user';
+import { UserContext } from '../Contexts/UserContext';
 import Game from '../Classes/Game';
+import GameStatusBar from '../StatusBars/GameStatusBar';
+import { Box } from '@mui/system';
+import { styled } from '@mui/material/styles';
+import GameTurnTimer from '../Timer/GameTurnTimer';
 
 const Transition = forwardRef(function Transaction(props, ref) {
   return <Slide direction='up' ref={ref} {...props} />;
 });
+
+const Div = styled('div')(({ theme }) => ({
+  ...theme.typography.button,
+  backgroundColor: theme.palette.background.paper,
+  padding: theme.spacing(1),
+}));
 
 const GameModal = ({ open, handleClose }) => {
   const socket = useContext(SocketContext);
@@ -53,9 +62,41 @@ const GameModal = ({ open, handleClose }) => {
       TransitionComponent={Transition}
     >
       <GameModalBar handleClose={closeModal} />
-      <Box display='flex' justifyContent='center' height='100%'>
-        <Board />
-      </Box>
+      <Grid container spacing={2} height='100%'>
+        <Grid item xs={2} sx={{ backgroundColor: '#F1F3F5' }} />
+        <Grid item xs={8} justify='center'>
+          <Grid
+            container
+            direction='column'
+            justifyContent='center'
+            alignItems='center'
+          >
+            <Board />
+            <Grid
+              container
+              direction='row'
+              position='absolute'
+              bottom='0'
+              left='40%'
+              spacing={4}
+            >
+              <Grid item>
+                <GameStatusBar user={user} orientation='row' />
+              </Grid>
+              <Grid item>
+                <Stack spacing={1}>
+                  <Typography>It's test turn</Typography>
+                  <GameTurnTimer />
+                </Stack>
+              </Grid>
+              <Grid item>
+                <GameStatusBar user={user} orientation='row-inverse' />
+              </Grid>
+            </Grid>
+          </Grid>
+        </Grid>
+        <Grid item xs={2} sx={{ backgroundColor: '#F1F3F5' }} />
+      </Grid>
     </Dialog>
   );
 };

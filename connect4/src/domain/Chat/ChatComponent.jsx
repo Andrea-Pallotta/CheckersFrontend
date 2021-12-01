@@ -2,13 +2,13 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Divider, Fab, Grid, TextField } from '@mui/material';
 import ChatMessages from './ChatMessages';
 import SendIcon from '@mui/icons-material/Send';
-import { SocketContext } from '../../components/API/socket';
+import { SocketContext } from '../../components/Contexts/SocketContext';
 import { useSnackbar } from 'notistack';
 
 const ChatComponent = ({ messages, to, messageRef }) => {
   const [value, setValue] = useState('');
   const socket = useContext(SocketContext);
-  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+  const { enqueueSnackbar } = useSnackbar();
 
   const scrollToEndMessage = () => {
     messageRef.current.scrollIntoView({ behavior: 'smooth' });

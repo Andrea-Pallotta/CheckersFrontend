@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useContext } from 'react';
 import Chat from '../Chat/Chat';
 import { useSnackbar } from 'notistack';
-import { SocketContext } from '../../components/API/socket';
+import { SocketContext } from '../../components/Contexts/SocketContext';
 import { Backdrop, CircularProgress } from '@mui/material';
 import ErrorBoundary from '../Error/ErrorBoundary';
-import { UserContext } from '../../components/API/user';
+import { UserContext } from '../../components/Contexts/UserContext';
 
 export default function Home() {
   const [channel, setChannel] = useState();
