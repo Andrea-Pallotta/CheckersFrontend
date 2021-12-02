@@ -4,7 +4,7 @@ import { UserContext } from '../../components/Contexts/UserContext';
 import Message from './Message';
 
 const ChatMessages = ({ messages, messageRef }) => {
-  const user = useContext(UserContext);
+  const { user } = useContext(UserContext);
   return (
     <Stack style={{ height: '65vh', overflowY: 'auto' }}>
       {messages.length > 0 ? (

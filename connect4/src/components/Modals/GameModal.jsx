@@ -18,7 +18,7 @@ const GameModal = ({ open, handleClose }) => {
   const [turnTimer, setTurnTimer] = useState(30);
   const socket = useContext(SocketContext);
   const { gameState, setGameState } = useContext(GameContext);
-  const user = useContext(UserContext);
+  const { user } = useContext(UserContext);
 
   const closeModal = () => {
     if (gameState.gameEnded && gameState.winner) {
@@ -49,9 +49,10 @@ const GameModal = ({ open, handleClose }) => {
   });
 
   return (
-    <TimerContext.Provider value={turnTimer}>
+    <TimerContext.Provider value={{ turnTimer, setTurnTimer }}>
       <Dialog
         fullScreen
+        width='100%'
         open={open}
         onClose={closeModal}
         TransitionComponent={Transition}
@@ -80,8 +81,8 @@ const GameModal = ({ open, handleClose }) => {
                 </Grid>
                 <Grid item>
                   <Stack spacing={1}>
-                    <Typography>It's test turn</Typography>
-                    <GameTurnTimer />
+                    <Typography>{gameState.message}</Typography>
+                    <GameTurnTimer timer={turnTimer} />
                   </Stack>
                 </Grid>
                 <Grid item>

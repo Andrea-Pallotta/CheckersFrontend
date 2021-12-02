@@ -1,28 +1,46 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { AmplifyAuthenticator } from '@aws-amplify/ui-react';
 import { AuthState, onAuthUIStateChange } from '@aws-amplify/ui-components';
 import { useSnackbar, withSnackbar } from 'notistack';
 import { SocketContext, newSocket } from '../Contexts/SocketContext';
 import NavigationDrawer from '../../domain/Navigation/NavigationDrawer';
 import { UserContext } from '../Contexts/UserContext';
+import User from '../Classes/User';
+import req from '../API/requests';
+import Response from '../Classes/Response';
+import Auth from '@aws-amplify/auth';
 
 const App = () => {
   const [authState, setAuthState] = useState();
   const [socket, setSocket] = useState();
   const [user, setUser] = useState();
-  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+  const { enqueueSnackbar } = useSnackbar();
+  const mountedRef = useRef(true);
+
+  const fetchUser = useCallback((authData) => {
+    try {
+      req
+        .get('/getUser', { params: { username: authData.username } })
+        .then((data) => {
+          const user = User.fromJSON(Response.fromJSON(data).data);
+          if (user) {
+            user.setToken(authData.signInUserSession.accessToken);
+            if (!mountedRef.current) return null;
+            setUser(user);
+            setSocket(newSocket(user.username, user.accessToken));
+          }
+        });
+    } catch {
+      enqueueSnackbar('Error retrieving user information', {
+        variant: 'error',
+      });
+    }
+  });
 
   useEffect(() => {
-    return onAuthUIStateChange((nextAuthState, authData) => {
+    onAuthUIStateChange((nextAuthState, authData) => {
       if (authData) {
-        const userData = {
-          username: authData.username,
-          email: authData.attributes.email,
-          phone_number: authData.attributes.phone_number,
-          accessToken: authData.signInUserSession.accessToken,
-        };
-        setUser(userData);
-        setSocket(newSocket(userData.username, userData.accessToken));
+        fetchUser(authData);
       }
 
       if (nextAuthState === AuthState.SignedIn) {
@@ -30,17 +48,13 @@ const App = () => {
         enqueueSnackbar('Successfully retrieved user information', {
           variant: 'success',
         });
-      } else {
-        enqueueSnackbar('Failed retrieving user information. Sign In again.', {
-          variant: 'error',
-        });
       }
     });
-  }, [enqueueSnackbar]);
+  }, [enqueueSnackbar, fetchUser]);
 
   return authState === AuthState.SignedIn && user && socket ? (
     <SocketContext.Provider value={socket}>
-      <UserContext.Provider value={user}>
+      <UserContext.Provider value={{ user, setUser }}>
         <NavigationDrawer />
       </UserContext.Provider>
     </SocketContext.Provider>

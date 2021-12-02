@@ -10,13 +10,13 @@ const renderTime = ({ remainingTime }) => {
   );
 };
 
-const GameTurnTimer = () => {
+const GameTurnTimer = ({ timer }) => {
   return (
     <CountdownCircleTimer
       isPlaying
       size={80}
       strokeWidth={7}
-      duration={5}
+      duration={timer}
       colors={[['#004777', 0.33], ['#F7B801', 0.33], ['#A30000']]}
       onComplete={() => {}}
     >

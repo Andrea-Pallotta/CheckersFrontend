@@ -32,7 +32,7 @@ const GameStatusBar = ({ user, orientation }) => {
             color='text.secondary'
             component='div'
           >
-            Record: {user.wins} - {user.ties} - {user.losses}
+            Record: {user.wins} - {user.draws} - {user.losses}
           </Typography>
         </Box>
       </Box>
@@ -78,7 +78,7 @@ const GameStatusBar = ({ user, orientation }) => {
             color='text.secondary'
             component='div'
           >
-            Record: {user.wins} - {user.ties} - {user.losses}
+            Record: {user.wins} - {user.draws} - {user.losses}
           </Typography>
         </Box>
       </Box>

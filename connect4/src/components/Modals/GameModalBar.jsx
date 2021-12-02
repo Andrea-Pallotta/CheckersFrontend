@@ -19,7 +19,7 @@ const GameModalBar = ({ handleClose }) => {
   const [openFoferit, setOpenForfeit] = useState(false);
 
   const { gameState } = useContext(GameContext);
-  const user = useContext(UserContext);
+  const { user } = useContext(UserContext);
 
   const title = `Game against ${
     gameState.player1.username === user.username

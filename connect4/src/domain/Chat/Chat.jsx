@@ -15,7 +15,7 @@ import ChatComponent from './ChatComponent';
 
 const Chat = (props) => {
   const { global } = props;
-  const user = useContext(UserContext);
+  const { user } = useContext(UserContext);
   const socket = useContext(SocketContext);
   const [messages, setMessages] = useState([]);
 

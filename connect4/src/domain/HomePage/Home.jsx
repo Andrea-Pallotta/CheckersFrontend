@@ -5,25 +5,24 @@ import { SocketContext } from '../../components/Contexts/SocketContext';
 import { Backdrop, CircularProgress } from '@mui/material';
 import ErrorBoundary from '../Error/ErrorBoundary';
 import { UserContext } from '../../components/Contexts/UserContext';
+import req from '../../components/API/requests';
+import Response from '../../components/Classes/Response';
+import User from '../../components/Classes/User';
 
 export default function Home() {
   const [channel, setChannel] = useState();
-  // eslint-disable-next-line no-unused-vars
-  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+  const { enqueueSnackbar } = useSnackbar();
   const socket = useContext(SocketContext);
-  const user = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
 
   useEffect(() => {
-    const joinPublicChat = () => {
-      socket.emit('join-public-chat', user.username);
-    };
     try {
       socket.on('connection', (id) => {
-        user['socketId'] = id;
+        user.setSocketId(id);
         enqueueSnackbar('Successfully connected to the server', {
           variant: 'success',
         });
-        joinPublicChat();
+        socket.emit('join-public-chat', user.username);
       });
     } catch {
       enqueueSnackbar('Error connection to the server', {
@@ -38,7 +37,7 @@ export default function Home() {
       socket.off('join-public-chat');
       socket.disconnect();
     };
-  }, [enqueueSnackbar, socket, user]);
+  }, [enqueueSnackbar, socket]);
 
   return (
     <ErrorBoundary>
