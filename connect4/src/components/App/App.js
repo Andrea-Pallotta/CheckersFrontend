@@ -17,25 +17,35 @@ const App = () => {
   const { enqueueSnackbar } = useSnackbar();
   const mountedRef = useRef(true);
 
-  const fetchUser = useCallback((authData) => {
-    try {
-      req
-        .get('/getUser', { params: { username: authData.username } })
-        .then((data) => {
-          const user = User.fromJSON(Response.fromJSON(data).data);
-          if (user) {
-            user.setToken(authData.signInUserSession.accessToken);
-            if (!mountedRef.current) return null;
-            setUser(user);
-            setSocket(newSocket(user.username, user.accessToken));
-          }
+  const fetchUser = useCallback(
+    (authData) => {
+      try {
+        req
+          .post(
+            '/insertUser',
+            {
+              username: authData.username,
+              email: authData.attributes.email,
+            },
+            authData.signInUserSession.accessToken
+          )
+          .then((data) => {
+            const user = User.fromJSON(Response.fromJSON(data).data);
+            if (user) {
+              user.setToken(authData.signInUserSession.accessToken);
+              if (!mountedRef.current) return null;
+              setUser(user);
+              setSocket(newSocket(user.username, user.accessToken));
+            }
+          }, []);
+      } catch {
+        enqueueSnackbar('Error retrieving user information', {
+          variant: 'error',
         });
-    } catch {
-      enqueueSnackbar('Error retrieving user information', {
-        variant: 'error',
-      });
-    }
-  });
+      }
+    },
+    [enqueueSnackbar]
+  );
 
   useEffect(() => {
     onAuthUIStateChange((nextAuthState, authData) => {

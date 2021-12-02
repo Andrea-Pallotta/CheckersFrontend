@@ -158,8 +158,8 @@ const NavigationDrawer = () => {
     socket.emit('join-queue');
   };
 
-  useEffect(() => {
-    socket.on('start-game', (state) => {
+  const handleGameState = useCallback(
+    (state) => {
       setGameState(Game.fromJSON(state));
       setInQueue(false);
       if (Game.fromJSON(state)) {
@@ -174,17 +174,44 @@ const NavigationDrawer = () => {
           variant: 'error',
         });
       }
+    },
+    [enqueueSnackbar, user.player, user.username]
+  );
+
+  useEffect(() => {
+    socket.on('start-game', (state) => {
+      if (state) {
+        console.log('start-game');
+        handleGameState(state);
+      } else {
+        enqueueSnackbar('Error retrieving game state. Try again.', {
+          variant: 'error',
+        });
+      }
     });
 
-    return () => socket.off('start-game');
-  }, [
-    enqueueSnackbar,
-    gameState,
-    handleOpenModal,
-    socket,
-    user.player,
-    user.username,
-  ]);
+    socket.on('reconnect-game', (state) => {
+      console.log('reconnect-game');
+      handleGameState(state);
+    });
+
+    socket.on('queue-failed', () => {
+      setInQueue(false);
+      enqueueSnackbar('Queue failed. Try again.', {
+        variant: 'error',
+      });
+    });
+
+    if (user.activeGame !== null && user.activeGame !== undefined) {
+      console.log('game exists');
+      socket.emit('get-current-game', user.activeGame);
+    }
+
+    return () => {
+      socket.off('start-game');
+      socket.off('queue-failed');
+    };
+  }, [enqueueSnackbar, handleGameState, socket, user.activeGame]);
 
   return (
     <Box sx={{ display: 'flex' }}>

@@ -5,9 +5,6 @@ import { SocketContext } from '../../components/Contexts/SocketContext';
 import { Backdrop, CircularProgress } from '@mui/material';
 import ErrorBoundary from '../Error/ErrorBoundary';
 import { UserContext } from '../../components/Contexts/UserContext';
-import req from '../../components/API/requests';
-import Response from '../../components/Classes/Response';
-import User from '../../components/Classes/User';
 
 export default function Home() {
   const [channel, setChannel] = useState();
@@ -29,12 +26,11 @@ export default function Home() {
         variant: 'success',
       });
     }
-
     socket.on('joined-public-chat', (sockets) => {
       setChannel(sockets);
     });
     return () => {
-      socket.off('join-public-chat');
+      socket.off('joined-public-chat');
       socket.disconnect();
     };
   }, [enqueueSnackbar, socket]);
