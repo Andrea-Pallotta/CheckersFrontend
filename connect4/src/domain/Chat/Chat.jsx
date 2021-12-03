@@ -2,20 +2,13 @@ import React, { useContext, useEffect, useRef, useState } from 'react';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
-import ListItem from '@mui/material/ListItem';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { SocketContext } from '../../components/Contexts/SocketContext';
-import { v4 as uuidv4 } from 'uuid';
-import { UserContext } from '../../components/Contexts/UserContext';
 import UserList from '../../components/Lists/UserList';
 import ChatLabel from '../../components/Labels/ChatLabel';
 import ChatComponent from './ChatComponent';
+import Message from '../../components/Classes/Message';
 
-const Chat = (props) => {
-  const { global } = props;
-  const { user } = useContext(UserContext);
+const Chat = ({ global }) => {
   const socket = useContext(SocketContext);
   const [messages, setMessages] = useState([]);
 
@@ -29,28 +22,10 @@ const Chat = (props) => {
 
   useEffect(() => {
     socket.on('send-message', (message) => {
-      setMessages((prev) => [...prev, message]);
+      setMessages((prev) => [...prev, Message.fromJSON(message)]);
     });
     return () => socket.off('send-message');
-  }, [socket, user.username]);
-
-  const listOfPlayers = global
-    .filter((el) => {
-      return el.username !== user.username;
-    })
-    .map((player) => {
-      return (
-        <ListItem button key={uuidv4()}>
-          <ListItemIcon>
-            <AccountCircleIcon />
-          </ListItemIcon>
-          <ListItemText primary={player.username}>
-            {player.username}
-          </ListItemText>
-          <ListItemText secondary='online' align='right'></ListItemText>
-        </ListItem>
-      );
-    });
+  }, [socket]);
 
   return (
     <Box>
@@ -58,9 +33,9 @@ const Chat = (props) => {
       <Grid
         container
         component={Paper}
-        style={{ width: '100%', height: '77vh' }}
+        style={{ width: '100%', height: '100%' }}
       >
-        <UserList list={listOfPlayers} />
+        <UserList global={global} />
 
         <ChatComponent
           messages={messages}

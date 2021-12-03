@@ -8,7 +8,6 @@ import { UserContext } from '../Contexts/UserContext';
 import User from '../Classes/User';
 import req from '../API/requests';
 import Response from '../Classes/Response';
-import Auth from '@aws-amplify/auth';
 
 const App = () => {
   const [authState, setAuthState] = useState();

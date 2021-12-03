@@ -15,12 +15,12 @@ const ChatComponent = ({ messages, to, messageRef }) => {
   };
 
   const handleTextFieldValueChange = (event) => {
-    setValue(event.target.value.trim());
+    setValue(event.target.value.trimLeft());
   };
 
   const handleSendMessage = (event) => {
     event.preventDefault();
-    if (value.length > 0) {
+    if (value.trim().length > 0) {
       socket.emit(`${to}`, value);
     } else {
       enqueueSnackbar('Cannot send an empty message', {

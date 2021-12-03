@@ -4,26 +4,14 @@ import { useTheme } from '@mui/material/styles';
 import MenuIcon from '@mui/icons-material/Menu';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
-import List from '@mui/material/List';
 import CssBaseline from '@mui/material/CssBaseline';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
-import ListItem from '@mui/material/ListItem';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import LeaderboardRoundedIcon from '@mui/icons-material/LeaderboardRounded';
 import ChevronRightRoundedIcon from '@mui/icons-material/ChevronRightRounded';
 import ChevronLeftRoundedIcon from '@mui/icons-material/ChevronLeftRounded';
-import BookmarksRoundedIcon from '@mui/icons-material/BookmarksRounded';
-import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
 import { LoadingButton } from '@mui/lab';
 import AddIcon from '@mui/icons-material/Add';
-import Home from '../HomePage/Home';
-import { Button, MenuItem, Tooltip } from '@mui/material';
-import Menu from '@mui/material/Menu';
-import UserAvatar from '../../components/Avatar/Avatar';
-import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
 import Drawer from './Drawer';
 import DrawerHeader from './DrawerHeader';
 import AppBar from './AppBar';
@@ -34,6 +22,9 @@ import { GameContext } from '../../components/Contexts/GameContext';
 import GameModal from '../../components/Modals/GameModal';
 import { useSnackbar } from 'notistack';
 import Game from '../../components/Classes/Game';
+import MenuAvatar from '../../components/Avatar/MenuAvatar';
+import TabViewOptions from '../../components/Options/TabViewOptions';
+import TabViewPages from '../../components/TabView/TabViewPages';
 
 const NavigationDrawer = () => {
   const [open, setOpen] = useState(false);
@@ -41,6 +32,7 @@ const NavigationDrawer = () => {
   const [inQueue, setInQueue] = useState(false);
   const [openModal, setOpenModal] = useState(false);
   const [gameState, setGameState] = useState();
+  const [channel, setChannel] = useState();
 
   const { user } = useContext(UserContext);
   const socket = useContext(SocketContext);
@@ -57,99 +49,12 @@ const NavigationDrawer = () => {
     setOpen(false);
   };
 
-  const handleOpenModal = useCallback(() => {
-    setInQueue(false);
-    if (gameState) {
-      setOpenModal(true);
-      enqueueSnackbar('Successfully retrieved game state!', {
-        variant: 'success',
-      });
-    } else {
-      enqueueSnackbar('Error retrieving game state. Try again.', {
-        variant: 'error',
-      });
-    }
-  }, [enqueueSnackbar, gameState]);
-
   const handleCloseModal = () => {
     setOpenModal(false);
   };
 
-  const pageModel = [
-    {
-      title: 'Home',
-      icon: <HomeRoundedIcon />,
-    },
-    {
-      title: 'Leaderboard',
-      icon: <LeaderboardRoundedIcon />,
-    },
-    {
-      title: 'Game History',
-      icon: <BookmarksRoundedIcon />,
-    },
-  ];
-
-  const tabViewOptions = pageModel.map((option, index) => {
-    return (
-      <ListItem
-        button
-        key={option.title}
-        onClick={() => {
-          setPage(index);
-        }}
-      >
-        <ListItemIcon>
-          <Tooltip title={option.title} enterDelay={300} leaveDelay={200}>
-            <IconButton>{option.icon}</IconButton>
-          </Tooltip>
-        </ListItemIcon>
-        <ListItemText primary={option.title} />
-      </ListItem>
-    );
-  });
-
-  const menuAvatar = (action) => {
-    return (
-      <PopupState variant='popover' popupId='demoMenu'>
-        {(popupState) => (
-          <React.Fragment>
-            <Button {...bindTrigger(popupState)}>
-              <UserAvatar
-                name={user.username}
-                style={{
-                  width: 36,
-                  height: 36,
-                  boxShadow: '0 0 0 2px lightgray',
-                }}
-                {...bindTrigger(popupState)}
-              />
-            </Button>
-            <Menu {...bindMenu(popupState)}>
-              <MenuItem
-                onClick={() => {
-                  popupState.close();
-                  action();
-                }}
-              >
-                Logout
-              </MenuItem>
-            </Menu>
-          </React.Fragment>
-        )}
-      </PopupState>
-    );
-  };
-
-  const activePage = () => {
-    switch (page) {
-      case 0:
-        return <Home />;
-      case 2:
-        return <div>Page 2</div>;
-      default:
-        return <div>Page 3</div>;
-    }
+  const handleSetPage = (index) => {
+    setPage(index);
   };
 
   const startGame = (event) => {
@@ -179,16 +84,46 @@ const NavigationDrawer = () => {
   );
 
   useEffect(() => {
-    socket.on('start-game', (state) => {
-      if (state) {
-        console.log('start-game');
-        handleGameState(state);
-      } else {
-        enqueueSnackbar('Error retrieving game state. Try again.', {
-          variant: 'error',
-        });
-      }
+    socket.on('joined-public-chat', (sockets) => {
+      setChannel(sockets);
     });
+
+    return () => socket.off('joined-public-chat');
+  }, [socket]);
+
+  useEffect(() => {
+    try {
+      socket.on('connection', (id) => {
+        user.setSocketId(id);
+        enqueueSnackbar('Successfully connected to the server', {
+          variant: 'success',
+        });
+        socket.emit('join-public-chat', user.username);
+      });
+    } catch {
+      enqueueSnackbar('Error connection to the server', {
+        variant: 'success',
+      });
+    }
+    return () => socket.disconnect();
+  }, [enqueueSnackbar, socket, user]);
+
+  useEffect(() => {
+    socket.on(
+      'start-game',
+      (state) => {
+        if (state) {
+          handleGameState(state);
+        } else {
+          enqueueSnackbar('Error retrieving game state. Try again.', {
+            variant: 'error',
+          });
+        }
+
+        return () => socket.off('start-game');
+      },
+      []
+    );
 
     socket.on('reconnect-game', (state) => {
       console.log('reconnect-game');
@@ -203,7 +138,6 @@ const NavigationDrawer = () => {
     });
 
     if (user.activeGame !== null && user.activeGame !== undefined) {
-      console.log('game exists');
       socket.emit('get-current-game', user.activeGame);
     }
 
@@ -233,7 +167,7 @@ const NavigationDrawer = () => {
           <Typography variant='h6' noWrap component='div' style={{ flex: 1 }}>
             Connect 4
           </Typography>
-          {menuAvatar(() => {})}
+          <MenuAvatar action={() => {}} />
           <Typography
             variant='h4'
             noWrap
@@ -263,11 +197,12 @@ const NavigationDrawer = () => {
           </IconButton>
         </DrawerHeader>
         <Divider />
-        <List>{tabViewOptions}</List>
+
+        <TabViewOptions onClick={handleSetPage} />
       </Drawer>
       <Box component='main' sx={{ flexGrow: 1, p: 3 }}>
         <DrawerHeader theme={theme} />
-        {activePage()}
+        <TabViewPages page={page} channel={channel} />
       </Box>
       <LoadingButton
         sx={style.buttonStyle}
