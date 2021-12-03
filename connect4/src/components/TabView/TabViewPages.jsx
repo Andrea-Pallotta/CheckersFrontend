@@ -2,6 +2,8 @@ import { Backdrop, CircularProgress } from '@mui/material';
 import React from 'react';
 import ErrorBoundary from '../../domain/Error/ErrorBoundary';
 import Home from '../../domain/HomePage/Home';
+import Leaderboard from '../../domain/Leaderboard/Leaderboard';
+import Profile from '../../domain/Profile/Profile';
 
 const TabViewPages = ({ page, channel }) => {
   const activePage = (channel) => {
@@ -9,9 +11,9 @@ const TabViewPages = ({ page, channel }) => {
       case 0:
         return <Home channel={channel} />;
       case 1:
-        return <div>Page 2</div>;
+        return <Leaderboard />;
       case 2:
-        return <div>Page 3</div>;
+        return <Profile />;
       default:
         return <CircularProgress color='error' thickness={5} />;
     }

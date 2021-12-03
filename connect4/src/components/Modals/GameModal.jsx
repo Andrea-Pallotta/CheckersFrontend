@@ -71,10 +71,9 @@ const GameModal = ({ open, handleClose }) => {
               <Grid
                 container
                 direction='row'
-                position='absolute'
-                bottom='0'
-                left='40%'
                 spacing={4}
+                paddingTop={5}
+                paddingLeft={50}
               >
                 <Grid item>
                   <GameStatusBar user={user} orientation='row' />

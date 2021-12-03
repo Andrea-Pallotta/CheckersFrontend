@@ -1,21 +1,13 @@
 import React, { useContext, useState } from 'react';
-import {
-  AppBar,
-  Badge,
-  Button,
-  IconButton,
-  Toolbar,
-  Typography,
-} from '@mui/material';
+import { AppBar, IconButton, Toolbar, Typography } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
-import MailIcon from '@mui/icons-material/Mail';
 import { GameContext } from '../Contexts/GameContext';
 import { UserContext } from '../Contexts/UserContext';
 import colorByUser from '../Constants/Colors';
 import ConfirmForfeitDialog from '../Dialogs/ConfirmForfeitDialog';
+import GameChatModal from './GameChatModal';
 
 const GameModalBar = ({ handleClose }) => {
-  const [notifications, setNotifications] = useState(0);
   const [openFoferit, setOpenForfeit] = useState(false);
 
   const { gameState } = useContext(GameContext);
@@ -26,16 +18,6 @@ const GameModalBar = ({ handleClose }) => {
       ? gameState.player2.username
       : gameState.player1.username
   }`;
-
-  const notificationsLabel = () => {
-    if (notifications === 0) {
-      return 'no notifications';
-    } else if (notifications > 99) {
-      return 'more than 99 notifications';
-    } else {
-      return `${notifications} notifications`;
-    }
-  };
 
   const handleOpenForfeit = () => {
     setOpenForfeit(true);
@@ -69,19 +51,7 @@ const GameModalBar = ({ handleClose }) => {
           {title}
         </Typography>
 
-        <Button
-          variant='contained'
-          color='secondary'
-          aria-label={notificationsLabel}
-          endIcon={
-            <Badge badgeContent={notifications}>
-              <MailIcon />
-            </Badge>
-          }
-          onClick={handleOpenForfeit}
-        >
-          GAME CHAT
-        </Button>
+        <GameChatModal />
       </Toolbar>
 
       <ConfirmForfeitDialog

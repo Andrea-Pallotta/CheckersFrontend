@@ -6,9 +6,9 @@ import {
   ListItemText,
   Tooltip,
 } from '@mui/material';
-import BookmarksRoundedIcon from '@mui/icons-material/BookmarksRounded';
 import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
 import LeaderboardRoundedIcon from '@mui/icons-material/LeaderboardRounded';
+import PersonIcon from '@mui/icons-material/Person';
 import React from 'react';
 
 const pageModel = [
@@ -21,8 +21,8 @@ const pageModel = [
     icon: <LeaderboardRoundedIcon />,
   },
   {
-    title: 'Game History',
-    icon: <BookmarksRoundedIcon />,
+    title: 'Profile',
+    icon: <PersonIcon />,
   },
 ];
 

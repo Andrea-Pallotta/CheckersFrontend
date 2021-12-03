@@ -49,6 +49,10 @@ const NavigationDrawer = () => {
     setOpen(false);
   };
 
+  const handleOpenModal = () => {
+    setOpenModal(true);
+  };
+
   const handleCloseModal = () => {
     setOpenModal(false);
   };
@@ -70,7 +74,7 @@ const NavigationDrawer = () => {
       if (Game.fromJSON(state)) {
         user.player =
           Game.fromJSON(state).player1.username === user.username ? 1 : 2;
-        setOpenModal(true);
+        handleOpenModal();
         enqueueSnackbar('Successfully retrieved game state!', {
           variant: 'success',
         });
@@ -112,6 +116,7 @@ const NavigationDrawer = () => {
     socket.on(
       'start-game',
       (state) => {
+        console.log(state);
         if (state) {
           handleGameState(state);
         } else {

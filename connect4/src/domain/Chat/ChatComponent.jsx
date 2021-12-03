@@ -40,12 +40,16 @@ const ChatComponent = ({ messages, to, messageRef }) => {
         <Grid item xs={11}>
           <TextField
             id='outline-multiline-flexible'
-            label='Type something...'
-            multiline
-            maxRows={3}
+            label={`Type a message (${100 - value.length} chars left)`}
             value={value}
             onChange={handleTextFieldValueChange}
             fullWidth
+            inputProps={{ maxLength: 100 }}
+            onKeyPress={(event) => {
+              if (event.key === 'Enter') {
+                handleSendMessage(event, value);
+              }
+            }}
           />
         </Grid>
         <Grid item xs={1} align='right'>

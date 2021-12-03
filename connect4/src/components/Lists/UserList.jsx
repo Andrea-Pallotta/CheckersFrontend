@@ -51,6 +51,7 @@ const UserList = ({ global }) => {
           variant='outlined'
           fullWidth
           onChange={valueChange}
+          inputProps={{ maxLength: 15 }}
         />
       </Grid>
       <Divider />
