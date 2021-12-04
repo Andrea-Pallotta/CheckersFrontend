@@ -6,13 +6,11 @@ import { SocketContext } from '../Contexts/SocketContext';
 import { UserContext } from '../Contexts/UserContext';
 import { useSnackbar } from 'notistack';
 import Game from '../Classes/Game';
-import { TimerContext } from '../Contexts/TimerContext';
 
 const BoardCell = ({ value, cx, cy, x, y }) => {
   const { gameState } = useContext(GameContext);
   const socket = useContext(SocketContext);
   const { user } = useContext(UserContext);
-  const { setTurnTimer } = useContext(TimerContext);
   const { enqueueSnackbar } = useSnackbar();
 
   const sendBoard = () => {
@@ -61,8 +59,8 @@ const BoardCell = ({ value, cx, cy, x, y }) => {
       fill={colorByUser(value)}
       pointerEvents='all'
       onClick={gameState.gameEnded ? showGameEnded : sendBoard}
-      // onMouseEnter={handleOnEnter}
-      // onMouseLeave={handleOnLeave}
+      onMouseEnter={(event) => handleOnEnter(event)}
+      onMouseLeave={(event) => handleOnLeave(event)}
     />
   );
 };

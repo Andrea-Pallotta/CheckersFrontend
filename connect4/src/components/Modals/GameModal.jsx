@@ -15,10 +15,11 @@ const Transition = forwardRef(function Transaction(props, ref) {
 });
 
 const GameModal = ({ open, handleClose }) => {
-  const [turnTimer, setTurnTimer] = useState(30);
   const socket = useContext(SocketContext);
   const { gameState, setGameState } = useContext(GameContext);
   const { user } = useContext(UserContext);
+
+  const { setTurnTimer } = useContext(TimerContext);
 
   const closeModal = () => {
     if (gameState.gameEnded && gameState.winner) {
@@ -39,68 +40,65 @@ const GameModal = ({ open, handleClose }) => {
     };
 
     // window.addEventListener('beforeunload', unloadCallback);
-    socket.on('game-forfeited', (state) => {
-      setGameState(Game.fromJSON(state));
-    });
     socket.on('send-move', (state) => {
       setGameState(Game.fromJSON(state));
+
+      setTurnTimer(10);
+      console.log('setting timer');
     });
     return () => {
-      socket.off('game-forfeited');
       socket.off('send-move');
       // window.removeEventListener('beforeunload', unloadCallback);
     };
-  }, [setGameState, socket]);
+  }, [setGameState, setTurnTimer, socket]);
 
   return (
-    <TimerContext.Provider value={{ turnTimer, setTurnTimer }}>
-      <Dialog
-        fullScreen
-        width='100%'
-        open={open}
-        onClose={closeModal}
-        TransitionComponent={Transition}
-      >
-        <GameModalBar handleClose={closeModal} />
-        <Grid container spacing={2} height='100%'>
-          <Grid item xs={2} sx={{ backgroundColor: '#F1F3F5' }} />
-          <Grid item xs={8} justify='center'>
+    <Dialog
+      fullScreen
+      width='100%'
+      open={open}
+      onClose={closeModal}
+      TransitionComponent={Transition}
+    >
+      <GameModalBar handleClose={closeModal} />
+      <Grid container spacing={2} height='100%'>
+        <Grid item xs={2} sx={{ backgroundColor: '#F1F3F5' }} />
+        <Grid item xs={8} justify='center'>
+          <Grid
+            container
+            direction='column'
+            justifyContent='center'
+            alignItems='center'
+          >
+            <Board />
             <Grid
               container
-              direction='column'
-              justifyContent='center'
-              alignItems='center'
+              direction='row'
+              spacing={4}
+              paddingTop={5}
+              paddingLeft={50}
             >
-              <Board />
-              <Grid
-                container
-                direction='row'
-                spacing={4}
-                paddingTop={5}
-                paddingLeft={50}
-              >
-                <Grid item>
-                  <GameStatusBar player={gameState.player1} orientation='row' />
-                </Grid>
-                <Grid item>
-                  <Stack spacing={1}>
-                    <Typography>{gameState.message}</Typography>
-                    <GameTurnTimer timer={turnTimer} />
-                  </Stack>
-                </Grid>
-                <Grid item>
-                  <GameStatusBar
-                    player={gameState.player2}
-                    orientation='row-inverse'
-                  />
-                </Grid>
+              <Grid item>
+                <GameStatusBar player={gameState.player1} orientation='row' />
+              </Grid>
+              <Grid item>
+                <Stack spacing={1}>
+                  <Typography>{gameState.message}</Typography>
+                  {/* {gameState.winner === undefined && <GameTurnTimer />} */}
+                </Stack>
+              </Grid>
+              <Grid item>
+                <GameStatusBar
+                  player={gameState.player2}
+                  orientation='row-inverse'
+                />
               </Grid>
             </Grid>
           </Grid>
-          <Grid item xs={2} sx={{ backgroundColor: '#F1F3F5' }} />
         </Grid>
-      </Dialog>
-    </TimerContext.Provider>
+        <Grid item xs={2} sx={{ backgroundColor: '#F1F3F5' }} />
+      </Grid>
+    </Dialog>
   );
 };
 

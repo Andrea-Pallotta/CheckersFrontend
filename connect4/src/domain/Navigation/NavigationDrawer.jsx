@@ -25,6 +25,7 @@ import Game from '../../components/Classes/Game';
 import MenuAvatar from '../../components/Avatar/MenuAvatar';
 import TabViewOptions from '../../components/Options/TabViewOptions';
 import TabViewPages from '../../components/TabView/TabViewPages';
+import { TimerContext } from '../../components/Contexts/TimerContext';
 
 const NavigationDrawer = () => {
   const [open, setOpen] = useState(false);
@@ -33,6 +34,7 @@ const NavigationDrawer = () => {
   const [openModal, setOpenModal] = useState(false);
   const [gameState, setGameState] = useState();
   const [channel, setChannel] = useState();
+  const [turnTimer, setTurnTimer] = useState(30);
 
   const { user } = useContext(UserContext);
   const socket = useContext(SocketContext);
@@ -116,7 +118,6 @@ const NavigationDrawer = () => {
     socket.on(
       'start-game',
       (state) => {
-        console.log(state);
         if (state) {
           handleGameState(state);
         } else {
@@ -220,7 +221,9 @@ const NavigationDrawer = () => {
       </LoadingButton>
       {gameState && (
         <GameContext.Provider value={{ gameState, setGameState }}>
-          <GameModal open={openModal} handleClose={handleCloseModal} />
+          <TimerContext.Provider value={{ turnTimer, setTurnTimer }}>
+            <GameModal open={openModal} handleClose={handleCloseModal} />
+          </TimerContext.Provider>
         </GameContext.Provider>
       )}
     </Box>
