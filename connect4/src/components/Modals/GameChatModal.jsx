@@ -11,7 +11,7 @@ import {
 } from '@mui/material';
 import { Box } from '@mui/system';
 import MailIcon from '@mui/icons-material/Mail';
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { SocketContext } from '../Contexts/SocketContext';
 import { useSnackbar } from 'notistack';
 import { GameContext } from '../Contexts/GameContext';
@@ -19,6 +19,7 @@ import SendIcon from '@mui/icons-material/Send';
 
 const GameChatModal = () => {
   const [notifications, setNotifications] = useState(0);
+  const [messages, setMessages] = useState([]);
   const [anchorEl, setAnchorEl] = useState(null);
   const [value, setValue] = useState('');
   const open = Boolean(anchorEl);
@@ -26,7 +27,7 @@ const GameChatModal = () => {
   const { enqueueSnackbar } = useSnackbar();
 
   const socket = useContext(SocketContext);
-  const { game } = useContext(GameContext);
+  const { gameState } = useContext(GameContext);
 
   const handleOpenChat = (event) => {
     setAnchorEl(event.currentTarget);
@@ -40,10 +41,17 @@ const GameChatModal = () => {
     setValue(event.target.value.trimLeft());
   };
 
+  useEffect(() => {
+    socket.on('send-game-message', (message) => {
+      console.log(message);
+    });
+    return () => socket.off('send-game-message');
+  }, [gameState.roomId, socket]);
+
   const handleSendMessage = (event) => {
     event.preventDefault();
     if (value.trim().length > 0) {
-      socket.emit(`game-room-${game.roomId}`, value);
+      socket.emit('game-message', { message: value, roomId: gameState.roomId });
     } else {
       enqueueSnackbar('Cannot send an empty message', {
         variant: 'warning',

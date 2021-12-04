@@ -8,22 +8,21 @@ import {
 import { Box } from '@mui/system';
 import React from 'react';
 import { avatarName } from '../Avatar/Avatar';
-import GameTurnTimer from '../Timer/GameTurnTimer';
 
-const GameStatusBar = ({ user, orientation }) => {
+const GameStatusBar = ({ player, orientation }) => {
   return orientation === 'row' ? (
     <Card sx={{ display: 'flex', padding: '0.5em 0.5em 0.5em 0' }}>
       <Box sx={{ display: 'flex', flexDirection: 'column' }}>
         <CardContent sx={{ flex: '1 0 auto ' }}>
           <Typography component='div' variant='h5'>
-            {user.username}
+            {player.username}
           </Typography>
           <Typography
             variant='subtitle1'
             color='text.secondary'
             component='div'
           >
-            {user.points} points
+            {player.score} points
           </Typography>
         </CardContent>
         <Box sx={{ display: 'flex', alignItems: 'center', pl: 1, pb: 1 }}>
@@ -32,13 +31,13 @@ const GameStatusBar = ({ user, orientation }) => {
             color='text.secondary'
             component='div'
           >
-            Record: {user.wins} - {user.draws} - {user.losses}
+            Record: {player.wins} - {player.draws} - {player.losses}
           </Typography>
         </Box>
       </Box>
       <CardMedia component='div'>
         <Avatar
-          {...avatarName(user.username, {
+          {...avatarName(player.username, {
             width: 56,
             height: 56,
             marginTop: '1em',
@@ -51,7 +50,7 @@ const GameStatusBar = ({ user, orientation }) => {
     <Card sx={{ display: 'flex', padding: '0.5em' }}>
       <CardMedia component='div'>
         <Avatar
-          {...avatarName(user.username, {
+          {...avatarName(player.username, {
             width: 56,
             height: 56,
             marginTop: '1em',
@@ -62,14 +61,14 @@ const GameStatusBar = ({ user, orientation }) => {
       <Box sx={{ display: 'flex', flexDirection: 'column' }}>
         <CardContent sx={{ flex: '1 0 auto ' }}>
           <Typography component='div' variant='h5'>
-            {user.username}
+            {player.username}
           </Typography>
           <Typography
             variant='subtitle1'
             color='text.secondary'
             component='div'
           >
-            {user.points} points
+            {player.score} points
           </Typography>
         </CardContent>
         <Box sx={{ display: 'flex', alignItems: 'center', pl: 1, pb: 1 }}>
@@ -78,7 +77,7 @@ const GameStatusBar = ({ user, orientation }) => {
             color='text.secondary'
             component='div'
           >
-            Record: {user.wins} - {user.draws} - {user.losses}
+            Record: {player.wins} - {player.draws} - {player.losses}
           </Typography>
         </Box>
       </Box>

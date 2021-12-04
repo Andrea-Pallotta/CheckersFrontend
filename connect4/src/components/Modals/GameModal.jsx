@@ -42,11 +42,15 @@ const GameModal = ({ open, handleClose }) => {
     socket.on('game-forfeited', (state) => {
       setGameState(Game.fromJSON(state));
     });
+    socket.on('send-move', (state) => {
+      setGameState(Game.fromJSON(state));
+    });
     return () => {
       socket.off('game-forfeited');
+      socket.off('send-move');
       // window.removeEventListener('beforeunload', unloadCallback);
     };
-  });
+  }, [setGameState, socket]);
 
   return (
     <TimerContext.Provider value={{ turnTimer, setTurnTimer }}>
@@ -76,7 +80,7 @@ const GameModal = ({ open, handleClose }) => {
                 paddingLeft={50}
               >
                 <Grid item>
-                  <GameStatusBar user={user} orientation='row' />
+                  <GameStatusBar player={gameState.player1} orientation='row' />
                 </Grid>
                 <Grid item>
                   <Stack spacing={1}>
@@ -85,7 +89,10 @@ const GameModal = ({ open, handleClose }) => {
                   </Stack>
                 </Grid>
                 <Grid item>
-                  <GameStatusBar user={user} orientation='row-inverse' />
+                  <GameStatusBar
+                    player={gameState.player2}
+                    orientation='row-inverse'
+                  />
                 </Grid>
               </Grid>
             </Grid>

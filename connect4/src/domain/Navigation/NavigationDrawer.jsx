@@ -116,7 +116,6 @@ const NavigationDrawer = () => {
     socket.on(
       'start-game',
       (state) => {
-        console.log(state);
         if (state) {
           handleGameState(state);
         } else {
@@ -131,7 +130,6 @@ const NavigationDrawer = () => {
     );
 
     socket.on('reconnect-game', (state) => {
-      console.log('reconnect-game');
       handleGameState(state);
     });
 
