@@ -116,6 +116,7 @@ const NavigationDrawer = () => {
     socket.on(
       'start-game',
       (state) => {
+        console.log(state);
         if (state) {
           handleGameState(state);
         } else {

@@ -11,7 +11,7 @@ import ChatTextField from '../TextFields/ChatTextField';
 import SendButton from '../Buttons/SendButton';
 
 const GameChatModal = () => {
-  const [notifications, setNotifications] = useState(5);
+  const [notifications, setNotifications] = useState(0);
   const [messages, setMessages] = useState([]);
   const [anchorEl, setAnchorEl] = useState(null);
   const [value, setValue] = useState('');
