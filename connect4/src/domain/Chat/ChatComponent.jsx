@@ -1,11 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Divider, Fab, Grid, TextField } from '@mui/material';
+import { Divider, Grid } from '@mui/material';
 import ChatMessages from './ChatMessages';
-import SendIcon from '@mui/icons-material/Send';
 import { SocketContext } from '../../components/Contexts/SocketContext';
 import { useSnackbar } from 'notistack';
+import ChatTextField from '../../components/TextFields/ChatTextField';
+import SendButton from '../../components/Buttons/SendButton';
 
-const ChatComponent = ({ messages, to, messageRef }) => {
+const ChatComponent = ({ messages, to, messageRef, maxLength }) => {
   const [value, setValue] = useState('');
   const socket = useContext(SocketContext);
   const { enqueueSnackbar } = useSnackbar();
@@ -38,30 +39,15 @@ const ChatComponent = ({ messages, to, messageRef }) => {
       <Divider />
       <Grid container style={{ padding: '20px' }}>
         <Grid item xs={11}>
-          <TextField
-            id='outline-multiline-flexible'
-            label={`Type a message (${100 - value.length} chars left)`}
+          <ChatTextField
+            maxLength={maxLength}
             value={value}
-            onChange={handleTextFieldValueChange}
-            fullWidth
-            inputProps={{ maxLength: 100 }}
-            onKeyPress={(event) => {
-              if (event.key === 'Enter') {
-                handleSendMessage(event, value);
-              }
-            }}
+            handleTextFieldValueChange={handleTextFieldValueChange}
+            handleSendMessage={handleSendMessage}
           />
         </Grid>
         <Grid item xs={1} align='right'>
-          <Fab
-            color='primary'
-            aria-label='add'
-            onClick={(event) => {
-              handleSendMessage(event, value);
-            }}
-          >
-            <SendIcon />
-          </Fab>
+          <SendButton value={value} handleSendMessage={handleSendMessage} />
         </Grid>
       </Grid>
     </Grid>

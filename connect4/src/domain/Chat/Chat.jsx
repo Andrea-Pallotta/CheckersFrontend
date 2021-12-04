@@ -41,6 +41,7 @@ const Chat = ({ global }) => {
           messages={messages}
           to='public-message'
           messageRef={messageRef}
+          maxLength={100}
         />
       </Grid>
     </Box>
