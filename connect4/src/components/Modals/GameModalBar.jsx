@@ -7,6 +7,12 @@ import colorByUser from '../Constants/Colors';
 import ConfirmForfeitDialog from '../Dialogs/ConfirmForfeitDialog';
 import GameChatModal from './GameChatModal';
 
+/**
+ * Create App bar with game chat and forfeit button.
+ *
+ * @param {*} props
+ * @return {*}
+ */
 const GameModalBar = ({ handleClose }) => {
   const [openFoferit, setOpenForfeit] = useState(false);
 

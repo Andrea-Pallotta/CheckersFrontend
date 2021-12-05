@@ -4,7 +4,13 @@ import React, { useContext } from 'react';
 import UserAvatar from '../Avatar/Avatar';
 import { UserContext } from '../Contexts/UserContext';
 
-function MessageSent({ message, time }) {
+/**
+ * Component for sent chat messages.
+ *
+ * @param {*} props
+ * @return {React.Component}
+ */
+const MessageSent = ({ message, time }) => {
   const { user } = useContext(UserContext);
   return (
     <Box
@@ -34,6 +40,6 @@ function MessageSent({ message, time }) {
       </Stack>
     </Box>
   );
-}
+};
 
 export default MessageSent;

@@ -5,6 +5,12 @@ import Response from '../Classes/Response';
 const URL =
   process.env.NODE_ENV === 'production' ? endpoints.EC2 : endpoints.LOCALHOST;
 
+/**
+ * Create HTTP Header with Bearer Auth.
+ *
+ * @param {*} token
+ * @return {*}
+ */
 const createHeader = (token) => {
   return {
     headers: {
@@ -15,6 +21,14 @@ const createHeader = (token) => {
   };
 };
 
+/**
+ * Create a get request with axios.
+ *
+ * @param {string} endpoint
+ * @param {JSON} params
+ * @param {JSON} token
+ * @return {*}
+ */
 const get = async (endpoint, params, token) => {
   const response = await axios.get(
     `${URL}/api${endpoint}`,
@@ -24,6 +38,14 @@ const get = async (endpoint, params, token) => {
   return Response.fromJSON(response.data);
 };
 
+/**
+ * Create a post request with axios.
+ *
+ * @param {string} endpoint
+ * @param {JSON} params
+ * @param {JSON} token
+ * @return {*}
+ */
 const post = async (endpoint, params, token) => {
   const response = await axios.post(
     `${URL}/api${endpoint}`,

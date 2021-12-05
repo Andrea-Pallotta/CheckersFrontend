@@ -16,17 +16,22 @@ import Drawer from './Drawer';
 import DrawerHeader from './DrawerHeader';
 import AppBar from './AppBar';
 import style from './style/style';
+import { useSnackbar } from 'notistack';
 import { UserContext } from '../../components/Contexts/UserContext';
 import { SocketContext } from '../../components/Contexts/SocketContext';
 import { GameContext } from '../../components/Contexts/GameContext';
 import GameModal from '../../components/Modals/GameModal';
-import { useSnackbar } from 'notistack';
 import Game from '../../components/Classes/Game';
 import MenuAvatar from '../../components/Avatar/MenuAvatar';
 import TabViewOptions from '../../components/Options/TabViewOptions';
 import TabViewPages from '../../components/TabView/TabViewPages';
 import { TimerContext } from '../../components/Contexts/TimerContext';
 
+/**
+ * Side drawer menu that wraps the entire application (past auth).
+ *
+ * @returns {React.Component}
+ */
 const NavigationDrawer = () => {
   const [open, setOpen] = useState(false);
   const [page, setPage] = useState(0);
@@ -63,12 +68,20 @@ const NavigationDrawer = () => {
     setPage(index);
   };
 
+  /**
+   * Emit event to start queue.
+   * 
+   * @param {*} event 
+   */
   const startGame = (event) => {
     event.preventDefault();
     setInQueue(true);
     socket.emit('join-queue');
   };
 
+  /**
+   * Handle game state from server.
+   */
   const handleGameState = useCallback(
     (state) => {
       setGameState(Game.fromJSON(state));

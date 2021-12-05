@@ -2,6 +2,11 @@ import { Button, List, ListItemText, Menu } from '@mui/material';
 import { Box } from '@mui/system';
 import React, { useState } from 'react';
 
+/**
+ * Component with players leaderboard.
+ *
+ * @returns {React.Component}
+ */
 const Leaderboard = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);

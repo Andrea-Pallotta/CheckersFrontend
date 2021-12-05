@@ -1,5 +1,8 @@
 import { styled } from '@mui/system';
 
+/**
+ * Drawer header styled div.
+ */
 const DrawerHeader = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',

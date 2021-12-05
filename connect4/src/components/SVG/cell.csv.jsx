@@ -7,12 +7,22 @@ import { UserContext } from '../Contexts/UserContext';
 import { useSnackbar } from 'notistack';
 import Game from '../Classes/Game';
 
+/**
+ * Board cell svg component
+ *
+ * @param {*} props
+ * @returns
+ */
 const BoardCell = ({ value, cx, cy, x, y }) => {
   const { gameState } = useContext(GameContext);
   const socket = useContext(SocketContext);
   const { user } = useContext(UserContext);
   const { enqueueSnackbar } = useSnackbar();
 
+  /**
+   * Set updated move to the backend.
+   *
+   */
   const sendBoard = () => {
     if (gameState.turn === user.player) {
       if (gameState.board[x][y] === 0) {

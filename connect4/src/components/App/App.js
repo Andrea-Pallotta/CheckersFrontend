@@ -9,6 +9,11 @@ import User from '../Classes/User';
 import req from '../API/requests';
 import Response from '../Classes/Response';
 
+/**
+ * Main component added to index.js
+ *
+ * @return {*}
+ */
 const App = () => {
   const [authState, setAuthState] = useState();
   const [socket, setSocket] = useState();
@@ -16,6 +21,9 @@ const App = () => {
   const { enqueueSnackbar } = useSnackbar();
   const mountedRef = useRef(true);
 
+  /**
+   * Get user from Congito and set User and Socket contexts.
+   */
   const fetchUser = useCallback(
     (authData) => {
       try {
@@ -46,6 +54,9 @@ const App = () => {
     [enqueueSnackbar]
   );
 
+  /**
+   * Check if user is logged in and retrieve user information.
+   */
   useEffect(() => {
     onAuthUIStateChange((nextAuthState, authData) => {
       if (authData) {

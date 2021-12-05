@@ -2,6 +2,11 @@ import React from 'react';
 import { Avatar, Badge } from '@mui/material';
 import { styled } from '@mui/system';
 
+/**
+ * Generate HEX color from string
+ * @param {string} name
+ * @returns
+ */
 export const nameToColor = (name) => {
   let hash = 0;
   let i;
@@ -19,6 +24,12 @@ export const nameToColor = (name) => {
   return color;
 };
 
+/**
+ * Create MUI styled for user avatar.
+ * @param {*} name
+ * @param {*} props
+ * @returns
+ */
 export const avatarName = (name, props) => {
   return {
     sx: {
@@ -29,6 +40,9 @@ export const avatarName = (name, props) => {
   };
 };
 
+/**
+ * Create green Badge for user avatar.
+ */
 const OnlineBadge = styled(Badge)(() => ({
   '& .MuiBadge-badge': {
     backgroundColor: '#44b700',
@@ -58,6 +72,9 @@ const OnlineBadge = styled(Badge)(() => ({
   },
 }));
 
+/**
+ * Create red Badge for user avatar.
+ */
 const BusyBadge = styled(Badge)(() => ({
   '& .MuiBadge-badge': {
     backgroundColor: 'red',
@@ -66,6 +83,11 @@ const BusyBadge = styled(Badge)(() => ({
   },
 }));
 
+/**
+ * Create User Avatar component
+ * @param {*} props
+ * @returns React.Component
+ */
 const UserAvatar = ({ name, busy = false, style }) => {
   return busy ? (
     <BusyBadge

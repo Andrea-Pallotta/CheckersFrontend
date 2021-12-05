@@ -8,12 +8,21 @@ import ChatLabel from '../../components/Labels/ChatLabel';
 import ChatComponent from './ChatComponent';
 import Message from '../../components/Classes/Message';
 
+/**
+ * Public chat component.
+ *
+ * @param {*} props
+ * @return {React.Component}
+ */
 const Chat = ({ global }) => {
   const socket = useContext(SocketContext);
   const [messages, setMessages] = useState([]);
 
   const messageRef = useRef(null);
 
+  /**
+   * Scroll to the last message.
+   */
   const scrollToEndMessage = () => {
     messageRef.current.scrollIntoView({ behavior: 'smooth' });
   };

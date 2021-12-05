@@ -1,6 +1,12 @@
 import { TextField } from '@mui/material';
 import React from 'react';
 
+/**
+ * TextField used in chat to type messages.
+ *
+ * @param {*} props
+ * @return {React.Component}
+ */
 const ChatTextField = (props) => {
   return (
     <TextField

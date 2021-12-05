@@ -1,12 +1,16 @@
 import React, { createRef } from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './components/App/App';
+import loadable from '@loadable/component';
 import reportWebVitals from './components/App/performance/reportWebVitals';
 import Amplify from 'aws-amplify';
 import awsExports from './aws-exports';
 import { SnackbarProvider } from 'notistack';
 import { Button } from '@mui/material';
+import * as serviceWorker from './serviceWorker';
+const App = loadable(() => import('./components/App/App'));
+
+serviceWorker.register();
 Amplify.configure(awsExports);
 
 const ref = createRef();
@@ -14,6 +18,13 @@ const dismiss = (key) => () => {
   ref.current.closeSnackbar(key);
 };
 
+/**
+ * Main React Component.
+ * Sets up the snackbar notification provider with a return button.
+ * Configures Amplify with default settings.
+ * Renders the <App /> Component.
+ *
+ */
 ReactDOM.render(
   <React.StrictMode>
     <SnackbarProvider

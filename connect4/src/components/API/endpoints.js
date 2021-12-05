@@ -1,9 +1,7 @@
+/**
+ * Export localhost and EC2 IP addresses.
+ */
 module.exports = {
   EC2: 'http://34.194.193.176:5050',
   LOCALHOST: 'http://127.0.0.1:5050',
-  GLOBAL_CHAT: 'GLOBAL_CHAT',
-  NEW_GLOBAL_CHAT_MESSAGE: 'NEW_GLOBAL_CHAT_MESSAGE',
-  SIGN_UP: 'SIGN_UP',
-  USER_JOIN_CHAT_EVENT: 'USER_JOIN_CHAT_EVENT',
-  USER_LEAVE_CHAT_EVENT: 'USER_LEAVE_CHAT_EVENT',
 };

@@ -26,6 +26,12 @@ const pageModel = [
   },
 ];
 
+/**
+ * List of clickable Icons that toggle the active page.
+ *
+ * @param {*} props
+ * @return {*} 
+ */
 const TabViewOptions = ({ onClick }) => {
   return (
     <List>

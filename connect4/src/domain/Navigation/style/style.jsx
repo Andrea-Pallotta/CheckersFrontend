@@ -1,5 +1,11 @@
 const drawerWidth = 240;
 
+/**
+ * Open drawer animation
+ *
+ * @param {*} theme
+ * @returns
+ */
 const openedMixin = (theme) => ({
   width: drawerWidth,
   transition: theme.transitions.create('width', {
@@ -9,6 +15,12 @@ const openedMixin = (theme) => ({
   overflowX: 'hidden',
 });
 
+/**
+ * Close drawer animation
+ *
+ * @param {*} theme
+ * @returns
+ */
 const closedMixin = (theme) => ({
   transition: theme.transitions.create('width', {
     easing: theme.transitions.easing.sharp,
@@ -21,6 +33,9 @@ const closedMixin = (theme) => ({
   },
 });
 
+/**
+ * Queue button style
+ */
 const buttonStyle = {
   position: 'absolute',
   width: '100%',

@@ -5,6 +5,12 @@ import { GameContext } from '../Contexts/GameContext';
 import { SocketContext } from '../Contexts/SocketContext';
 import { TimerContext } from '../Contexts/TimerContext';
 
+/**
+ * Create text to be displayed inside the game timer.
+ *
+ * @param {*} props
+ * @return {React.Component}
+ */
 const renderTime = ({ remainingTime }) => {
   return (
     <Typography fontSize='1.5em' align='center'>
@@ -13,6 +19,11 @@ const renderTime = ({ remainingTime }) => {
   );
 };
 
+/**
+ * Create Game Timer.
+ *
+ * @returns {React.Component}
+ */
 const GameTurnTimer = () => {
   const { turnTimer } = useContext(TimerContext);
   const { gameState } = useContext(GameContext);

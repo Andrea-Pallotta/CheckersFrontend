@@ -3,7 +3,13 @@ import Stack from '@mui/material/Stack';
 import MessageReceived from '../../components/Messages/MessageReceived';
 import MessageSent from '../../components/Messages/MessageSent';
 
-export default function Message({ author, message, time }) {
+/**
+ * Generic message component. Renders message depending on the type of message.
+ *
+ * @param {*} props
+ * @returns {React.Component}
+ */
+const Message = ({ author, message, time }) => {
   return (
     <Stack spacing={1}>
       {author ? (
@@ -17,4 +23,6 @@ export default function Message({ author, message, time }) {
       )}
     </Stack>
   );
-}
+};
+
+export default Message;

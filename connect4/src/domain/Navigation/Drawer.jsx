@@ -2,6 +2,9 @@ import { styled } from '@mui/system';
 import MuiDrawer from '@mui/material/Drawer';
 import style from './style/style';
 
+/**
+ * MUI Drawer styled component.
+ */
 const Drawer = styled(MuiDrawer, {
   shouldForwardProp: (prop) => prop !== 'open',
 })(({ theme, open }) => ({

@@ -1,5 +1,10 @@
 import React from 'react';
 
+/**
+ * SVG pattern for masking circles.
+ *
+ * @returns
+ */
 const BoardPattern = () => {
   return (
     <defs>

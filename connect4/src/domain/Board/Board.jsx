@@ -4,6 +4,11 @@ import BoardPattern from '../../components/SVG/pattern.csv.jsx';
 import BoardColumn from '../../components/SVG/column.csv.jsx';
 import { GameContext } from '../../components/Contexts/GameContext.jsx';
 
+/**
+ * Game board component.
+ *
+ * @return {React.Component}
+ */
 const Board = () => {
   const { gameState } = useContext(GameContext);
 

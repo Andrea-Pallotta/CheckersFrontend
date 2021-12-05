@@ -5,6 +5,12 @@ import Home from '../../domain/HomePage/Home';
 import Leaderboard from '../../domain/Leaderboard/Leaderboard';
 import Profile from '../../domain/Profile/Profile';
 
+/**
+ * Toggle between active page based on page value.
+ *
+ * @param {*} props.
+ * @return {React.Component}
+ */
 const TabViewPages = ({ page, channel }) => {
   const activePage = (channel) => {
     switch (page) {

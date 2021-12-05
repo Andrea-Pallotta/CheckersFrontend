@@ -2,6 +2,9 @@ import MuiAppBar from '@mui/material/AppBar';
 import { styled } from '@mui/system';
 import style from './style/style';
 
+/**
+ * Styled MuiAppBar components.
+ */
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== 'open',
 })(({ theme, open }) => ({

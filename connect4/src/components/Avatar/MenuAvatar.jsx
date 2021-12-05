@@ -4,6 +4,11 @@ import React, { useContext } from 'react';
 import { UserContext } from '../Contexts/UserContext';
 import UserAvatar from './Avatar';
 
+/**
+ * Create User avatar without badge
+ * @param {*} props
+ * @returns React.Component
+ */
 const MenuAvatar = ({ action }) => {
   const { user } = useContext(UserContext);
   return (

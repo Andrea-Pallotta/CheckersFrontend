@@ -4,7 +4,13 @@ import React, { useState } from 'react';
 import UserAvatar from '../Avatar/Avatar';
 import MoreHorizRoundedIcon from '@mui/icons-material/MoreHorizRounded';
 
-function MessageReceived({ author, message, time }) {
+/**
+ * Component for received chat messages.
+ *
+ * @param {*} props
+ * @return {React.Component}
+ */
+const MessageReceived = ({ author, message, time }) => {
   const [hover, setHover] = useState(false);
 
   return (
@@ -47,6 +53,6 @@ function MessageReceived({ author, message, time }) {
       <MoreHorizRoundedIcon style={{ display: hover ? 'block' : 'none' }} />
     </Box>
   );
-}
+};
 
 export default MessageReceived;

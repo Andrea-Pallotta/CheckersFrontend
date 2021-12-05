@@ -4,6 +4,7 @@ import { UserContext } from '../../components/Contexts/UserContext';
 import Message from './Message';
 
 const ChatMessages = ({ messages, messageRef }) => {
+  console.log(messageRef);
   const { user } = useContext(UserContext);
   return (
     <Stack style={{ height: '65vh', overflowY: 'auto' }}>
@@ -20,7 +21,7 @@ const ChatMessages = ({ messages, messageRef }) => {
         })
       ) : (
         <Typography variant='h7' ml={4} mt={4}>
-          No messages yet.
+          No messages yet...
         </Typography>
       )}
       <div ref={messageRef} />

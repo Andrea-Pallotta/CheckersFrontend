@@ -10,6 +10,11 @@ import ChatMessages from '../../domain/Chat/ChatMessages';
 import ChatTextField from '../TextFields/ChatTextField';
 import SendButton from '../Buttons/SendButton';
 
+/**
+ * Modal screen for game chat.
+ *
+ * @return {React.Component}
+ */
 const GameChatModal = () => {
   const [notifications, setNotifications] = useState(0);
   const [messages, setMessages] = useState([]);
@@ -23,19 +28,45 @@ const GameChatModal = () => {
   const socket = useContext(SocketContext);
   const { gameState } = useContext(GameContext);
 
+  /**
+   * Reset notifications counter and set the anchor
+   * when modal opens.
+   *
+   * @param {*} event
+   */
   const handleOpenChat = (event) => {
     setNotifications(0);
     setAnchorEl(event.currentTarget);
   };
 
+  /**
+   * Reset anchor element when modal closes.
+   *
+   */
   const handleCloseChat = () => {
     setAnchorEl(null);
   };
 
+  /**
+   * Set state when user types in the textfield.
+   *
+   * @param {*} event
+   */
   const handleTextFieldValueChange = (event) => {
     setValue(event.target.value.trimLeft());
   };
 
+  /**
+   * Automatically scroll to the last message.
+   *
+   */
+  const scrollToEndMessage = () => {
+    messageRef.current.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  useEffect(scrollToEndMessage, [messages]);
+
+  
   useEffect(() => {
     socket.on('send-game-message', (message) => {
       if (anchorEl === null) {
@@ -46,6 +77,11 @@ const GameChatModal = () => {
     return () => socket.off('send-game-message');
   }, [anchorEl, gameState.roomId, socket]);
 
+  /**
+   * Trim and send message to the server.
+   * 
+   * @param {*} event 
+   */
   const handleSendMessage = (event) => {
     event.preventDefault();
     if (value.trim().length > 0) {
@@ -58,6 +94,10 @@ const GameChatModal = () => {
     setValue('');
   };
 
+  /**
+   * Create notification label for aria tags.
+   * @returns {string}
+   */
   const notificationsLabel = () => {
     if (notifications === 0) {
       return 'no notifications';
@@ -98,7 +138,6 @@ const GameChatModal = () => {
       >
         <Grid item xs={11}>
           <ChatMessages messages={messages} messageRef={messageRef} />
-
           <Divider />
           <Grid container style={{ padding: '20px' }}>
             <Grid item xs={9}>

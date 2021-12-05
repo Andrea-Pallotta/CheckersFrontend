@@ -9,6 +9,12 @@ import { Box } from '@mui/system';
 import React from 'react';
 import { avatarName } from '../Avatar/Avatar';
 
+/**
+ * Component that shows information about the two players.
+ *
+ * @param {*} props
+ * @return {React.Component}
+ */
 const GameStatusBar = ({ player, orientation }) => {
   return orientation === 'row' ? (
     <Card sx={{ display: 'flex', padding: '0.5em 0.5em 0.5em 0' }}>

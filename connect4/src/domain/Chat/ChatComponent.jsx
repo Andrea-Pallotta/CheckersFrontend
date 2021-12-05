@@ -6,19 +6,38 @@ import { useSnackbar } from 'notistack';
 import ChatTextField from '../../components/TextFields/ChatTextField';
 import SendButton from '../../components/Buttons/SendButton';
 
+/**
+ * Component with a list of messages and a textfield to send new messages.
+ * 
+ * @param {*} props 
+ * @returns 
+ */
 const ChatComponent = ({ messages, to, messageRef, maxLength }) => {
   const [value, setValue] = useState('');
   const socket = useContext(SocketContext);
   const { enqueueSnackbar } = useSnackbar();
 
+  /**
+   * Scroll to the last message.
+   */
   const scrollToEndMessage = () => {
     messageRef.current.scrollIntoView({ behavior: 'smooth' });
   };
 
+  /**
+   * Set new message to what the user typed in the textfield.
+   * 
+   * @param {*} event 
+   */
   const handleTextFieldValueChange = (event) => {
     setValue(event.target.value.trimLeft());
   };
 
+  /**
+   * Validate message and send it to the server.
+   * 
+   * @param {*} event 
+   */
   const handleSendMessage = (event) => {
     event.preventDefault();
     if (value.trim().length > 0) {

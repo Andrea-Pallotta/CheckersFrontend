@@ -12,14 +12,29 @@ import React, { useContext, useState } from 'react';
 import { UserContext } from '../Contexts/UserContext';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
+/**
+ * Create a list of users in the public chat.
+ *
+ * @param {*} props
+ * @return {React.Component}
+ */
 const UserList = ({ global }) => {
   const [value, setValue] = useState('');
   const { user } = useContext(UserContext);
 
+  /**
+   * Search users in list.
+   *
+   * @param {*} event
+   */
   const valueChange = (event) => {
     setValue(event.target.value.trimLeft());
   };
 
+  /**
+   * Filter list of users
+   * @returns {React.Component}
+   */
   const listOfPlayers = global
     .filter((el) => {
       return (

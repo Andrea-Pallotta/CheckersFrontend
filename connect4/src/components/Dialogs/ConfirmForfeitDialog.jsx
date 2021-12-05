@@ -8,8 +8,19 @@ import {
 } from '@mui/material';
 import React from 'react';
 
+/**
+ * Create dialog to confirm game forfeit.
+ *
+ * @param {*} props
+ * @return {React.Component}
+ */
 const ConfirmForfeitDialog = (props) => {
   const { open, handleCloseModal, handleCloseForfeit } = props;
+
+  /**
+   * Close this dialog and game modal screen.
+   *
+   */
   const handleForfeit = () => {
     handleCloseForfeit();
     handleCloseModal();

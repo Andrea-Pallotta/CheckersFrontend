@@ -1,4 +1,4 @@
-import React, { forwardRef, useContext, useEffect, useState } from 'react';
+import React, { forwardRef, useContext, useEffect } from 'react';
 import { Dialog, Grid, Slide, Stack, Typography } from '@mui/material';
 import GameModalBar from './GameModalBar';
 import Board from '../../domain/Board/Board';
@@ -7,13 +7,22 @@ import { GameContext } from '../Contexts/GameContext';
 import { UserContext } from '../Contexts/UserContext';
 import Game from '../Classes/Game';
 import GameStatusBar from '../StatusBars/GameStatusBar';
-import GameTurnTimer from '../Timer/GameTurnTimer';
 import { TimerContext } from '../Contexts/TimerContext';
 
+/**
+ * Create MUI dialog animation.
+ *
+ */
 const Transition = forwardRef(function Transaction(props, ref) {
   return <Slide direction='up' ref={ref} {...props} />;
 });
 
+/**
+ * Create MUI Dialog containing the game events.
+ *
+ * @param {*} props
+ * @return {*}
+ */
 const GameModal = ({ open, handleClose }) => {
   const socket = useContext(SocketContext);
   const { gameState, setGameState } = useContext(GameContext);
