@@ -3,11 +3,12 @@ import { AmplifyAuthenticator } from '@aws-amplify/ui-react';
 import { AuthState, onAuthUIStateChange } from '@aws-amplify/ui-components';
 import { useSnackbar, withSnackbar } from 'notistack';
 import { SocketContext, newSocket } from '../Contexts/SocketContext';
-import NavigationDrawer from '../../domain/Navigation/NavigationDrawer';
 import { UserContext } from '../Contexts/UserContext';
 import User from '../Classes/User';
-import req from '../API/requests';
 import Response from '../Classes/Response';
+import req from '../API/requests';
+
+import { NavigationDrawer } from '../../imports/domain.imports';
 
 /**
  * Main component added to index.js

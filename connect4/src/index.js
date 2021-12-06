@@ -1,14 +1,13 @@
 import React, { createRef } from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import loadable from '@loadable/component';
 import reportWebVitals from './components/App/performance/reportWebVitals';
 import Amplify from 'aws-amplify';
 import awsExports from './aws-exports';
 import { SnackbarProvider } from 'notistack';
 import { Button } from '@mui/material';
 import * as serviceWorker from './serviceWorker';
-const App = loadable(() => import('./components/App/App'));
+import { App } from './imports/components.imports';
 
 serviceWorker.register();
 Amplify.configure(awsExports);

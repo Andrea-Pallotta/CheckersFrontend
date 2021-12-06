@@ -1,8 +1,9 @@
+import React, { useState } from 'react';
 import { Stack, Typography } from '@mui/material';
 import { Box } from '@mui/system';
-import React, { useState } from 'react';
-import UserAvatar from '../Avatar/Avatar';
 import MoreHorizRoundedIcon from '@mui/icons-material/MoreHorizRounded';
+
+import { UserAvatar } from '../../imports/components.imports';
 
 /**
  * Component for received chat messages.

@@ -1,13 +1,13 @@
 import React, { forwardRef, useContext, useEffect } from 'react';
 import { Dialog, Grid, Slide, Stack, Typography } from '@mui/material';
-import GameModalBar from './GameModalBar';
-import Board from '../../domain/Board/Board';
 import { SocketContext } from '../Contexts/SocketContext';
 import { GameContext } from '../Contexts/GameContext';
 import { UserContext } from '../Contexts/UserContext';
-import Game from '../Classes/Game';
-import GameStatusBar from '../StatusBars/GameStatusBar';
 import { TimerContext } from '../Contexts/TimerContext';
+import Game from '../Classes/Game';
+
+import { Board } from '../../imports/domain.imports';
+import { GameModalBar, GameStatusBar } from '../../imports/components.imports';
 
 /**
  * Create MUI dialog animation.

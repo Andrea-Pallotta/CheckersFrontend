@@ -4,8 +4,11 @@ import CloseIcon from '@mui/icons-material/Close';
 import { GameContext } from '../Contexts/GameContext';
 import { UserContext } from '../Contexts/UserContext';
 import colorByUser from '../Constants/Colors';
-import ConfirmForfeitDialog from '../Dialogs/ConfirmForfeitDialog';
-import GameChatModal from './GameChatModal';
+
+import {
+  ConfirmForfeitDialog,
+  GameChatModal,
+} from '../../imports/components.imports';
 
 /**
  * Create App bar with game chat and forfeit button.

@@ -1,7 +1,7 @@
 import React from 'react';
 import Stack from '@mui/material/Stack';
-import MessageReceived from '../../components/Messages/MessageReceived';
-import MessageSent from '../../components/Messages/MessageSent';
+
+import { MessageReceived, MessageSent } from '../../imports/components.imports';
 
 /**
  * Generic message component. Renders message depending on the type of message.

@@ -1,8 +1,11 @@
 import { Box } from '@mui/system';
 import React, { useContext } from 'react';
-import BoardPattern from '../../components/SVG/pattern.csv.jsx';
-import BoardColumn from '../../components/SVG/column.csv.jsx';
 import { GameContext } from '../../components/Contexts/GameContext.jsx';
+
+import {
+  BoardPattern,
+  BoardColumn,
+} from '../../imports/components.imports.jsx';
 
 /**
  * Game board component.

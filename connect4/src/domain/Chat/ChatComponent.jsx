@@ -3,14 +3,14 @@ import { Divider, Grid } from '@mui/material';
 import ChatMessages from './ChatMessages';
 import { SocketContext } from '../../components/Contexts/SocketContext';
 import { useSnackbar } from 'notistack';
-import ChatTextField from '../../components/TextFields/ChatTextField';
-import SendButton from '../../components/Buttons/SendButton';
+
+import { ChatTextField, SendButton } from '../../imports/components.imports';
 
 /**
  * Component with a list of messages and a textfield to send new messages.
- * 
- * @param {*} props 
- * @returns 
+ *
+ * @param {*} props
+ * @returns
  */
 const ChatComponent = ({ messages, to, messageRef, maxLength }) => {
   const [value, setValue] = useState('');
@@ -26,8 +26,8 @@ const ChatComponent = ({ messages, to, messageRef, maxLength }) => {
 
   /**
    * Set new message to what the user typed in the textfield.
-   * 
-   * @param {*} event 
+   *
+   * @param {*} event
    */
   const handleTextFieldValueChange = (event) => {
     setValue(event.target.value.trimLeft());
@@ -35,8 +35,8 @@ const ChatComponent = ({ messages, to, messageRef, maxLength }) => {
 
   /**
    * Validate message and send it to the server.
-   * 
-   * @param {*} event 
+   *
+   * @param {*} event
    */
   const handleSendMessage = (event) => {
     event.preventDefault();

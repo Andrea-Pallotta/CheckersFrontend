@@ -12,20 +12,21 @@ import ChevronRightRoundedIcon from '@mui/icons-material/ChevronRightRounded';
 import ChevronLeftRoundedIcon from '@mui/icons-material/ChevronLeftRounded';
 import { LoadingButton } from '@mui/lab';
 import AddIcon from '@mui/icons-material/Add';
-import Drawer from './Drawer';
-import DrawerHeader from './DrawerHeader';
-import AppBar from './AppBar';
 import style from './style/style';
 import { useSnackbar } from 'notistack';
 import { UserContext } from '../../components/Contexts/UserContext';
 import { SocketContext } from '../../components/Contexts/SocketContext';
 import { GameContext } from '../../components/Contexts/GameContext';
-import GameModal from '../../components/Modals/GameModal';
-import Game from '../../components/Classes/Game';
-import MenuAvatar from '../../components/Avatar/MenuAvatar';
-import TabViewOptions from '../../components/Options/TabViewOptions';
-import TabViewPages from '../../components/TabView/TabViewPages';
 import { TimerContext } from '../../components/Contexts/TimerContext';
+import Game from '../../components/Classes/Game';
+
+import { Drawer, DrawerHeader, AppBar } from '../../imports/domain.imports';
+import {
+  GameModal,
+  MenuAvatar,
+  TabViewOptions,
+  TabViewPages,
+} from '../../imports/components.imports';
 
 /**
  * Side drawer menu that wraps the entire application (past auth).
@@ -70,8 +71,8 @@ const NavigationDrawer = () => {
 
   /**
    * Emit event to start queue.
-   * 
-   * @param {*} event 
+   *
+   * @param {*} event
    */
   const startGame = (event) => {
     event.preventDefault();

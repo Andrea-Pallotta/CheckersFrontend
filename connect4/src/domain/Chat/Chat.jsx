@@ -3,10 +3,10 @@ import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import { SocketContext } from '../../components/Contexts/SocketContext';
-import UserList from '../../components/Lists/UserList';
-import ChatLabel from '../../components/Labels/ChatLabel';
-import ChatComponent from './ChatComponent';
 import Message from '../../components/Classes/Message';
+import ChatComponent from './ChatComponent';
+
+import { UserList, ChatLabel } from '../../imports/components.imports';
 
 /**
  * Public chat component.

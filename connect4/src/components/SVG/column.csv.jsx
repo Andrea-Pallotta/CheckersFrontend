@@ -1,5 +1,5 @@
 import React from 'react';
-import BoardCell from './cell.csv.jsx';
+import { BoardCell } from '../../imports/components.imports.jsx';
 
 /**
  * Calculate the x-coord of the column based on map index.

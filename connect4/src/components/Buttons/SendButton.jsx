@@ -12,6 +12,9 @@ const SendButton = ({ value, handleSendMessage }) => {
     <Fab
       sx={{ marginLeft: '0.5em' }}
       color='primary'
+      disabled={
+        !value.trimLeft() || value.trimLeft().length === 0 ? true : false
+      }
       aria-label='add'
       onClick={(event) => {
         handleSendMessage(event, value);

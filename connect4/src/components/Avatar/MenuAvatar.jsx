@@ -1,8 +1,9 @@
+import React, { useContext } from 'react';
 import { Button, Menu, MenuItem } from '@mui/material';
 import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
-import React, { useContext } from 'react';
 import { UserContext } from '../Contexts/UserContext';
-import UserAvatar from './Avatar';
+
+import { UserAvatar } from '../../imports/components.imports';
 
 /**
  * Create User avatar without badge

@@ -1,9 +1,12 @@
 import { Backdrop, CircularProgress } from '@mui/material';
 import React from 'react';
-import ErrorBoundary from '../../domain/Error/ErrorBoundary';
-import Home from '../../domain/HomePage/Home';
-import Leaderboard from '../../domain/Leaderboard/Leaderboard';
-import Profile from '../../domain/Profile/Profile';
+
+import {
+  Home,
+  Leaderboard,
+  Profile,
+  ErrorBoundary,
+} from '../../imports/domain.imports';
 
 /**
  * Toggle between active page based on page value.
@@ -31,7 +34,7 @@ const TabViewPages = ({ page, channel }) => {
         activePage(channel)
       ) : (
         <Backdrop
-          sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+          sx={{ color: '#FFF', zIndex: (theme) => theme.zIndex.drawer + 1 }}
           open={true}
         >
           <CircularProgress color='error' thickness={5} />

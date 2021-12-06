@@ -1,9 +1,9 @@
+import React, { useContext } from 'react';
 import { Stack, Typography } from '@mui/material';
 import { Box } from '@mui/system';
-import React, { useContext } from 'react';
-import UserAvatar from '../Avatar/Avatar';
 import { UserContext } from '../Contexts/UserContext';
 
+import { UserAvatar } from '../../imports/components.imports';
 /**
  * Component for sent chat messages.
  *

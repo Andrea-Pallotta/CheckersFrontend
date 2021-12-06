@@ -7,8 +7,8 @@ import { useSnackbar } from 'notistack';
 import { GameContext } from '../Contexts/GameContext';
 import Message from '../../components/Classes/Message';
 import ChatMessages from '../../domain/Chat/ChatMessages';
-import ChatTextField from '../TextFields/ChatTextField';
-import SendButton from '../Buttons/SendButton';
+
+import { ChatTextField, SendButton } from '../../imports/components.imports';
 
 /**
  * Modal screen for game chat.
@@ -60,13 +60,12 @@ const GameChatModal = () => {
    * Automatically scroll to the last message.
    *
    */
-  const scrollToEndMessage = () => {
-    messageRef.current.scrollIntoView({ behavior: 'smooth' });
-  };
+  // const scrollToEndMessage = () => {
+  //   messageRef.current.scrollIntoView({ behavior: 'smooth' });
+  // };
 
-  useEffect(scrollToEndMessage, [messages]);
+  // useEffect(scrollToEndMessage, [messages]);
 
-  
   useEffect(() => {
     socket.on('send-game-message', (message) => {
       if (anchorEl === null) {
@@ -79,8 +78,8 @@ const GameChatModal = () => {
 
   /**
    * Trim and send message to the server.
-   * 
-   * @param {*} event 
+   *
+   * @param {*} event
    */
   const handleSendMessage = (event) => {
     event.preventDefault();

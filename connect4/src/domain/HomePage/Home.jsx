@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
-import Chat from '../Chat/Chat';
 import { UserContext } from '../../components/Contexts/UserContext';
+import { Chat } from '../../imports/domain.imports';
 
 /**
  * Home page component with public chat.

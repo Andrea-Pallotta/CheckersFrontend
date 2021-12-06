@@ -1,7 +1,7 @@
 import { Stack, Typography } from '@mui/material';
 import React, { useContext } from 'react';
 import { UserContext } from '../../components/Contexts/UserContext';
-import Message from './Message';
+import { Message } from '../../imports/domain.imports';
 
 const ChatMessages = ({ messages, messageRef }) => {
   console.log(messageRef);
