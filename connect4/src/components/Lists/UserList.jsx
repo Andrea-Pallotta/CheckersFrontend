@@ -1,4 +1,5 @@
 import {
+  Chip,
   Divider,
   Grid,
   List,
@@ -32,6 +33,25 @@ const UserList = ({ global }) => {
   };
 
   /**
+   * Return Chip color based on user's state.
+   *
+   * @param {string} state
+   * @return {string}
+   */
+  const userState = (state) => {
+    switch (state) {
+      case 'Online':
+        return 'success';
+      case 'In Game':
+        return 'error';
+      case 'In Queue':
+        return 'warning';
+      default:
+        return 'secondary';
+    }
+  };
+
+  /**
    * Filter list of users
    * @returns {React.Component}
    */
@@ -50,7 +70,9 @@ const UserList = ({ global }) => {
           <ListItemText primary={player.username}>
             {player.username}
           </ListItemText>
-          <ListItemText secondary='online' align='right'></ListItemText>
+          <ListItemText align='right'>
+            <Chip label={player.state} color={userState(player.state)} />
+          </ListItemText>
         </ListItem>
       );
     });

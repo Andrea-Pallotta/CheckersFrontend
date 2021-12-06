@@ -16,6 +16,7 @@ class User {
    * @param {*} score
    * @param {*} id
    * @param {*} activeGame
+   * @param {*} state
    * @memberof User
    */
   constructor(
@@ -28,7 +29,8 @@ class User {
     losses,
     score,
     id,
-    activeGame
+    activeGame,
+    state
   ) {
     this.username = username;
     this.socketId = socketId;
@@ -40,6 +42,7 @@ class User {
     this.score = score;
     this.id = id;
     this.activeGame = activeGame;
+    this.state = state;
   }
 
   /**
