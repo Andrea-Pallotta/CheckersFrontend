@@ -17,7 +17,7 @@ export default function Copyright(props) {
       {...props}
     >
       {'Copyright © '}
-      <Link color='inherit' href='#'>
+      <Link rel='noopener' target='_blank' crossorigin color='inherit' href='#'>
         Andrea Pallotta
       </Link>
       {` ${new Date().getFullYear()}.`}
