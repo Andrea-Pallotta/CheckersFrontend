@@ -1,6 +1,8 @@
-import { Button, List, ListItemText, Menu } from '@mui/material';
+import React, { useContext, useEffect, useState } from 'react';
 import { Box } from '@mui/system';
-import React, { useState } from 'react';
+import req from '../../components/API/requests';
+import { UserContext } from '../../components/Contexts/UserContext';
+import { useSnackbar } from 'notistack';
 
 /**
  * Component with players leaderboard.
@@ -8,49 +10,45 @@ import React, { useState } from 'react';
  * @returns {React.Component}
  */
 const Leaderboard = () => {
-  const [anchorEl, setAnchorEl] = useState(null);
-  const open = Boolean(anchorEl);
+  const [index, setIndex] = useState(0);
+  const [users, setUsers] = useState([]);
+  const [end, setEnd] = useState(false);
 
-  const handleOpenChat = (event) => {
-    setAnchorEl(event.currentTarget);
+  const { user } = useContext(UserContext);
+  const { enqueueSnackbar } = useSnackbar();
+
+  const loadMoreUsers = () => {
+    if (end === false) {
+      console.log('loading more');
+      usersFromDB();
+      setIndex((prev) => prev + 20);
+    }
   };
 
-  const handleCloseChat = () => {
-    setAnchorEl(null);
+  const usersFromDB = () => {
+    try {
+      req.get('/getLeaderboard', { index }, user.accessToken).then((result) => {
+        console.log(result);
+        if (result.length < 20) setEnd(true);
+      }, []);
+    } catch (err) {
+      console.log(err);
+      setEnd(true);
+      enqueueSnackbar('Error retrieving list of users', {
+        variant: 'error',
+      });
+    }
   };
+
+  useEffect(() => {
+    if (users.length === 0) {
+      loadMoreUsers();
+    }
+  }, []);
 
   return (
     <Box>
-      <Button
-        id='basic-button'
-        aria-controls='basic-menu'
-        aria-haspopup='true'
-        aria-expanded={open ? 'true' : undefined}
-        onClick={handleOpenChat}
-      >
-        Game Chat
-      </Button>
-      <Menu
-        id='game-chat'
-        anchorEl={anchorEl}
-        open={open}
-        onClose={handleCloseChat}
-        MenuListProps={{
-          'aria-labelledby': 'basic-button',
-        }}
-      >
-        <List>
-          <ListItemText>Test</ListItemText>
-          <ListItemText>Test</ListItemText>
-          <ListItemText>Test</ListItemText>
-          <ListItemText>Test</ListItemText>
-          <ListItemText>Test</ListItemText>
-          <ListItemText>Test</ListItemText>
-          <ListItemText>Test</ListItemText>
-          <ListItemText>Test</ListItemText>
-          <ListItemText>Test</ListItemText>
-        </List>
-      </Menu>
+      <p></p>
     </Box>
   );
 };

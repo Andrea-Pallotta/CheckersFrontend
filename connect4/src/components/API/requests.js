@@ -11,14 +11,14 @@ const URL =
  * @param {*} token
  * @return {*}
  */
-const createHeader = (token) => {
+const createHeader = (token, params = undefined) => {
   return {
     headers: {
       'Content-Type': 'application/json',
       Accept: 'application/json',
-      
       Authorization: `Bearer ${JSON.stringify(token)}`,
     },
+    params,
   };
 };
 
@@ -33,8 +33,7 @@ const createHeader = (token) => {
 const get = async (endpoint, params, token) => {
   const response = await axios.get(
     `${URL}/api${endpoint}`,
-    { params },
-    createHeader(token)
+    createHeader(token, params)
   );
   return Response.fromJSON(response.data);
 };
