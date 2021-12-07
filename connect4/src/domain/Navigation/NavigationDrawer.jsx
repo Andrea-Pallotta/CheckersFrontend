@@ -166,6 +166,7 @@ const NavigationDrawer = () => {
     });
 
     socket.on('reconnect-game', (state) => {
+      console.log(state);
       handleGameState(state);
     });
 
@@ -188,9 +189,10 @@ const NavigationDrawer = () => {
 
   useEffect(() => {
     socket.on('challenge-received', (username) => {
-      console.log('challenge by ', username);
       handleOpenChallengeModal(username);
     });
+
+    return () => socket.off('challenge-received');
   }, [handleOpenChallengeModal, socket]);
 
   return (
@@ -255,19 +257,19 @@ const NavigationDrawer = () => {
         <DrawerHeader theme={theme} />
         <TabViewPages page={page} channel={channel} />
       </Box>
-      {gameState && (
-        <GameContext.Provider value={{ gameState, setGameState }}>
-          <TimerContext.Provider value={{ turnTimer, setTurnTimer }}>
+      <TimerContext.Provider value={{ turnTimer, setTurnTimer }}>
+        {gameState && (
+          <GameContext.Provider value={{ gameState, setGameState }}>
             <GameModal open={openModal} handleClose={handleCloseModal} />
-          </TimerContext.Provider>
-        </GameContext.Provider>
-      )}
+          </GameContext.Provider>
+        )}
 
-      <GameChallengeModal
-        open={openChallengeModal}
-        handleClose={handleCloseChallengeModal}
-        challenger={challenger}
-      />
+        <GameChallengeModal
+          open={openChallengeModal}
+          handleClose={handleCloseChallengeModal}
+          challenger={challenger}
+        />
+      </TimerContext.Provider>
     </Box>
   );
 };

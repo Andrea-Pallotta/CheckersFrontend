@@ -1,7 +1,6 @@
 import { Divider, Grid, List, TextField } from '@mui/material';
 import React, { useContext, useState } from 'react';
 import { UserContext } from '../Contexts/UserContext';
-import { SocketContext } from '../Contexts/SocketContext';
 import { UserListItem } from '../../imports/components.imports';
 
 /**
@@ -12,17 +11,7 @@ import { UserListItem } from '../../imports/components.imports';
  */
 const UserList = ({ global }) => {
   const [value, setValue] = useState('');
-  const [challengeSent, setChallengeSent] = useState(false);
   const { user } = useContext(UserContext);
-  const socket = useContext(SocketContext);
-
-  const sendChallenge = (username) => {
-    console.log('challenge sent');
-    if (!challengeSent) {
-      socket.emit('challenge-player', username);
-    }
-    setChallengeSent(true);
-  };
 
   /**
    * Search users in list.
@@ -44,14 +33,7 @@ const UserList = ({ global }) => {
       );
     })
     .map((player) => {
-      return (
-        <UserListItem
-          key={player.username}
-          player={player}
-          challengeSent={challengeSent}
-          sendChallenge={sendChallenge}
-        />
-      );
+      return <UserListItem key={player.username} player={player} />;
     });
 
   return (

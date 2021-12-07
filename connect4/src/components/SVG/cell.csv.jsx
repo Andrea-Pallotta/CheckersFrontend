@@ -69,8 +69,8 @@ const BoardCell = ({ value, cx, cy, x, y }) => {
       fill={colorByUser(value)}
       pointerEvents='all'
       onClick={gameState.gameEnded ? showGameEnded : sendBoard}
-      onMouseEnter={(event) => handleOnEnter(event)}
-      onMouseLeave={(event) => handleOnLeave(event)}
+      // onMouseEnter={(event) => handleOnEnter(event)}
+      // onMouseLeave={(event) => handleOnLeave(event)}
     />
   );
 };

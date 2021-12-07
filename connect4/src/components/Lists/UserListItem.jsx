@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { Chip, ListItem, ListItemIcon, ListItemText } from '@mui/material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import { SocketContext } from '../Contexts/SocketContext';
+import { useSnackbar } from 'notistack';
 
 /**
  * Return Chip color based on user's state.
@@ -28,8 +30,11 @@ const userState = (state) => {
  * @param {*} props
  * @returns
  */
-const UserListItem = ({ player, challengeSent, sendChallenge }) => {
+const UserListItem = ({ player }) => {
   const [challengeChip, setChallengeChip] = useState(false);
+  const [challengeSent, setChallengeSent] = useState(false);
+  const socket = useContext(SocketContext);
+  const { enqueueSnackbar } = useSnackbar();
 
   const onMouseEnter = () => {
     setChallengeChip(true);
@@ -38,6 +43,32 @@ const UserListItem = ({ player, challengeSent, sendChallenge }) => {
   const onMouseLeave = () => {
     setChallengeChip(false);
   };
+
+  const sendChallenge = (username) => {
+    if (!challengeSent) {
+      socket.emit('challenge-player', username);
+      setChallengeSent(true);
+    } else {
+      enqueueSnackbar(`Challenge to ${username} already sent.`, {
+        variant: 'error',
+      });
+    }
+  };
+
+  useEffect(() => {
+    socket.on('challenge-declined', (username) => {
+      setChallengeChip(false);
+      enqueueSnackbar(`${username} declined challenge.`, {
+        variant: 'error',
+      });
+    });
+
+    socket.on('start-game', () => {
+      setChallengeSent(false);
+    });
+
+    return () => socket.off('challenge-declined');
+  }, [enqueueSnackbar, socket]);
 
   return (
     <ListItem

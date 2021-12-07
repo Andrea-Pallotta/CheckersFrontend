@@ -28,8 +28,6 @@ const GameModal = ({ open, handleClose }) => {
   const { gameState, setGameState } = useContext(GameContext);
   const { user } = useContext(UserContext);
 
-  const { setTurnTimer } = useContext(TimerContext);
-
   const closeModal = () => {
     if (gameState.gameEnded && gameState.winner) {
       handleClose();
@@ -42,24 +40,13 @@ const GameModal = ({ open, handleClose }) => {
   };
 
   useEffect(() => {
-    const unloadCallback = (event) => {
-      event.preventDefault();
-      event.returnValue = '';
-      return '';
-    };
-
-    // window.addEventListener('beforeunload', unloadCallback);
-    socket.on('send-move', (state) => {
+    socket.on('update-game', (state) => {
       setGameState(Game.fromJSON(state));
-
-      setTurnTimer(10);
-      console.log('setting timer');
     });
     return () => {
-      socket.off('send-move');
-      // window.removeEventListener('beforeunload', unloadCallback);
+      socket.off('update-game');
     };
-  }, [setGameState, setTurnTimer, socket]);
+  }, [socket]);
 
   return (
     <Dialog

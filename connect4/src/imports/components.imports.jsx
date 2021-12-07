@@ -90,10 +90,6 @@ export const GameChallengeModal = loadable(() =>
   import(/* webpackPrefetch: true */ '../components/Modals/GameChallengeModal')
 );
 
-export const GameChallengePaper = loadable(() =>
-  import(/* webpackPrefetch: true */ '../components/Papers/GameChallengePaper')
-);
-
 export const GameTimer = loadable(() =>
   import(/* webpackPrefetch: true */ '../components/Timer/GameTimer')
 );
