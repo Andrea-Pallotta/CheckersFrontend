@@ -42,7 +42,7 @@ module.exports = {
       TWO: '1+1',
       'typeof window': JSON.stringify('object'),
       'process.env.NODE_ENV': JSON.stringify(),
-      SERVICE_URL: JSON.stringify('http://34.194.193.176:5050'),
+      SERVICE_URL: JSON.stringify('https://api.connectfour.link'),
     }),
     new webpack.DefinePlugin({
       'process.env': {
