@@ -1,17 +1,8 @@
-import {
-  Chip,
-  Divider,
-  Grid,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  TextField,
-} from '@mui/material';
-import { v4 as uuidv4 } from 'uuid';
+import { Divider, Grid, List, TextField } from '@mui/material';
 import React, { useContext, useState } from 'react';
 import { UserContext } from '../Contexts/UserContext';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import { SocketContext } from '../Contexts/SocketContext';
+import { UserListItem } from '../../imports/components.imports';
 
 /**
  * Create a list of users in the public chat.
@@ -21,7 +12,17 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
  */
 const UserList = ({ global }) => {
   const [value, setValue] = useState('');
+  const [challengeSent, setChallengeSent] = useState(false);
   const { user } = useContext(UserContext);
+  const socket = useContext(SocketContext);
+
+  const sendChallenge = (username) => {
+    console.log('challenge sent');
+    if (!challengeSent) {
+      socket.emit('challenge-player', username);
+    }
+    setChallengeSent(true);
+  };
 
   /**
    * Search users in list.
@@ -30,25 +31,6 @@ const UserList = ({ global }) => {
    */
   const valueChange = (event) => {
     setValue(event.target.value.trimLeft());
-  };
-
-  /**
-   * Return Chip color based on user's state.
-   *
-   * @param {string} state
-   * @return {string}
-   */
-  const userState = (state) => {
-    switch (state) {
-      case 'Online':
-        return 'success';
-      case 'In Game':
-        return 'error';
-      case 'In Queue':
-        return 'warning';
-      default:
-        return 'secondary';
-    }
   };
 
   /**
@@ -63,17 +45,12 @@ const UserList = ({ global }) => {
     })
     .map((player) => {
       return (
-        <ListItem button key={uuidv4()}>
-          <ListItemIcon>
-            <AccountCircleIcon />
-          </ListItemIcon>
-          <ListItemText primary={player.username}>
-            {player.username}
-          </ListItemText>
-          <ListItemText align='right'>
-            <Chip label={player.state} color={userState(player.state)} />
-          </ListItemText>
-        </ListItem>
+        <UserListItem
+          key={player.username}
+          player={player}
+          challengeSent={challengeSent}
+          sendChallenge={sendChallenge}
+        />
       );
     });
 

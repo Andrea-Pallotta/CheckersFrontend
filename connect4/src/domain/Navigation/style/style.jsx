@@ -33,22 +33,9 @@ const closedMixin = (theme) => ({
   },
 });
 
-/**
- * Queue button style
- */
-const buttonStyle = {
-  position: 'absolute',
-  width: '100%',
-  bottom: '0',
-  fontSize: '1.5em',
-  paddingTop: '0.3em',
-  paddingBottom: '0.5em',
-};
-
 const style = {
   openedMixin,
   closedMixin,
-  buttonStyle,
   drawerWidth,
 };
 

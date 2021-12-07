@@ -4,7 +4,6 @@ import { UserContext } from '../../components/Contexts/UserContext';
 import { Message } from '../../imports/domain.imports';
 
 const ChatMessages = ({ messages, messageRef }) => {
-  console.log(messageRef);
   const { user } = useContext(UserContext);
   return (
     <Stack style={{ height: '65vh', overflowY: 'auto' }}>

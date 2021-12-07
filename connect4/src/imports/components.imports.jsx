@@ -77,3 +77,23 @@ export const UserList = loadable(() =>
 export const ChatLabel = loadable(() =>
   import(/* webpackPrefetch: true */ '../components/Labels/ChatLabel')
 );
+
+export const PageListItem = loadable(() =>
+  import(/* webpackPrefetch: true */ '../components/Lists/PageListItem')
+);
+
+export const UserListItem = loadable(() =>
+  import(/* webpackPrefetch: true */ '../components/Lists/UserListItem')
+);
+
+export const GameChallengeModal = loadable(() =>
+  import(/* webpackPrefetch: true */ '../components/Modals/GameChallengeModal')
+);
+
+export const GameChallengePaper = loadable(() =>
+  import(/* webpackPrefetch: true */ '../components/Papers/GameChallengePaper')
+);
+
+export const GameTimer = loadable(() =>
+  import(/* webpackPrefetch: true */ '../components/Timer/GameTimer')
+);

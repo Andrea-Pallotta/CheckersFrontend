@@ -1,8 +1,6 @@
 import { Typography } from '@mui/material';
 import React, { useContext } from 'react';
 import { CountdownCircleTimer } from 'react-countdown-circle-timer';
-import { GameContext } from '../Contexts/GameContext';
-import { SocketContext } from '../Contexts/SocketContext';
 import { TimerContext } from '../Contexts/TimerContext';
 
 /**
@@ -24,10 +22,9 @@ const renderTime = ({ remainingTime }) => {
  *
  * @returns {React.Component}
  */
-const GameTurnTimer = () => {
+const GameTimer = ({ onComplete }) => {
   const { turnTimer } = useContext(TimerContext);
-  const { gameState } = useContext(GameContext);
-  const socket = useContext(SocketContext);
+
   return (
     <CountdownCircleTimer
       isPlaying
@@ -36,13 +33,11 @@ const GameTurnTimer = () => {
       duration={10}
       key={turnTimer}
       colors={[['#004777', 0.33], ['#F7B801', 0.33], ['#A30000']]}
-      onComplete={() => {
-        socket.emit('game-move', gameState);
-      }}
+      onComplete={onComplete}
     >
       {renderTime}
     </CountdownCircleTimer>
   );
 };
 
-export default GameTurnTimer;
+export default GameTimer;

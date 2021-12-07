@@ -10,9 +10,6 @@ import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import ChevronRightRoundedIcon from '@mui/icons-material/ChevronRightRounded';
 import ChevronLeftRoundedIcon from '@mui/icons-material/ChevronLeftRounded';
-import { LoadingButton } from '@mui/lab';
-import AddIcon from '@mui/icons-material/Add';
-import style from './style/style';
 import { useSnackbar } from 'notistack';
 import { UserContext } from '../../components/Contexts/UserContext';
 import { SocketContext } from '../../components/Contexts/SocketContext';
@@ -22,6 +19,7 @@ import Game from '../../components/Classes/Game';
 
 import { Drawer, DrawerHeader, AppBar } from '../../imports/domain.imports';
 import {
+  GameChallengeModal,
   GameModal,
   MenuAvatar,
   TabViewOptions,
@@ -40,6 +38,8 @@ const NavigationDrawer = () => {
   const [openModal, setOpenModal] = useState(false);
   const [gameState, setGameState] = useState();
   const [channel, setChannel] = useState();
+  const [openChallengeModal, setOpenChallengeModal] = useState(false);
+  const [challenger, setChallenger] = useState();
   const [turnTimer, setTurnTimer] = useState(30);
 
   const { user } = useContext(UserContext);
@@ -69,15 +69,41 @@ const NavigationDrawer = () => {
     setPage(index);
   };
 
+  const handleOpenChallengeModal = useCallback((username) => {
+    setChallenger(username);
+    setOpenChallengeModal(true);
+  }, []);
+
+  const handleCloseChallengeModal = () => {
+    setOpenChallengeModal(false);
+  };
+
   /**
    * Emit event to start queue.
    *
    * @param {*} event
    */
-  const startGame = (event) => {
+  const startQueue = (event) => {
     event.preventDefault();
     setInQueue(true);
     socket.emit('join-queue');
+    enqueueSnackbar('Successfully Added to the queue!', {
+      variant: 'success',
+    });
+  };
+
+  /**
+   * Emit event to stop queue.
+   *
+   * @param {*} event
+   */
+  const stopQueue = (event) => {
+    event.preventDefault();
+    setInQueue(false);
+    socket.emit('stop-queue');
+    enqueueSnackbar('Successfully removed to the queue!', {
+      variant: 'warning',
+    });
   };
 
   /**
@@ -129,21 +155,15 @@ const NavigationDrawer = () => {
   }, [enqueueSnackbar, socket, user]);
 
   useEffect(() => {
-    socket.on(
-      'start-game',
-      (state) => {
-        if (state) {
-          handleGameState(state);
-        } else {
-          enqueueSnackbar('Error retrieving game state. Try again.', {
-            variant: 'error',
-          });
-        }
-
-        return () => socket.off('start-game');
-      },
-      []
-    );
+    socket.on('start-game', (state) => {
+      if (state) {
+        handleGameState(state);
+      } else {
+        enqueueSnackbar('Error retrieving game state. Try again.', {
+          variant: 'error',
+        });
+      }
+    });
 
     socket.on('reconnect-game', (state) => {
       handleGameState(state);
@@ -165,6 +185,13 @@ const NavigationDrawer = () => {
       socket.off('queue-failed');
     };
   }, [enqueueSnackbar, handleGameState, socket, user.activeGame]);
+
+  useEffect(() => {
+    socket.on('challenge-received', (username) => {
+      console.log('challenge by ', username);
+      handleOpenChallengeModal(username);
+    });
+  }, [handleOpenChallengeModal, socket]);
 
   return (
     <Box sx={{ display: 'flex' }}>
@@ -217,22 +244,17 @@ const NavigationDrawer = () => {
         </DrawerHeader>
         <Divider />
 
-        <TabViewOptions onClick={handleSetPage} />
+        <TabViewOptions
+          onClick={handleSetPage}
+          isQueue={inQueue}
+          startQueue={startQueue}
+          stopQueue={stopQueue}
+        />
       </Drawer>
       <Box component='main' sx={{ flexGrow: 1, p: 3 }}>
         <DrawerHeader theme={theme} />
         <TabViewPages page={page} channel={channel} />
       </Box>
-      <LoadingButton
-        sx={style.buttonStyle}
-        onClick={startGame}
-        startIcon={<AddIcon />}
-        loading={inQueue}
-        loadingPosition='start'
-        variant='contained'
-      >
-        {inQueue ? 'In Queue' : 'Find Game'}
-      </LoadingButton>
       {gameState && (
         <GameContext.Provider value={{ gameState, setGameState }}>
           <TimerContext.Provider value={{ turnTimer, setTurnTimer }}>
@@ -240,6 +262,12 @@ const NavigationDrawer = () => {
           </TimerContext.Provider>
         </GameContext.Provider>
       )}
+
+      <GameChallengeModal
+        open={openChallengeModal}
+        handleClose={handleCloseChallengeModal}
+        challenger={challenger}
+      />
     </Box>
   );
 };

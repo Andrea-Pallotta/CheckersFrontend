@@ -1,20 +1,17 @@
-import {
-  IconButton,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  Tooltip,
-} from '@mui/material';
+import { List } from '@mui/material';
 import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
 import LeaderboardRoundedIcon from '@mui/icons-material/LeaderboardRounded';
-import PersonIcon from '@mui/icons-material/Person';
+import PersonRoundedIcon from '@mui/icons-material/PersonRounded';
+import AddCircleOutlineRoundedIcon from '@mui/icons-material/AddCircleOutlineRounded';
+import RemoveCircleOutlineRoundedIcon from '@mui/icons-material/RemoveCircleOutlineRounded';
 import React from 'react';
+import { PageListItem } from '../../imports/components.imports';
 
 const pageModel = [
   {
     title: 'Home',
     icon: <HomeRoundedIcon />,
+    onclick,
   },
   {
     title: 'Leaderboard',
@@ -22,7 +19,7 @@ const pageModel = [
   },
   {
     title: 'Profile',
-    icon: <PersonIcon />,
+    icon: <PersonRoundedIcon />,
   },
 ];
 
@@ -30,29 +27,37 @@ const pageModel = [
  * List of clickable Icons that toggle the active page.
  *
  * @param {*} props
- * @return {*} 
+ * @return {*}
  */
-const TabViewOptions = ({ onClick }) => {
+const TabViewOptions = ({ onClick, isQueue, startQueue, stopQueue }) => {
+  const queue = {
+    title: isQueue ? 'Stop Queue' : 'Find Game',
+    onClick: isQueue ? stopQueue : startQueue,
+    icon: isQueue ? (
+      <RemoveCircleOutlineRoundedIcon />
+    ) : (
+      <AddCircleOutlineRoundedIcon />
+    ),
+  };
+
   return (
     <List>
       {pageModel.map((option, index) => {
         return (
-          <ListItem
-            button
+          <PageListItem
             key={option.title}
-            onClick={() => {
-              onClick(index);
-            }}
-          >
-            <ListItemIcon>
-              <Tooltip title={option.title} enterDelay={300} leaveDelay={200}>
-                <IconButton>{option.icon}</IconButton>
-              </Tooltip>
-            </ListItemIcon>
-            <ListItemText primary={option.title} />
-          </ListItem>
+            title={option.title}
+            click={() => onClick(index)}
+            icon={option.icon}
+          />
         );
       })}
+      <PageListItem
+        key={queue.title}
+        title={queue.title}
+        click={queue.onClick}
+        icon={queue.icon}
+      />
     </List>
   );
 };
