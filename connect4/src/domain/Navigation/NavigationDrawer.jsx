@@ -214,18 +214,15 @@ const NavigationDrawer = () => {
           <Typography variant='h6' noWrap component='div' style={{ flex: 1 }}>
             Connect 4
           </Typography>
-          <MenuAvatar action={() => {}} />
           <Typography
             variant='h4'
             noWrap
             component='p'
-            style={{ paddingRight: '1em', paddingLeft: '0.3em' }}
+            style={{ paddingRight: '0.3em', paddingLeft: '1em' }}
           >
             {user.username}
           </Typography>
-          <Box>
-            <AmplifySignOut />
-          </Box>
+          <MenuAvatar action={() => {}} />
         </Toolbar>
       </AppBar>
       <Drawer

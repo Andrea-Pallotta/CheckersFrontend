@@ -93,3 +93,23 @@ export const GameChallengeModal = loadable(() =>
 export const GameTimer = loadable(() =>
   import(/* webpackPrefetch: true */ '../components/Timer/GameTimer')
 );
+
+export const LeaderboardTable = loadable(() =>
+  import(/* webpackPrefetch: true */ '../components/Tables/LeaderboardTable')
+);
+
+export const LeaderboardTableHeader = loadable(() =>
+  import(
+    /* webpackPrefetch: true */ '../components/Tables/LeaderboardTableHeader'
+  )
+);
+
+export const LeaderboardTableBody = loadable(() =>
+  import(
+    /* webpackPrefetch: true */ '../components/Tables/LeaderboardTableBody'
+  )
+);
+
+export const Copyright = loadable(() =>
+  import(/* webpackPrefetch: true */ '../components/Typography/Copyright')
+);

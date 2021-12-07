@@ -10,14 +10,15 @@ import Typography from '@mui/material/Typography';
  */
 export default function Copyright(props) {
   return (
-    <Typography
-      variant='body2'
-      color='text.secondary'
-      align='center'
-      {...props}
-    >
+    <Typography variant='body' color='text.secondary' align='center' {...props}>
       {'Copyright © '}
-      <Link rel='noopener' target='_blank' crossorigin color='inherit' href='#'>
+      <Link
+        rel='noopener'
+        target='_blank'
+        crossorigin
+        color='inherit'
+        href='https://github.com/Andrea-Pallotta'
+      >
         Andrea Pallotta
       </Link>
       {` ${new Date().getFullYear()}.`}
