@@ -37,14 +37,9 @@
   },
   "scripts": {
     "start:dev": "cross-env NODE_ENV=development react-scripts start",
-    "dev:legacy": "cross-env NODE_ENV=development react-scripts start --openssl-legacy-provider",
-    "legacy": "cross-env NODE_ENV=production react-scripts --openssl-legacy-provider start",
     "start": "react-scripts start",
-    "build": "cross-env NODE_ENV=production react-scripts build",
-    "build:dev": "cross-env NODE_ENV=development react-scripts build",
-    "production": "react-scripts build && npm run start",
-    "development": "react-scripts build:dev && npm run start:dev",
-    "serve": "react-scripts build && npx serve -s build",
+    "build": "react-scripts build",
+    "serve": "npm run build && npx serve -s build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

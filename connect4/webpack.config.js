@@ -44,6 +44,11 @@ module.exports = {
       'process.env.NODE_ENV': JSON.stringify(),
       SERVICE_URL: JSON.stringify('http://34.194.193.176:5050'),
     }),
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify('production'),
+      },
+    }),
   ],
   devServer: {
     host: 'localhost',
