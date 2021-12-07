@@ -62,7 +62,7 @@ This ReactJS App was created as the final project for ISTE-442. It's responsible
 - Use of `MaterialUI` and custom styled components.
 - Use of AWS `Amplify` features with security measures.
 - This detailed `README.md` file!
-- High `Lighthouse` rating.
+- High `Lighthouse` rating (low accessibility is due to the fact that I did not add `aria-*` labels to buttons and other components).
 
 ![lighthouse rating](https://github.com/Andrea-Pallotta/Connect4Frontend/blob/main/performance.PNG)
 
