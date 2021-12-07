@@ -166,7 +166,6 @@ const NavigationDrawer = () => {
     });
 
     socket.on('reconnect-game', (state) => {
-      console.log(state);
       handleGameState(state);
     });
 
