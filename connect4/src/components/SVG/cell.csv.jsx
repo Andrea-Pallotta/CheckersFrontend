@@ -47,20 +47,6 @@ const BoardCell = ({ value, cx, cy, x, y }) => {
     });
   };
 
-  const handleOnEnter = (event) => {
-    if (value === 0) {
-      event.target.style.fill = colorByUser(gameState.player1);
-      event.target.style.fillOpacity = '50%';
-    }
-  };
-
-  const handleOnLeave = (event) => {
-    if (value === 0) {
-      event.target.style.fill = 'transparent';
-      event.target.style.fillOpacity = '100%';
-    }
-  };
-
   return (
     <circle
       cx={cx}
@@ -69,8 +55,6 @@ const BoardCell = ({ value, cx, cy, x, y }) => {
       fill={colorByUser(value)}
       pointerEvents='all'
       onClick={gameState.gameEnded ? showGameEnded : sendBoard}
-      // onMouseEnter={(event) => handleOnEnter(event)}
-      // onMouseLeave={(event) => handleOnLeave(event)}
     />
   );
 };

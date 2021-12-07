@@ -3,7 +3,6 @@ import { Dialog, Grid, Slide, Stack, Typography } from '@mui/material';
 import { SocketContext } from '../Contexts/SocketContext';
 import { GameContext } from '../Contexts/GameContext';
 import { UserContext } from '../Contexts/UserContext';
-import { TimerContext } from '../Contexts/TimerContext';
 import Game from '../Classes/Game';
 
 import { Board } from '../../imports/domain.imports';
@@ -46,7 +45,7 @@ const GameModal = ({ open, handleClose }) => {
     return () => {
       socket.off('update-game');
     };
-  }, [socket]);
+  }, [setGameState, socket]);
 
   return (
     <Dialog
