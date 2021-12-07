@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState, useCallback } from 'react';
-import { AmplifySignOut } from '@aws-amplify/ui-react';
 import { useTheme } from '@mui/material/styles';
 import MenuIcon from '@mui/icons-material/Menu';
 import Box from '@mui/material/Box';
@@ -222,7 +221,7 @@ const NavigationDrawer = () => {
           >
             {user.username}
           </Typography>
-          <MenuAvatar action={() => {}} />
+          <MenuAvatar />
         </Toolbar>
       </AppBar>
       <Drawer

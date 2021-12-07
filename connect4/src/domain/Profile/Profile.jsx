@@ -25,20 +25,24 @@ const Profile = () => {
 
   return (
     <Box
-      display='flex'
-      justifyContent='center'
-      alignItems='center'
-      flexDirection='column'
+      sx={{
+        display: 'flex',
+        justify: 'center',
+        alignItems: 'center',
+        flexDirection: 'column',
+      }}
     >
       <Typography color={grey[500]} fontWeight='bold' variant='h2' mb='1em'>
         Your profile
       </Typography>
       <Card
         component={Paper}
-        sx={{ width: '440px' }}
-        display='flex'
-        justifyContent='center'
-        alignItems='center'
+        sx={{
+          width: '440px',
+          display: 'flex',
+          justify: 'center',
+          alignItems: 'center',
+        }}
       >
         <CardContent>
           <UserAvatar name={user.username} />

@@ -15,7 +15,6 @@ export default function Copyright(props) {
       <Link
         rel='noopener'
         target='_blank'
-        crossorigin
         color='inherit'
         href='https://github.com/Andrea-Pallotta'
       >
