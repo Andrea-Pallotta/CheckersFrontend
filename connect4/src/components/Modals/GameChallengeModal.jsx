@@ -5,6 +5,7 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
+  Typography,
 } from '@mui/material';
 import React, { useContext } from 'react';
 import { GameTimer } from '../../imports/components.imports';
@@ -20,11 +21,23 @@ const GameChallengeModal = ({ open, handleClose, challenger }) => {
 
   return (
     <Dialog open={open} onClose={handleClose}>
-      <DialogTitle>NEW CHALLENGE!</DialogTitle>
-      <DialogContent>
-        <DialogContentText>
-          {challenger} challenged you to a game! Click `Accept` to start the
-          game
+      <DialogTitle>
+        <Typography variant='h4' color='primary' fontWeight='semibold'>
+          NEW INCOMING CHALLENGE!
+        </Typography>
+      </DialogTitle>
+      <DialogContent
+        sx={{
+          display: 'flex',
+          justify: 'center',
+          alignItems: 'center',
+          flexDirection: 'column',
+        }}
+      >
+        <DialogContentText mb='1em'>
+          <Typography variant='h6'>
+            {challenger} challenged you to a game!
+          </Typography>
         </DialogContentText>
         <GameTimer onComplete={() => responseChallenge('decline')} />
       </DialogContent>

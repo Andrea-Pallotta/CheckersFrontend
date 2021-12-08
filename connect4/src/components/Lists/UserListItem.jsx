@@ -57,7 +57,7 @@ const UserListItem = ({ player }) => {
 
   useEffect(() => {
     socket.on('challenge-declined', (username) => {
-      setChallengeChip(false);
+      setChallengeSent(false);
       enqueueSnackbar(`${username} declined challenge.`, {
         variant: 'error',
       });

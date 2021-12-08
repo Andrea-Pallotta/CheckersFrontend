@@ -12,7 +12,7 @@ import { TimerContext } from '../Contexts/TimerContext';
 const renderTime = ({ remainingTime }) => {
   return (
     <Typography fontSize='1.5em' align='center'>
-      {remainingTime === 0 ? 'Turn Skipped' : remainingTime}
+      {remainingTime === 0 ? 'Declined' : remainingTime}
     </Typography>
   );
 };
