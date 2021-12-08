@@ -12,6 +12,8 @@ This ReactJS App was created as the final project for ISTE-442. It's responsible
 
 # How to configure and run the app
 
+- The app is hosted on `www.connectfour.link`.
+
 1. Clone the project locally `git clone git@github.com:Andrea-Pallotta/Connect4Frontend.git`.
 2. `cd Connect4Frontend/connect4`.
 3. Run `npm install`.
