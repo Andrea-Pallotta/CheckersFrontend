@@ -46,7 +46,8 @@ const App = () => {
               setSocket(newSocket(user.username, user.accessToken));
             }
           }, []);
-      } catch {
+      } catch (err) {
+        console.log(err);
         enqueueSnackbar('Error retrieving user information', {
           variant: 'error',
         });
@@ -60,11 +61,10 @@ const App = () => {
    */
   useEffect(() => {
     onAuthUIStateChange((nextAuthState, authData) => {
-      if (authData) {
-        fetchUser(authData);
-      }
-
       if (nextAuthState === AuthState.SignedIn) {
+        if (authData) {
+          fetchUser(authData);
+        }
         setAuthState(nextAuthState);
         enqueueSnackbar('Successfully retrieved user information', {
           variant: 'success',
