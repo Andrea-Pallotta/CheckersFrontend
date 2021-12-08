@@ -14,12 +14,13 @@ This ReactJS App was created as the final project for ISTE-442. It's responsible
 
 1. Clone the project locally `git clone git@github.com:Andrea-Pallotta/Connect4Frontend.git`.
 2. `cd Connect4Frontend/connect4`.
-3. To run the application locally in development mode, run `npm start`. This will start the reactJS with NODE_ENV=development.
-4. To run the application locally in production mode (using the EC2 server), run `npm run serve`.
+3. Run `npm install`.
+4. To run the application locally in development mode, run `npm start`. This will start the reactJS with NODE_ENV=development.
+5. To run the application locally in production mode (using the EC2 server), run `npm run serve`.
    - `npm run serve` is the combination of `npm run build` and `npx serve -s build`.
    - You can also install `serve` separately and run the build with `serve -s build`.
-5. If you want the development app to connect to a different server than `localhost` [(i.e. you changed the IP address of the backend)](https://github.com/Andrea-Pallotta/Connect4Backend/blob/main/configs/configs.js#L6), you need to change the `LOCALHOST` endpoint in the [Connect4Backend/configs/configs.js](https://github.com/Andrea-Pallotta/Connect4Frontend/blob/main/connect4/src/components/API/endpoints.js#L5)
-6. If you want the production build to connect to your own server, you need to change the `EC2` endpoint in the [Connect4Backend/configs/configs.js](https://github.com/Andrea-Pallotta/Connect4Frontend/blob/main/connect4/src/components/API/endpoints.js#L5).
+6. If you want the development app to connect to a different server than `localhost` [(i.e. you changed the IP address of the backend)](https://github.com/Andrea-Pallotta/Connect4Backend/blob/main/configs/configs.js#L6), you need to change the `LOCALHOST` endpoint in the [Connect4Backend/configs/configs.js](https://github.com/Andrea-Pallotta/Connect4Frontend/blob/main/connect4/src/components/API/endpoints.js#L5)
+7. If you want the production build to connect to your own server, you need to change the `EC2` endpoint in the [Connect4Backend/configs/configs.js](https://github.com/Andrea-Pallotta/Connect4Frontend/blob/main/connect4/src/components/API/endpoints.js#L5).
 
 ## How CI/CD works
 
